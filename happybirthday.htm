@@ -5,7 +5,7 @@ for background
 https://css-tricks.com/a-complete-guide-to-css-gradients/
 
 
-for glassmorphism 
+for glassmorphism
 https://glassmorphism.com/
 
 */
@@ -16,218 +16,240 @@ https://glassmorphism.com/
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <meta name="BDAY" content="">
   <title>Happy Birthday</title>
-  
+
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <style type="text/css" media="all">
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-transition: 0.4s all;
-}
+    /*
 
-html {
-font-size: 20px;
-}
+for background
+https://css-tricks.com/a-complete-guide-to-css-gradients/
 
-.main-ctn {
-position: absolute;
-top: 0;
-left: 0;
-width: 100vw;
-height: 300vh;
-}
 
-.wrapper {
-position: relative;
-width: 100%;
-height: 100%;
-display: flex;
-flex-direction: column;
-}
+for glassmorphism
+https://glassmorphism.com/
 
-.glass-boxes {
-width: 100%;
-height: 100vh;
-display: flex;
-background-image: url("https://i.ibb.co/YWwxVHq/images.png");
-background-repeat: no-repeat;
-background-size: cover;
-justify-content: center;
-align-items: center;
-}
+*/
 
-.un-nav {
-width: 20%;
-height: 20%;
-position: fixed;
-bottom: calc(50% - 10vh);
-left: 0;
-display: flex;
-flex-direction: column;
-justify-content: space-around;
-align-items: center;
-color: #fff;
-font-size: 1.5rem;
-z-index: 2;
-border-radius: 0 15px 15px 0;
-background: rgba( 219, 211, 211, 0.25 );
-box-shadow: 0 8px 12px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur(8.0px );
--webkit-backdrop-filter: blur(8.0px );
-border: 1px solid rgba( 255, 255, 255, 0.18 );
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: 0.4s all;
+    }
 
-.un-nav span {
-height: 25%;
-width: 100%;
-font-weight: bold;
-text-align: center;
-}
+    html {
+      font-size: 16px;
+    }
 
-.un-nav span a {
-width: 100%;
-height: 100%;
-display: inline-block;
-text-decoration: none;
-color: white;
-cursor: none;
-}
+    .main-ctn {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 300vh;
+    }
 
-.un-nav span a:active {
-color: red;
-}
+    .wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
 
-.grand-parent-box,
-.child-box,
-.grand-child-box {
-width: 80%;
-height: 80%;
-display: flex;
-justify-content: center;
-align-items: center;
-animation: expand 2s linear infinite;
-}
+    .glass-boxes {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      background-image: url("https://i.ibb.co/YWwxVHq/images.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      justify-content: center;
+      align-items: center;
+    }
 
-/* glassmorphism */
-.grand-parent-box {
-background: rgba( 219, 211, 211, 0.25 );
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur(8.0px );
--webkit-backdrop-filter: blur(8.0px );
-border-radius: 10px;
-border: 1px solid rgba( 255, 255, 255, 0.18 );
-}
+    .un-nav {
+      width: 20%;
+      height: 20%;
+      position: fixed;
+      bottom: calc(50% - 10vh);
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      color: #fff;
+      font-size: 1rem;
+      z-index: 2;
+      border-radius: 0 15px 15px 0;
+      background: rgba( 219, 211, 211, 0.25 );
+      box-shadow: 0 8px 12px 0 rgba( 31, 38, 135, 0.37 );
+      backdrop-filter: blur(8.0px );
+      -webkit-backdrop-filter: blur(8.0px );
+      border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
 
-.child-box {
-background: rgba( 255, 255, 255, 0.10 );
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur(1.0px );
--webkit-backdrop-filter: blur(1.0px );
-border-radius: 10px;
-border: 1px solid rgba( 255, 255, 255, 0.18 );
-}
+    .un-nav span {
+      height: 25%;
+      width: 100%;
+      font-weight: bold;
+      text-align: center;
+    }
 
-.grand-child-box {
-background: rgba( 157, 152, 152, 0.10 );
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur(1.0px );
--webkit-backdrop-filter: blur(1.0px );
-border-radius: 10px;
-border: 1px solid rgba( 255, 255, 255, 0.18 );
-}
+    .un-nav span a {
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+      text-decoration: none;
+      color: white;
+      cursor: none;
+    }
 
-.wish {
-width: 80%;
-height: 80%;
-}
+    .un-nav span a:active {
+      color: red;
+    }
 
-.wish h1 {
-color: red;
-}
+    .grand-parent-box,
+    .child-box,
+    .grand-child-box {
+      width: 80%;
+      height: 80%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: expand2slinear infinite;
+    }
 
-.wish p {
-font-weight: bold;
-color: rgba(200,100,50,0.8);
-}
+    /* glassmorphism */
+    .grand-parent-box {
+      background: rgba( 219, 211, 211, 0.25 );
+      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+      backdrop-filter: blur(8.0px );
+      -webkit-backdrop-filter: blur(8.0px );
+      border-radius: 10px;
+      border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
 
-.zombie-intro {
-width: 100%;
-height: 100vh;
-background: #ef7558;
-color: white;
-}
+    .child-box {
+      background: rgba( 255, 255, 255, 0.10 );
+      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+      backdrop-filter: blur(1.0px );
+      -webkit-backdrop-filter: blur(1.0px );
+      border-radius: 10px;
+      border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
 
-.zombie-intro .second-screen-header {
-width: 100%;
-padding: 10%;
-height: 40%;
-}
+    .grand-child-box {
+      background: rgba( 157, 152, 152, 0.10 );
+      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+      backdrop-filter: blur(1.0px );
+      -webkit-backdrop-filter: blur(1.0px );
+      border-radius: 10px;
+      border: 1px solid rgba( 255, 255, 255, 0.18 );
+    }
 
-.zombie-intro .second-screen-header h1 {
-font-size: 3.5rem;
-border-left: 10px solid white;
-}
+    .wish {
+      width: 80%;
+      height: 80%;
+    }
 
-.zombie-intro .second-screen-message {
-width: 100%;
-height: 60%;
-padding: 10%;
-}
+    .wish h1 {
+      color: red;
+    }
 
-.zombie-intro .second-screen-message p {
-font-size: 1.5rem;
-}
+    .wish p {
+      font-weight: bold;
+      color: rgba(200,100,50,0.8);
+    }
 
-.zombie-wish {
-width: 100%;
-height: 100vh;
-background-image: radial-gradient(#ff8a00 35%, transparent 35%);
-background-size: 8px 8px;
-}
+    .zombie-intro {
+      width: 100%;
+      height: 100vh;
+      background: #ef7558;
+      color: white;
+    }
 
-.zombie-wish .xl-header-wish  {
-width: 90%;
-height: 90%;
-padding: 5%;
-margin: 5%;
-border-left: 15px solid red;
-background: rgba( 0, 0, 0, 0.10 );
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur( 5.0px );
--webkit-backdrop-filter: blur( 5.0px );
-}
+    .zombie-intro .second-screen-header {
+      width: 100%;
+      padding: 10% 10% 0 10%;
+      height: 35%;
+    }
 
-.zombie-wish .xl-header-wish h1 {
-color: red;
-font-size: 2rem;
-text-align: left;
-}
+    .zombie-intro .second-screen-header h1 {
+      font-size: 3rem;
+      border-left: 10px solid white;
+    }
 
-/* animation */
+    .zombie-intro .second-screen-message {
+      width: 100%;
+      height: 60%;
+      padding: 0 10% 0 10%;
+    }
+
+    .zombie-intro .second-screen-message p {
+      font-size: 1.2rem;
+    }
+
+    .zombie-wish {
+      width: 100%;
+      height: 100vh;
+      background-image: radial-gradient(#ff8a00 35%, transparent 35%);
+      background-size: 8px 8px;
+    }
+
+    .zombie-wish .xl-header-wish {
+      width: 90%;
+      height: 90%;
+      padding: 5%;
+      margin: 5%;
+      border-left: 15px solid red;
+      background: rgba( 0, 0, 0, 0.10 );
+      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+      backdrop-filter: blur(5.0px );
+      -webkit-backdrop-filter: blur(5.0px );
+    }
+
+    .zombie-wish .xl-header-wish h1 {
+      color: red;
+      font-size: 1.5rem;
+      text-align: left;
+    }
+
+    /* animation */
 
 @keyframes expand {
-    0% {
+      0% {
         transform: scale(1);
-    }
-    
-    50% {
+      }
+
+      50% {
         transform: scale(0.8);
+      }
     }
-}
   </style>
   <script type="text/javascript" charset="utf-8">
-    window.onload = ()=>{
-    AOS.init({
-    duration: 300,
-    delay: 400,
-    });
+    window.onload = ()=> {
+      AOS.init({
+        duration: 300,
+        delay: 400,
+      });
     }
+    /*
+
+for background
+https://css-tricks.com/a-complete-guide-to-css-gradients/
+
+
+for glassmorphism
+https://glassmorphism.com/
+
+*/
+    alert("belated but whishing a very happy birthday\n\nif something is wrong then tell me i had made it in a very short time xD\n\nalso check other sections by navigation !!!");
     window.addEventListener("mouseover", play);
     window.addEventListener("click", play);
     function play() {
-        document.getElementById("background_music").play();
+      document.getElementById("background_music").play();
     }
   </script>
 </head>
@@ -244,16 +266,13 @@ text-align: left;
           <div class="child-box">
             <div class="grand-child-box">
               <div class="wish">
-                <h1 data-aos="flip-up" id="wish-main-header">
-                  Happy Birthday Anshika !!!
+                <h1 data-aos="flip-up" id="wish-main-header">Happy Birthday Anshika
                 </h1>
                 <p data-aos="flip-down" id="noodles">
-                  some text demo text some text demo text some text demo text.some text demo text some text demo text some text demo text.some text demo text some text demo text some text demo text.
+                  on Maggie day I wish you a very happy birthday.<br>you got many wishes on your special day so I just wanna say, you'll get everything in your life whatever you want 🤗😁
                 </p>
                 <audio controls style=" display:none;" loop id="background_music">
                   <source src="https://drive.google.com/uc?id=17EUUKxAOCp28r9QeHtqzAycGT1HMi-7W&export=download">
-
-
                 </audio>
               </div>
             </div>
@@ -266,14 +285,24 @@ text-align: left;
         </div>
         <div class="second-screen-message">
           <p data-aos="fade-right">
-            some text demo text some text demo text some text demo text.some text demo text some text demo text some text demo text.some text demo text some text demo text some text demo text.some text demo text some text demo text some text demo text.some text demo text some text demo text some text demo text.
+            Anshika , also known as Maggie/Zombie/Noddle Fairy and so on. She has very helpful, acceptive , kind, gorgeous and marvelous nature's personality. And some more things like she's very emotional, sensitive and attentive girl which make her more unique person. She can be a good friend , best friend , sister , teacher , helper , mentor and explainer.
+            In short , she's very creative and innovative girl which can easily take a place in your mind as well as in your heart. <br>
+            Today (5th april) is her birthday and also celebrated as Maggie (noodles) day.
+            Wish her a great birthday 🎉🎂🎉
           </p>
         </div>
 
       </div>
       <div id="third" class="zombie-wish">
         <div class="xl-header-wish">
-          <h1 data-aos="zoom-out-right">some text demo text some text demo text some text demo text.some text demo text some text demo text some text demo text.some text demo text some text demo text some text demo text.</h1>
+          <h1 data-aos="zoom-out-right">
+            your every moment of life will filled by lots of happiness🤩, joy😁 and prosperity🤗 my all best wishes are always with you on your special day and forever so always be happy 😁and shine like a star ⭐🌸 💫 words aren't enough to explain you so enjoy your day and stay happy🤗✨
+            <br>a very happy birthday maggie✨
+            😂<br>hamesha Maggie khati raho😁😂<br>
+            Lots of Maggie for you 😂💥💥
+            <br>
+            🍜🍜🍜🍜🍜🍜🍜🍜🍜🍜............ infinite😂
+          </h1>
         </div>
       </div>
     </div>
