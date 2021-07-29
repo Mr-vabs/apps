@@ -94,7 +94,7 @@ body
 
     max-width: 80%;
 }
-.timeline
+.roadmap-ctn
 {
     position: relative;
     margin: 50px auto;
@@ -102,7 +102,7 @@ body
     width: 100%;
     background: rgba(210,210,210,.5);
 }
-.timeline:before
+.roadmap-ctn:before
 {
     content: '';
     position: absolute;
@@ -112,12 +112,12 @@ body
     height: 100%;
     background: #c5c5c5;
 }
-.timeline ul
+.roadmap-ctn ul
 {
     margin: 0;
     padding: 0;
 }
-.timeline li
+.roadmap-ctn li
 {
     list-style: none;
     position: relative;
@@ -125,17 +125,17 @@ body
     padding: 10px 20px;
     box-sizing: border-box;
 }
-.timeline li .content
+.roadmap-ctn li .content
 {
     padding-bottom: 20px;
 }
-.timeline li:nth-child(odd)
+.roadmap-ctn li:nth-child(odd)
 {
     float: left;
     clear: both;
     text-align: left;
 }
-.timeline li:nth-child(odd):before
+.roadmap-ctn li:nth-child(odd):before
 {
     content: '';
     position: absolute;
@@ -147,13 +147,13 @@ body
     background: rgba(233,30,99,1);
     box-shadow: 0 0 0 3px rgba(233,30,99,0.2);
 }
-.timeline li:nth-child(even)
+.roadmap-ctn li:nth-child(even)
 {
     float: right;
     clear: both;
     text-align: left;
 }
-.timeline li:nth-child(even):before
+.roadmap-ctn li:nth-child(even):before
 {
     content: '';
     position: absolute;
@@ -165,25 +165,25 @@ body
     background: rgba(233,30,99,1);
     box-shadow: 0 0 0 3px rgba(233,30,99,0.2);
 }
-.timeline li h3
+.roadmap-ctn li h3
 {
     margin: 0;
     padding: 0;
     font-weight: 600;
     color: rgba(233,30,99,1);
 }
-.timeline li p
+.roadmap-ctn li p
 {
     margin: 10px 0 0;
     padding: 0;
 }
-.timeline li .time h4
+.roadmap-ctn li .time h4
 {
     margin: 0;
     padding: 0;
     font-size: 14px;
 }
-.timeline li:nth-child(odd) .time
+.roadmap-ctn li:nth-child(odd) .time
 {
     position: absolute;
     top: 12px;
@@ -195,7 +195,7 @@ body
     border-radius: 18px;
     box-shadow: 0 0 0 3px rgba(233,30,99,.2);
 }
-.timeline li:nth-child(even) .time
+.roadmap-ctn li:nth-child(even) .time
 {
     position: absolute;
     top: 12px;
@@ -331,13 +331,13 @@ h1
           SCROLL BUTTON
 ------------------------------->
 <style>
-.crunchify-top:hover {
+.scrollToTop:hover {
     color: #fff !important;
     background-color: #ed702b;
     text-decoration: none;
 }
  
-.crunchify-top {
+.scrollToTop {
     display: none;
     position: fixed;
     bottom: 1rem;
@@ -364,13 +364,13 @@ h1
         var duration = 500;
         jQuery(window).scroll(function() {
             if (jQuery(this).scrollTop() > offset) {
-                jQuery('.crunchify-top').fadeIn(duration);
+                jQuery('.scrollToTop').fadeIn(duration);
             } else {
-                jQuery('.crunchify-top').fadeOut(duration);
+                jQuery('.scrollToTop').fadeOut(duration);
             }
         });
  
-        jQuery('.crunchify-top').click(function(event) {
+        jQuery('.scrollToTop').click(function(event) {
             event.preventDefault();
             jQuery('html, body').animate({scrollTop: 0}, duration);
             return false;
@@ -381,7 +381,7 @@ h1
         <h2>100 Days Of Coding Challenge</h2>
         </div>
         <h1>Here's A Roadmap To Learn Coding In 100 Days or 14 Weeks</h1>
-<div class="timeline">
+<div class="roadmap-ctn">
     <ul>
         <li>
             <div class="content">
@@ -444,8 +444,8 @@ h1
 </div>
 <style type="text/css" media="all">
   .rules-of-challenge {
+    position: relative;
     width: 100vw;
-      height: 100vh;
       background: #ef7558;
       color: white;
   }
@@ -465,7 +465,7 @@ h1
    .rules-of-challenge .rules-instructions {
       width: 90%;
       height: 75%;
-      padding: 0 5% 0 5%;
+      padding: 0 5% 10% 5%;
     }
     
     .rules-of-challenge .rules-instructions ul li {
@@ -527,6 +527,7 @@ transform: translate(0px,-2px);
 box-shadow: -10px 10px 10px rgba(0,0,0,.5);
 }
 </style>
+<hr />
 <div class="rules-of-challenge">
   <div class="rules-header">
       <h1 data-aos="fade-left">&ensp;Challenge<br>&ensp;Rules</h1>
@@ -557,19 +558,19 @@ box-shadow: -10px 10px 10px rgba(0,0,0,.5);
             </ul>
           
         </div>
+        
 </div>
-
+<hr />
 <div class="click-to-participate">
   <span>&copy; VaiBhav</span>
  <a href="https://wa.me/919305534970?text=I%27m%20interested%20to%20join%20your%20100%20days%20code%20challenge."><button class="btn">Message</button></a>
 </div>
 
+<hr />
 <footer>
-  
-<a href="#" class="crunchify-top">↑</a>
+<a href="#" class="scrollToTop">↑</a>
 </footer>
-
-    </body>
+</body>
 </html>
 <!------------------------------------
 
