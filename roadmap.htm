@@ -341,7 +341,7 @@ h1
     display: none;
     position: fixed;
     bottom: 1rem;
-    right: 1rem;
+    right: 4rem;
     width: 3.2rem;
     height: 3.2rem;
     line-height: 3.2rem;
@@ -452,7 +452,7 @@ h1
   
   .rules-of-challenge .rules-header {
     width: 80%;
-      padding: 10% 0 10% 10%;
+      padding: 5% 0 5% 10%;
       height: 20%;
   }
   
@@ -489,14 +489,15 @@ h1
 }
 
 .click-to-participate {
-  width: 100%;
+  position: relative;
+  width: 100vw;
   height: 10vh;
   background: rgba(210,210,210,.5);
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  color: #ef7558;
 }
 
 .click-to-participate a {
@@ -504,12 +505,12 @@ h1
 }
 
 .click-to-participate .btn {
-  position:fixed;
+
 box-shadow: -2px 2px 2px rgba(0,0,0,.5);
 position: relative;
-border-radius: 10px;
-width: 150px;
-height: 50px;
+border-radius: 15px;
+width: 100px;
+height: 40px;
 border: none;
 outline: none;
 cursor: pointer;
@@ -519,10 +520,10 @@ color: #ef7558;
 }
 
 .click-to-participate .btn:active {
-  z-index:3;
+  z-index:2;
 color:#fff;
 background: #ef7558;
-transform: translate(0px,-7px);
+transform: translate(0px,-2px);
 box-shadow: -10px 10px 10px rgba(0,0,0,.5);
 }
 }
@@ -551,6 +552,9 @@ box-shadow: -10px 10px 10px rgba(0,0,0,.5);
               <li>
                 <p>Admins are philosophers so before accusing them think many times and don't accuse because they are philosophers and they already have prepared for consequences and aftermath.</p>
               </li>
+              <div style="clear:both;">
+                
+              </div>
             </ul>
           
         </div>
