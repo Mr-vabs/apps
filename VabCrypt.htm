@@ -7,7 +7,7 @@
     here's log of its development , 
     
     log 1 : date 02/08/2021 time 19:45 starting of it [ birth ].
-    
+    log 2 : date 03/08/2021 time 10:36 cementing the web page.
     -->
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +15,120 @@
     <link rel="shortcut icon" href="https://drive.google.com/uc?id=1kwIkyj5KiiJZs_mX5YLvSOwwlVAFTaAH&export=download" type="image/x-icon" />
     <title>VabCrypt 1.0</title>
     <style type="text/css" media="all">
-      
-    </style>
-  </head>
-  <body>
-    
-  </body>
+:root {
+    --body-bg: linear-gradient(120deg, #e3ffe7 0%, #d9e7ff 100%);
+    --ctn-bg: linear-gradient(120deg, #FC466B 0%, #3F5EFB 100%);
+  }
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--body-bg);
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main-ctn {
+      width: 96%;
+      height: 96%;
+      position: fixed;
+      border-radius: 10px;
+      background: var(--ctn-bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page-ctn {
+      width: 96%;
+      height: 96%;
+      position: relative;
+      overflow: scroll;
+      /*background: rgba(1,1,1,0.1);*/
+      display: grid;
+      grid-template-columns: 1r;
+      grid-template-rows: 1fr 2fr 1fr 1fr;
+      grid-template-areas: " header " " content " " feature " " footer ";
+      grid-gap: 5px;
+    }
+
+    .header {
+      grid-area: header;
+      justify-self: center;
+      color: white;
+      /*background: white;*/
+    }
+
+    .main-content {
+      grid-area: content;
+      justify-self: center;
+      /*background: blue;*/
+    }
+
+    .feature {
+      grid-area: feature;
+      justify-self: center;
+      /*background: purple;*/
+    }
+
+    .feature button {
+      box-shadow: -2px 2px 2px rgba(0,0,0,.5);
+      /*border-radius: 25px 5px 25px 5px;*/
+      border-radius: 6px;
+      width: 8rem;
+      height: 3rem;
+      border: none;
+      outline: none;
+      cursor: none;
+      background: #fff;
+      color: #8a0a8a;
+      transition: 0.8s all;
+    }
+    .feature button:hover {
+      z-index: 3;
+      color: #fff;
+      background: #8a0a8a;
+      border-radius: 22px;
+      transform: translate(0px,-2px);
+      box-shadow: -10px 10px 10px rgba(0,0,0,.5);
+    }
+
+
+    .footer {
+      grid-area: footer;
+      /*background: red;*/
+    }
+
+  </style>
+</head>
+<body>
+  <div class="main-ctn">
+    <div class="page-ctn">
+      <div class="header">
+        <hr />
+        <h1>VabCrypt 1.0</h1>
+        <hr />
+      </div>
+      <div class="main-content">
+        <textarea name="message" id=message rows="25" cols="40"></textarea>
+      </div>
+      <div class="feature">
+        <button class="encrypt" type="submit"><b>Encrypt</b></button>
+        <span>or</span>
+        <button class="decrypt" type="submit"><b>Decrypt</b></button>
+      </div>
+      <div class="footer">
+
+      </div>
+    </div>
+  </div>
+</body>
 </html>
