@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>responsive boat</title>
+  
+  <style type="text/css" media="all">
+  
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    
+    .wrapper {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background-image: linear-gradient(to top, #86377b 20%, #27273c 80%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      Justify-content: center;
+      overflow: hidden;
+    }
+    
+    .wolf-moon {
+      position: absolute;
+      height: 150px;
+      width: 150px;
+      top: 5%;
+      left: 5%;
+      border-radius: 50%;
+      background: #27273c;
+      box-shadow: inset -5px -20px 5px 5px #fff;
+      transform: rotate(-15deg);
+    }
+    
+    .boat-container {
+      position: relative;
+      width: 60%;
+      height: 50%;
+      top: 10%;
+      left: 0;
+      z-index: 2;
+      transition: all 2s linear 0.6s;
+      /*background: rgba(0,0,0,0.2);*/
+      animation: flow 4s linear infinite;
+    }
+    
+@keyframes flow {
+      0% {
+        transform: scale(0.8) rotate(1deg);
+      }
+      25% {
+        transform: scale(0.7) rotate(6deg);
+      }
+      50% {
+        transform: scale(0.8) rotate(-4deg);
+      }
+      75% {
+        transform: scale(1.0)rotate(7deg);
+      }
+      100% {
+        transform: scale(0.8) rotate(-3deg);
+      }
+    }
+    
+    .boat-wings {
+      position: relative;
+      width: 100%;
+      height: 60%;
+      display: flex;
+      flex-direction: row;
+    }
+    
+    .left-wing {
+      position: relative;
+      width: 50%;
+      height: 100%;
+      /*background-color: red;*/
+    }
+    
+    .left-wing div {
+      position: absolute;
+      width: 80%;
+      height: 100%;
+      /*background-color: red;*/
+      bottom: 0;
+      right: 0;
+      border-top: 0;
+      border-right: 0;
+      border-bottom: 30rem solid #ebebeb;
+      border-left: 16rem solid transparent;
+      margin: 4px;
+    }
+    
+    .right-wing {
+      position: relative;
+      width: 50%;
+      height: 100%;
+      /*background-color: blue;*/
+    }
+    
+    .right-wing div {
+      position: absolute;
+      width: 80%;
+      height: 100%;
+      /*background: #993792;*/
+      bottom: 0;
+      left: 0;
+      border-top: 0;
+      border-right: 16rem solid transparent;
+      border-bottom: 18rem solid #f1f2f3;
+      border-left: 0;
+      margin: 4px;
+    }
+    
+    .boat-base {
+      position: relative;
+      width: 100%;
+      height: 40%;
+      /*background-color: green;*/
+    }
+    
+    .boat-base div {
+      border-top: 12rem solid #929192;
+      border-right: 12rem solid transparent;
+      border-bottom: 0;
+      border-left: 12rem solid transparent;
+      margin: 4px;
+    }
+
+    .sea {
+      width: 100%;
+      height: 45%;
+      position: absolute;
+      border-radius: 5px;
+    }
+
+    .wave {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 250px;
+      bottom: 0;
+      z-index: 1;
+    }
+
+    .wave + .wave {
+      z-index: 2;
+    }
+
+@media only screen and (max-width: 480px) {
+      html {
+        font-size: 7px;
+      }
+    }
+    
+  </style>
+</head>
+
+<body>
+  
+  <div class="wrapper">
+    <div class="wolf-moon">
+    </div>
+    <div class="boat-container">
+      <div class="boat-wings">
+        <div class="left-wing">
+          <div>
+          </div>
+        </div>
+        <div class="right-wing">
+          <div>
+          </div>
+        </div>
+      </div>
+      <div class="boat-base">
+        <div>
+        </div>
+      </div>
+    </div>
+    <div class="sea">
+      
+      <!--
+            reference for making wave animation
+            https://www.jqueryscript.net/animation/Smooth-Wave-Liquid-Animation-jQuery-GSAP-SVG.html
+            go through it
+       -->
+
+
+      <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" class="wave"><title>Wave</title><defs></defs><path id="jswave" d="" /></svg>
+
+      <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" class="wave"><title>Wave</title><defs></defs><path id="jswave-two" d="" /></svg>
+
+      <svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" class="wave"><title>Wave</title><defs></defs><path id="jswave-three" d="" /></svg>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/wavify@1.0.0/wavify.min.js" type="text/javascript" charset="utf-8"></script>
+      <script src="https://cdn.jsdelivr.net/npm/wavify@1.0.0/jquery.wavify.js" type="text/javascript" charset="utf-8"></script>
+      
+      <script>
+        $('#jswave').wavify({
+          height: 80,
+          bones: 5,
+          amplitude: 20,
+          color: '#B289EF',
+          speed: .15
+        });
+
+        $('#jswave-two').wavify({
+          height: 70,
+          bones: 7,
+          amplitude: 35,
+          color: 'rgba(150, 97, 255, .8)',
+          speed: .25
+        });
+
+        $('#jswave-three').wavify({
+          height: 100,
+          bones: 6,
+          amplitude: 28,
+          color: '#a006ffd3',
+          speed: .20
+        });
+      </script>
+      
+    </div>
+  </div>
+
+</body>
+</html>
