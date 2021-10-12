@@ -1,7 +1,15 @@
 ## mr-vabs.github.io
 this is a demo page used to show html pages on github.
 
-go to https://mr-vabs.github.io/filenameOrPath
+
+go to following url for output,
+
+https://[username].github.io/[repo/filenameOrPath]
+
+for example here's the output of HTML boat within the css art folder.
+
+https://mr-vabs.github.io/apps/Css%20art/Boat.html
+
 
 I am Adding some Extra Part in this Repo.
 Now you can add your Tools in this Repo which is Usefull in case of Completing any Tasks
