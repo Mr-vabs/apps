@@ -1,43 +1,52 @@
 ## Dev Codes
+<hr>
 This is a demo page used to show html pages on github.
-
 
 Go through listed links for deployment,
 
-<!--
-https://[username].github.io/[repo/filenameOrPath]
-for example here's the output of HTML boat within the css art folder.
--->
-
 ### Birthday Codes
+
+<hr>
 
 - [Annu](https://mr-vabs.github.io/apps/B'day/Annu.html)
 - [Zombie](https://mr-vabs.github.io/apps/B'day/Zombie.html)
 
 ### Challenges
 
+<hr>
+
 - [Roadmap](https://mr-vabs.github.io/apps/Challenge/roadmap.html)
 
 ### CSS Art
+
+<hr>
 
 - [CSS Art](https://mr-vabs.github.io/apps/Css%20art/Boat.html)
 
 ### Dev
 
+<hr>
+
 - [Codeview](https://github.com/Mr-vabs/apps/tree/main/Dev)
 
 ### HTMLpfp
 
+<hr>
+
 - [Profile Picture](https://mr-vabs.github.io/apps/HTMLpfp/index.htm)
 
-I am Adding some Extra Part in this Repo.
-Now you can add your Tools in this Repo which is Usefull in case of Completing any Tasks
+
+I am Aadding some Extra Part in this Repository. Now you can add your tools or programs in this repository which is usefull in case of completing any tasks.
 
 ## Wanna Contribute?
 
-- Star and fork this repo.
+<hr>
+
+- Star and fork this repository.
 
 - You can add your web project within respected folder and trees, however if you want to add any program in any language then you can simply add it in dev folder.
+
+- Please add your code wisely as if repository tree get messed up, you're contribution will be considered invalid.
 
 - After modifying the forked repo, don't forgot to check the changes.
 
@@ -45,4 +54,6 @@ Now you can add your Tools in this Repo which is Usefull in case of Completing a
 
 ## Still under development 
 
-I'll be adding stuff either from my SoloLearn codes or regular coding...
+<hr>
+
+I'll keep adding stuff either from my SoloLearn codes or regular coding...
