@@ -2,11 +2,13 @@
 This is a demo page used to show html pages on github.
 
 
-Go to listed url for deployment,
+Go through listed links for deployment,
+
 <!--
 https://[username].github.io/[repo/filenameOrPath]
 for example here's the output of HTML boat within the css art folder.
 -->
+
 ### Birthday Codes
 
 - [Annu](https://mr-vabs.github.io/apps/B'day/Annu.html)
@@ -40,3 +42,7 @@ Now you can add your Tools in this Repo which is Usefull in case of Completing a
 - After modifying the forked repo, don't forgot to check the changes.
 
 - Make pr and wait for it to get merged.
+
+## Still under development 
+
+I'll be adding stuff either from my SoloLearn codes or regular coding...
