@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>First Animation</title>
+  <style type="text/css" media="all">
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: black;
+    }
+
+    .animation-box {
+      height: 30%;
+      width: 98%;
+      border: 10px solid black;
+      background: white;
+      
+    }
+    
+    .animate-ball {
+      position: relative;
+      height: 20%;
+      width: 10%;
+      border-radius: 50%;
+      border: 25px solid black;
+      transition: .4s all;
+      animation: roll 4s linear infinite;
+    }
+
+    @keyframes roll {
+      
+      0% {
+        left: 0;
+        top: 0;
+        transform: rotateZ(0deg);
+      }
+      
+      25% {
+        left: 25%;
+        top: 80%;
+        transform: rotateZ(360deg);
+      }
+      
+      50% {
+        left: 50%;
+        top: 0;
+        transform: rotateZ(720deg);
+      }
+
+      75% {
+        left: 75%;
+        top: 80%;
+        transform: rotateZ(1080deg);
+      }
+      
+      100% {
+        left: 100%;
+        top: 0;
+        transform: rotateZ(1460deg);
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="animation-box">
+    <div class="animate-ball">
+    </div>
+  </div>
+</body>
+</html>
