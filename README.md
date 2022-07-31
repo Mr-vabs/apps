@@ -21,7 +21,8 @@ Go through listed links for deployment,
 
 <hr>
 
-- [CSS Art](https://mr-vabs.github.io/apps/Css%20art/Boat.html)
+- [Boat](https://mr-vabs.github.io/apps/Css%20art/Boat.html)
+- [Ball Animation](https://mr-vabs.github.io/apps/Css%20art/ball-animation.htm)
 
 ### Dev
 
