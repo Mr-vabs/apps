@@ -43,7 +43,7 @@ I am Aadding some Extra Part in this Repository. Now you can add your tools or p
 
 <hr>
 
-- Star and fork this repository.
+- Star and fork this repository by clicking [here](https://github.com/Mr-vabs/apps/fork).
 
 - You can add your web project within respected folder and trees, however if you want to add any program in any language then you can simply add it in dev folder.
 
