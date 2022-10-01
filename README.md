@@ -1,5 +1,14 @@
-## Dev Codes
+# Apps
+
 <hr>
+
+This repository is a place for various widgets, code chunks and solutions to basic problems. Kindly go through this README and repository or else click [here](https://mr-vabs.github.io/apps/) to see codes by categories.
+- Instructions for contribution are given below.
+
+## Dev Codes
+
+<hr>
+
 This is a demo page used to show html pages on github.
 
 Go through listed links for deployment,
