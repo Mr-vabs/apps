@@ -36,6 +36,11 @@ Go through listed links for deployment,
 
 - [Profile Picture](https://mr-vabs.github.io/apps/HTMLpfp/index.htm)
 
+### Password Generator
+
+<hr>
+
+- [Password Generator](https://mr-vabs.github.io/apps/Password%20Generator/index.html)
 
 I am Aadding some Extra Part in this Repository. Now you can add your tools or programs in this repository which is usefull in case of completing any tasks.
 
