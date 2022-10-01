@@ -22,7 +22,7 @@ Go through listed links for deployment,
 <hr>
 
 - [Boat](https://mr-vabs.github.io/apps/Css%20art/Boat.html)
-- [Ball Animation](https://mr-vabs.github.io/apps/Css%20art/ball-animation.htm)
+- [Ball Animation](https://mr-vabs.github.io/apps/Css%20art/ball-animation.html)
 
 ### Dev
 
@@ -42,9 +42,15 @@ Go through listed links for deployment,
 
 - [Password Generator](https://mr-vabs.github.io/apps/Password%20Generator/index.html)
 
+<hr>
+
 I am Aadding some Extra Part in this Repository. Now you can add your tools or programs in this repository which is usefull in case of completing any tasks.
 
-## Wanna Contribute? #Accepting PRs for Hacktoberfest
+## Wanna Contribute? 
+
+<hr>
+
+### Accepting PRs for Hacktoberfest
 
 <hr>
 
