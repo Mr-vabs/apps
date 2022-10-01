@@ -2,10 +2,10 @@
 
 ## About
 
-- Learning about canvas tag.
-- Made with Html Canvas
-- Responsive
+- A spider Webs demo
+- Made with Html Canvas tag
 - Seizure Warning
+- Responsive
 - Enjoy!
 
 ## Contributions
