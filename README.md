@@ -3,6 +3,7 @@
 <hr>
 
 This repository is a place for various widgets, code chunks and solutions to basic problems. Kindly go through this README and repository or else click [here](https://mr-vabs.github.io/apps/) to see codes by categories.
+
 - Instructions for contribution are given below.
 
 ## Dev Codes
@@ -51,11 +52,17 @@ Go through listed links for deployment,
 
 - [Password Generator](https://mr-vabs.github.io/apps/Password%20Generator/index.html)
 
+### Html Canvas
+
+<hr>
+
+- [Webs](https://mr-vabs.github.io/apps/Webs/index.html)
+
 <hr>
 
 I am Aadding some Extra Part in this Repository. Now you can add your tools or programs in this repository which is usefull in case of completing any tasks.
 
-## Wanna Contribute? 
+## Wanna Contribute?
 
 <hr>
 
@@ -73,7 +80,7 @@ I am Aadding some Extra Part in this Repository. Now you can add your tools or p
 
 - Make pr and wait for it to get merged.
 
-## Still under development 
+## Still under development
 
 <hr>
 
