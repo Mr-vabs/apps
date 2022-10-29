@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarkari Result</title>
+</head>
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        font-family: Arial,Helvetica,sans-serif;
+    }
+
+    .outer {
+        min-height: 700px;
+        width: 1000px;
+        
+
+        margin: 0px auto;
+    }
+
+    .top_outer {
+        height: 200px;
+        width: 100%;
+        background-color: #ab183d;
+    }
+
+    .top_left {
+        height: 200px;
+        width: 250px;
+        
+        float: left;
+        padding-left: 20px;
+        box-sizing: border-box;
+    }
+
+    img {
+        height: 200px;
+        width: 200px;
+        background-color: #ab183d;
+    }
+
+    .top_right {
+        height: 200px;
+        width: 750px;
+        float: left;
+        box-sizing: border-box;
+        padding-top: 30px;
+        text-align: center;
+        line-height: 70px;
+        font-size: 30px;
+        color: white;
+    }
+
+    .menu_outer {
+        height: 50px;
+        width: 100%;
+        background-color: black;
+
+
+    }
+
+    #nav_box {
+        height: 50px;
+        width: 100%;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    nav ul li {
+        height: 50px;
+        width: 125px;
+        line-height: 50px;
+        float: left;
+        color: white;
+        border-right: 1px solid white;
+        box-sizing: border-box;
+
+    }
+    .marquee_outer
+    {
+        height: 180px;
+        width: 100%;
+        font-weight: bold;
+    }
+    .box
+    {
+        height: 180px;
+        width: 100%;
+        font-size: 21px;
+        text-align: center;
+        padding-top:15px ;
+        box-sizing: border-box;
+    }
+    p
+    {
+        font-size: 17px;
+    }
+    .box-outer
+    {
+        height: 180px;
+        width: 100%;
+        
+    }
+    .box1
+    {
+        height: 60px;
+        width: 1000px;
+        text-align: center;
+        font-size: 25px;
+        line-height: 50px;
+    }
+    .box2,.box3
+    {
+        height: 60px;
+        width: 100%;
+        
+    }
+    .btn
+    {
+        height: 60px;
+        width: 250px;
+        float: left;
+        font-size: 24px;
+        text-align: center;
+        border: 2px solid white;
+        box-sizing: border-box;
+        color: white;
+
+    }
+    .job_outer
+    {
+        min-height: 550px;
+        width: 100%;
+        
+    }
+    .job_box1
+    {
+        min-height: 500px;
+        width: 320px;
+       
+        float: left;
+        border: 2px solid #ff6a10;
+        box-sizing: border-box;
+        margin-left: 10px;
+        margin-top: 30px;
+
+    }
+    .upper_box
+    {
+        height: 50px;
+        width: 100%;
+        background-color: #ab183d;
+        text-align: center;
+        font-size: 30px;
+        font-weight:bold;
+        line-height: 50px;
+
+    }
+    .element
+    {
+        height: 430px;
+        width: 300px;
+        
+        margin: 8px;
+    }
+    .element ul li
+    {
+        line-height: 25px;
+    }
+    .footer1_outer
+    {
+        min-height: 400px;
+        width: 100%;
+        border:2px solid;
+        margin-bottom: 30px;
+        box-sizing: border-box;
+    }
+    .f1
+    {
+        height: 50px;
+        width: 100%;
+        background-color: #8c0101;
+        text-align: center;
+        font-size: 25px;
+        line-height: 50px;
+        font-weight: bold;
+        color: white;
+    }
+    .f2
+    {
+        height: 200px;
+        width: 100%;
+        padding-top: 20px;
+        box-sizing: border-box;
+        text-align: center;
+        
+        
+        
+    }
+    .f2 p
+    {
+        font-size: 15px;
+        padding:10px ;
+        box-sizing: border-box;
+    }
+    .link_outer
+    {
+        min-height: 220px;
+        width: 100%;
+ 
+    }
+    .link
+    {
+        height: 210px;
+        width: 190px;
+       
+        float: left;
+        margin: 5px;
+        padding: 10px;
+        box-sizing: border-box;
+        
+    }
+    .link > p
+    {
+        font-size: 13px;
+        padding-top: 5px;
+        color:#404040;
+    }
+    .link p > a
+    {
+        color: #404040;
+    }
+    
+</style>
+
+<body>
+    <div class="outer">
+        <div class="top_outer">
+            <div class="top_left">
+                <img src="img/logo-new.png" alt="">
+            </div>
+            <div class="top_right">
+                <h1>SARKARI RESULT</h1>
+                <p>WWW.SARKARIRESULT.COM</p>
+            </div>
+        </div>
+        <div class="menu_outer">
+            <nav id="nav_box">
+                <ul>
+                    <a href="">
+                        <li style="width: 100px;">Home</li>
+                    </a>
+                    <a href="">
+                        <li>Latest Jobs</li>
+                    </a>
+                    <a href="">
+                        <li>Result</li>
+                    </a>
+                    <a href="">
+                        <li style="width: 135px;">Admit Card</li>
+                    </a>
+                    <a href="">
+                        <li style="width: 135px;">Answer Kye</li>
+                    </a>
+                    <a href="">
+                        <li>Syllabus</li>
+                    </a>
+                    <a href="">
+                        <li>Search</li>
+                    </a>
+                    <a href="">
+                        <li style="border:none;">Contact Us</li>
+                    </a>
+                </ul>
+            </nav>
+        </div>
+        <div class="marquee_outer">
+            <div class="box" style="background-color: white;">
+                <a href="">
+                    Sarkari Result : SarkariResult.Com Sarkari Naukri Latest Jobs Online Form at Sarkari Results 2022 
+                    <br>
+                    <p style="font-size: 18px; padding-top:3px">
+                        Sarkari Result Android Apps || Sarkari Result Youtube Channel || Sarkari Result Apple / IOS Apps|| Follow Instagram
+                    </p>
+                    <marquee behavior="alternate" direction="right" scrollamount="6" onmouseover="stop()" onmouseleave="start()">
+                        <font style="font-size: 17px;">
+                             UP Scholarship Online Form 2022 || BPSC 67 Pre Answer Key 2022 | | NTA ICAR AIEEA UG Score Card 2022
+                        </font>
+                    </marquee>
+                    <marquee behavior="alternate" direction="right" scrollamount="4" onmouseover="stop()" onmouseleave="start()">
+                        <font style="font-size: 17px;">
+                            NTA CUET UG University Wise Registration 2022 || CSIR UGC NET Answer Key 2022 || AFCAT 02/2022 Result
+                        </font>
+                    </marquee>
+                    <marquee behavior="alternate" direction="right" scrollamount="5" onmouseover="stop()" onmouseleave="start()">
+                        <font style="font-size: 17px;">
+                            RSMSSB PTI Answer Key 2022 || SSC Scientific Assistant 2022 Online Form || UP BSc Nursing Online Counseling 2022
+                        </font>
+                    </marquee>
+                
+                </a>
+            </div>
+        </div>
+        <div class="box-outer">
+            <div class="box1">
+                <a href="" style="background-color: #0000a0;color:white;padding:10px 30px 15px 30px;">Sarkari Result Youtube</a>
+            </div>
+            <div class="box2">
+                <div class="btn" style="background-color:#868a08 ;">CUET UG 2022 University Registration</div>
+                <div class="btn" style="background-color: #0404b4;">SSC Scientific Asst Apply Online</div>
+                <div class="btn" style="background-color: #fb5e03;">UPBEd 2022 Online Counseling</div>
+                <div class="btn" style="background-color:#8c0101 ;">CISF ASI Steno/HC Apply Online</div>
+            </div>
+            <div class="box3">
+                <div class="btn" style="background-color: #fb0303;">CUET UG 2022 University Registration</div>
+                <div class="btn" style="background-color:#0b610b ;">SSC Scientific Asst Apply Online</div>
+                <div class="btn" style="background-color:#ff00bf ;">UPBEd 2022 Online Counseling</div>
+                <div class="btn" style="background-color:#0080ff ;">CISF ASI Steno/HC Apply Online</div>
+            </div>
+        </div>
+        <div class="job_outer">
+            <div class="job_box1">
+                <div class="upper_box"><a href="" style="text-decoration: none;color:white">Result</a></div>
+                <div class="element">
+                    <ul type="circel" style="list-style: inside;font-size: 18px;padding: 10px;">
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        
+                        
+                            
+                        <a href="" style="text-decoration: none;"> <p  style="color: #0000a0;font-size:20px;text-align: right;padding: 20px;">View More</p></a>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="job_box1">
+                <div class="upper_box"><a href="" style="text-decoration: none;color:white">Admit Card</a></div>
+                <div class="element">
+                    <ul type="circel" style="list-style: inside;font-size: 18px;padding: 10px;">
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        
+                        
+                            
+                           <a href="" style="text-decoration: none;"> <p  style="color: #0000a0;font-size:20px;text-align: right;padding: 20px;">View More</p></a>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="job_box1">
+                <div class="upper_box"><a href="" style="text-decoration: none;color:white">Latest Jobs</a></div>
+                <div class="element">
+                    <ul type="circel" style="list-style: inside;font-size: 18px;padding: 10px;">
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="">
+                                BPSC Motor Vehicle Inspector Final Result 2022
+                            </a>
+                        </li>
+                        
+                        
+                            
+                        <a href="" style="text-decoration: none;"> <p  style="color: #0000a0;font-size:20px;text-align: right;padding: 20px;">View More</p></a>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="footer1_outer">
+            <div class="f1">What Can Sarkari Result Do To Help Me?</div>
+            <div class="f2">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+            </div>
+            <div class="f1">What Can Sarkari Result Do To Help Me?</div>
+            <div class="f2">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+            </div>
+        </div>
+
+        <div class="footer1_outer">
+            <div class="f1">What Can Sarkari Result Do To Help Me?</div>
+            <div class="f2">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+            </div>
+            <div class="f1">What Can Sarkari Result Do To Help Me?</div>
+            <div class="f2">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam id, laborum praesentium ullam nostrum illum tempore beatae dolor doloremque porro perspiciatis sint quia sed, repellat earum cupiditate fugit assumenda aliquam?
+                </p>
+            </div>
+        </div>
+
+        <div class="link_outer">
+            <div class="link" >
+                <h3 >Quick Links</h3>
+                <p><a href="">Sarkari Result @ Twitter</a></p>
+                <p><a href="">Sarkari Result @ Telegram</a></p>
+                <p><a href="">Sarkari Result @ Instagram</a></p>
+                <p><a href="">Sarkari Result @ Koo</a></p>
+                <p><a href="">Sarkari Result @ Facebook</a></p>
+                <p><a href="">Sarkari Result @ Linkedin</a></p>
+                <p><a href="">Sarkari Result @ Youtube</a></p>
+                <p><a href="">Sarkari Result @ Contact Us</a></p>
+            </div>
+            <div class="link">
+                <h3 >App</h3>
+                <p><a href="">Android App</a></p>
+                <p><a href="">Android IOS App</a></p>
+                <p><a href="">Window App</a></p>
+                
+            </div>
+            <div class="link">
+                <h3 >More</h3>
+                <p><a href="">BPSC</a></p>
+                <p><a href="">UP- Scholorship</a></p>
+                <p><a href="">UPSC</a></p>
+                <p><a href="">RPSC</a></p>
+                <p><a href="">UPPCS</a></p>
+                <p><a href="">Coast Guard</a></p>
+            </div>
+            <div class="link">
+                <p><a href="">BPSC</a></p>
+                <p><a href="">UP- Scholorship</a></p>
+                <p><a href="">UPSC</a></p>
+                <p><a href="">RPSC</a></p>
+                <p><a href="">UPPCS</a></p>
+                <p><a href="">Coast Guard</a></p>
+            </div>
+            <div class="link">
+                <p><a href="">BPSC</a></p>
+                <p><a href="">UP- Scholorship</a></p>
+                <p><a href="">UPSC</a></p>
+                <p><a href="">RPSC</a></p>
+                <p><a href="">UPPCS</a></p>
+                <p><a href="">Coast Guard</a></p>
+            </div>
+        </div>
+        <div class="last" style="height:50px;width:100%;background:black;"></div>
+    </div>
+</body>
+
+
+</html>
