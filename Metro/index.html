@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .outer{
+            height: 2500px;
+            width: 100%;
+            background: #f1f1f1;
+        }
+        .rows1{
+            height: 150px;
+            width: 100%;
+            background: white;
+        }
+        .cols1{
+            height: 150px;
+            width: 50%;
+            background: white;
+            float: left;
+        }
+        .cols2{
+            height: 150px;
+            width: 5%;
+            background: white;
+            float: left;
+        }
+        .cols3{
+            height: 150px;
+            width: 45%;
+            background: white;
+            float: left;
+        }
+        .row2{
+            height: 10px;
+            width: 100%;
+            background: #b7b7b7;
+        }
+        .rows3{
+            height: 140px;
+            width: 100%;
+            background: white;
+        }
+        .rows3 .left{
+            height: 140px;
+            width: 200px;
+            background: white;
+            float: left;
+        }
+        .rows3 .right{
+            height: 140px;
+            width: 501.5345789px;
+            background: white;
+            float: left;
+        }
+        .rows3 .left .logo{
+            height: 100px;
+            width: 180px;
+            margin-left: 20px;
+        }
+        .rows3 .left p{
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: gray;
+            padding-left: 20px;
+            position: relative;
+            top: -5px;
+        }
+        .right .p1{
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            padding-top: 5px;
+            color: #0f0f0f;
+        }
+        .right .p2{
+            padding-left: 33px;
+            font-size: 20px;
+            font-weight: bold;
+            color: rgb(77, 75, 75);
+        }
+        .right .p3{
+            height: 2px;
+            box-sizing: border-box;
+            width: 100%;
+            border-top: 2px solid #00b3a1;
+            color: rgb(77, 75, 75);
+            margin-top: 2px;
+        }
+        .right .p4{
+            font-size: 15px;
+            padding-left: 33px;
+            padding-top: 4px;
+            color: #464646;
+        }
+        .right .p5{
+            font-size: 15px;
+            padding-left: 33px;
+            color: #464646;
+        }
+        .rows4{
+            height: 50px;
+            width: 100%;
+            background-color: #b7b7b7;
+        }
+        .bor{
+            height: 50px;
+            width: 88px;
+            background: #b7b7b7;
+            border:2px solid #b7b7b7;
+            position: relative;
+            transform: rotate(29deg);
+            top: -23px;
+        }
+        .cols4{
+            height: 50px;
+            width: 130px;
+            transform: translate(0px);
+            background: #b7b7b7;
+            /* background: hotpink; */
+            color: black;
+            text-align: center;
+            padding-top: 15px;
+            box-sizing: border-box;
+            font-size: 15px;
+            float: left;
+        }
+        .cols4 a{
+            color: black;
+        }
+        .cols5{
+            height: 50px;
+            width: 501.4px;
+            background: #b7b7b7;
+            float: left;
+        }
+        .cols5 .first{
+            height: 40px;
+            width: 40px;
+            background: gray;
+            float: left;
+            margin-left: 5px;
+            margin-top: 5px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            line-height: 40px;
+        }
+        .cols5 .second{
+            height: 40px;
+            width: 40px;
+            background: gray;
+            float: left;
+            margin-top: 5px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            line-height: 40px;
+            margin-left: 5px;
+        }
+        .cols5 .fourth{
+            height: 40px;
+            width: 40px;
+            background: white;
+            float: left;
+            margin-top: 5px;
+            text-align: center;
+            color: gray;
+            font-weight: bold;
+            line-height: 40px;
+            margin-left: 20px;
+            box-sizing: border-box;
+            border: 1px solid gray;
+        }
+        .cols5 .fift{
+            height: 37px;
+            width: 40px;
+            background: gray;
+            float: left;
+            margin-top: 6.5px;
+            text-align: center;
+            color: gray;
+            font-weight: bold;
+            line-height: 40px;
+            margin-left: 20px;
+            
+        }
+        .cols5 .fift .co{
+            background: gray;
+            height: 37px;
+            width: 40px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .cols6{
+            height: 80px;
+            width: 210px;
+            background: #f5f5f5;
+            margin-top: 10px;
+            margin-left: 80px;
+            float: left;
+
+        }
+        .p10{
+            text-align: center;
+            font-size: 15px;
+            padding-top: 5px;
+            color: #555555;
+        }
+        .p11{
+            text-align: center;
+            font-size: 20px;
+            padding-top: 5px;
+            font-weight: bold;
+            color: #555555;
+            position: relative;
+            top: -5px;
+        }
+        .p12{
+            text-align: center;
+            font-size: 13px;
+            padding-top: 5px;
+            color: #555555;
+            position: relative;
+            top: -6px;
+        }
+        .cols7{
+            height: 80px;
+            width: 210px;
+            background: #f5f5f5;
+            margin-top: 10px;
+            margin-left: 15px;
+            float: left;
+        }
+        nav{
+            height: 50PX;
+            width: 100%;
+            background: #00b3a1;
+        }
+        nav ul{
+            list-style: none;
+        }
+        nav ul li{
+            height: 50px;
+            width: 110px;
+            float: left;
+            /* border-left: 2px solid black; */
+            line-height: 50px;
+            background: #00b3a1;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            
+        }
+        nav ul li:hover{
+            background: #028678;
+            /* min-width: 300px; */
+        }
+        nav ul li> ul{
+            display: none;
+            position: relative;
+        }
+        nav ul li:hover> ul{
+            display: block;
+            
+            
+        }
+        nav ul li ul li:hover{
+            color: #00b3a1;
+            background: white;
+            
+            
+        }
+        .main{
+            height: 400px;
+            width: 1250px;
+            background: yellowgreen;
+            margin: 0px auto;
+            
+        }
+        .cols15{
+            height: 400px;
+            width: 800px;
+            background: yellow;
+            float: left;
+            background-image: url("metro1.jfif");
+           background-repeat: no-repeat;
+            background-size: 100% 100%;
+            animation-name: abc;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+            
+        }
+        @keyframes abc{
+            0%{
+                background-image: url("metro1.jfif");
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+            50%{
+                background-image: url("metro2.jfif");
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+        .cols16{
+            height: 400px;
+            width: 450px;
+            background: white;
+            float: left;
+        }
+        .rows10{
+            height: 56.5px;
+            width: 90%;
+            background: white;
+            margin-left: 5%;
+            margin-top: 10px;
+            color: black;
+            line-height: 56px;
+            font-size: 22px;
+            padding-left: 10px;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+        .rows11{
+            height: 56.5px;
+            width: 90%;
+            background: #00b3a1;
+            margin-left: 5%;
+            margin-top: 10px;
+        }
+        .rows11:hover{
+            background: #00b3a1;
+            color: white;
+        }
+        .rows12{
+            height: 56.5px;
+            width: 56px;
+            float: left;
+            /* background: #00b3a1; */
+            font-weight: bold;
+            color: white;
+        }
+        .rows12:hover{
+            color: #00b3a1;
+            background: white;
+        }
+        .rows13{
+            height: 56.5px;
+            width: 293px;
+            /* background: yellow; */
+            float: left;
+            font-size: 25px;
+            line-height: 56px;
+            color: white;
+            font-weight: bold;
+            padding-left: 5px;
+            box-sizing: border-box;
+            /* background: #00b3a1; */
+        }
+        .rows13:hover{
+            color: #00b3a1;
+            background: white;
+        }
+        #ho:hover{
+            color: #00b3a1;
+            background: white;
+        }
+        .cols17{
+            height: 50px;
+            width: 89%;
+            background: yellow;
+            margin-left: 77px;
+
+        }
+        .rows14{
+            height: 50px;
+            width: 240px;
+            color: white;
+            background: #00b3a1;
+            float: left;
+            font-size: 22px;
+            line-height: 50px;
+            box-sizing: border-box;
+            padding-left: 17px;
+        }
+        .rows15{
+            height: 50px;
+            width: 1009px;
+            background: white;
+            float: left;
+            line-height: 50px;
+            color: #474040;
+        }
+        .menu_width{
+            width: 300px;
+            text-align: left;
+            padding-left: 15px;
+            box-sizing: border-box;
+        }
+        .rows16{
+            height: 300px;
+            width: 89%;
+            background: white;
+            margin-left: 77px;
+            margin-top: 20px;
+
+        }
+        .cols18{
+            height: 300px;
+            width: 65%;
+            
+            float: left;
+        }
+        .cols19{
+            height: 300px;
+            width: 32%;
+            background: white;
+            float: left;
+            margin-left: 3%;
+            border: 2px solid #00b3a1;
+            box-sizing: border-box;
+        }
+        .rows17{
+            height: 50px;
+            width: 100%;
+            background: #e57e33;
+            color: white;
+            font-size: 20px;
+            padding-left: 20px;
+            line-height: 50px;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+        .rows18{
+            height: 250PX;
+            width: 100%;
+            
+            
+        }
+        .cols20{
+            height: 250px;
+            width: 250px;
+            background: WHITE;
+            float: left;
+        }
+        .cols20 #off{
+            height: 180px;
+            width: 200px;
+            margin-top: 15px;
+            margin-left: 25px;
+            border: 2px solid #b7b7b7;
+            box-sizing: border-box;
+            background: #b7b7b7;
+            
+        }
+        .cols21{
+            height: 250px;
+            width: 562px;
+            background: white;
+            float: left;
+            text-align: justify;
+            padding-left: 10px;
+            padding-top: 15px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            color: #656262;
+        }
+        .online{
+            height: 120px;
+            width: 100%;
+            margin-top: 40px;
+        }
+        .one-1{
+            height: 120px;
+            width: 100px;
+            background: white;
+            float: left;
+            margin-left: 30px;
+        }
+        .well{
+            text-align: center;
+            height: 50px;
+            width: 50px;
+            margin-left: 20px;
+            margin-top: 10px;
+            color: #00b3a1;
+        }
+        /* Location all css */
+        .locations{
+            height: 350px;
+            width: 89%;
+            background: white;
+            margin-left: 77px;
+            margin-top: 30px;
+        }
+        .loca-1{
+            height: 350px;
+            width: 32%;
+            background: blue;
+            float: left;
+        }
+        .loca-2{
+            height: 350px;
+            width: 31.58%;
+            background: greenyellow;
+            float: left;
+            margin-left: 30px;
+        }
+        .fare{
+            height: 50px;
+            width: 100%;
+            background: #129404;
+        }
+        .fare2{
+            height: 300px;
+            width: 100%;
+            background: white;
+        }
+        .sele{
+            margin-left: 20px;
+            height: 40px;
+            width: 90%;
+            padding-left: 10px;
+            font-size: 18px;
+        }
+        .sele option{
+            font-size: 18px;
+        }
+        .get{
+            margin-left: 20px;
+            height: 40px;
+            width: 90%;
+            padding-left: 10px;
+            font-size: 18px;
+            margin-top: 40px;
+            box-sizing: border-box;
+            background: #129404;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+        }
+        .news{
+            height: 98px;
+            width: 90%;
+            background: white;
+            margin-left: 20px;
+            float: left;
+            margin-top: 1px;
+            box-sizing: border-box;
+            /* border-top: 1px solid grey; */
+            border-bottom: 1px solid grey;
+        }
+
+        /* Instance codding ----all---------------------------------------------- */
+
+        .instance{
+            height: 120px;
+            width: 89%;
+            background: hotpink;
+            margin-left: 77px;
+            margin-top: 30px;
+        }
+        .ins-1{
+            height: 120px;
+            width: 33.33%;
+            background: skyblue;
+            float: left;
+        }
+        #m1{
+            background: rgba(94, 71, 153);
+        }
+        #m2{
+            background: rgba(226, 118, 6);
+        }
+        #m3{
+            background: rgba(16, 182, 172);
+        }
+
+
+        /* --------------------------Gallery contant------------------------ */
+        .gallery{
+            height: 400px;
+            width: 89%;
+            background: white;
+            margin-left: 77px;
+            margin-top: 30px;
+
+        }
+        .gall-1{
+            height: 400px;
+            width: 32%;
+            background: white;
+            float: left;
+        }
+        .gall-2{
+            height: 400px;
+            width: 32%;
+            background: white;
+            float: left;
+            margin-left: 2%;
+        }
+        .gall-top{
+            height: 50px;
+            width: 100%;
+            background: #426182;
+        }
+        .gallbot{
+            height: 250px;
+            width: 90%;
+            margin-left: 20px;
+            background: white;
+            margin-top: 25px;
+            float: left;
+            background-image: url("build-1.jpg");
+
+        }
+        .innner{
+            height: 250px;
+            width: 100%;
+            background: rgba(255, 255, 255,0.8);
+            float: left;
+        }
+        .inner-1
+        {
+            height: 40px;
+            width: 90%;
+            margin-left: 20px;
+            font-size: 25px;
+            float: left;
+            background: #426182;
+            margin-top: 15px;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            font-weight: bold;
+        }
+        .innne1{
+            height: 100%;
+            width: 100%;
+        }
+        .hot{
+            height: 250px;
+            width: 90%;
+            background-image: url("build-1.jpg");
+            margin-left: 20px;
+            margin-top: 20px;
+            animation-name: hotabc;
+            animation-duration: 20s;
+            animation-iteration-count: infinite;
+            
+        }
+        @keyframes hotabc{
+            0%{
+                background-image: url("build-2.jpg");
+                background-size: cover;
+            }
+            15%{
+                background-image: url("build-3.avif");
+                background-size: cover;
+            }
+            30%{
+                background-image: url("build-4.avif");
+                background-size: cover;
+            }
+            45%{
+                background-image: url("build-5.avif");
+                background-size: cover;
+            }
+            60%{
+                background-image: url("build-6.avif");
+                background-size: cover;
+            }
+            75%{
+                background-image: url("build-7.jpg");
+                background-size: cover;
+            }
+            90%{
+                background-image: url("build-8.jpg");
+                background-size: cover;
+                
+            }
+        }
+        .image-g{
+            height: 195px;
+            width: 100%;
+            background-image: url("galler-g.avif");
+            background-size: cover;
+        }
+        .video-g{
+            height: 195px;
+            width: 100%;
+            background-image: url("metro1.jfif");
+            background-size: cover;
+        }
+        .g-inner{
+            height: 195px;
+            width: 100%;
+            background: rgba(5, 212, 5,0.5);
+        }
+
+
+        /* ----------------------------------------Footer all---------------------- */
+        footer{
+            height: 500px;
+            width: 100%;
+            background: greenyellow;
+            margin-top: 75px;
+        }
+        .footer-top{
+            height: 400px;
+            width: 100%;
+            background: #0baa9a;
+            
+        }
+        .footer-laft{
+            height: 400px;
+            width: 200px;
+            color: white;
+            float: left;
+            margin-left: 100px;
+            box-sizing: border-box;
+            padding-top: 50px;
+        }
+        .footer-main1{
+            height: 400px;
+            width: 200px;
+           color: white;
+            float: left;
+            margin-left: 100px;
+            box-sizing: border-box;
+            padding-top: 50px;
+        }
+        .footer-main2{
+            height: 400px;
+            width: 200px;
+            color: white;
+            float: left;
+            margin-left: 100px;
+            box-sizing: border-box;
+            padding-top: 50px;
+        }
+        .footer-right{
+            height: 400px;
+            width: 200px;
+            color: white;
+            float: left;
+            margin-left: 120px;
+            box-sizing: border-box;
+            padding-top: 50px;
+        }
+        .footer-bottom{
+            height: 100px;
+            width: 100%;
+            background: #078f81;
+        }
+        .bootom-left{
+            height: 30px;
+            width: 750px;
+            color: white;
+            margin-left: 100px;
+            margin-top: 25px;
+            float: left;
+            font-size: 15px;
+        }
+        .bootom-right{
+            height: 40px;
+            width: 400px;
+            margin-left: 100px;
+            margin-top: 25px;
+            float: left;
+            box-sizing: border-box;
+            padding-top: 10px;
+            color: white;
+        }
+        .number{
+            height: 30px;
+            width: 200px;
+            background: white;
+            position: relative;
+            top: -25px;
+            left: 70px;
+            text-align: center;
+            font-size: 20px;
+            line-height: 30px;
+            letter-spacing: 5px;
+            text-shadow:2px 2px rgb(67, 64, 64);
+            font-weight: bold;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="rows1">
+            <div class="cols1">
+                <div class="row2"></div>
+                <div class="rows3">
+                    <div class="left">
+                        <img src="download.jfif" alt="" class="logo">
+                        <p>UP Metro <br> Rail Corporation</p>
+                    </div>
+                    <div class="right">
+                        <p class="p1">Utter Predesh Metro Rail Corporation Limited</p>
+                        <p class="p2">उत्तर प्रदेश मेट्रो रेल कॉर्पोरेशन लिमिटेड</p>
+                        <div class="p3"></div>
+                        <p class="p4">Ajoint Venture of Govt. of India and Govt. of Utter Predesh</p>
+                        <p class="p5">Formertly Lucknow Metro Rail Corporation Limited</p>
+                        <p class="p5">An IOS 14001:2015 & OHSAS 18001:2007 Certified Organisation</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cols2">
+                <div class="bor"></div>
+            </div>
+            <div class="cols3">
+                <div class="rows4">
+                    <div class="cols4"><a href="">Skip to Content</a></div>
+                    <div class="cols5">
+                        <div class="first" style="padding-left: 5px;">A-</div>
+                        <div class="second">A</div>
+                        <div class="second" style="padding-left: 5px;">A+</div>
+                        <div class="fourth">A</div>
+                        <div class="fift"> <img src="court5.jfif" alt="" class="co"></div>
+                        <div class="fourth" style="width: 60px;">हिन्दी</div>
+                        <div class="fourth"><img src="serch.png" height="40px" style="border: none;" alt=""></div>
+                    </div>
+                </div>
+                <div class="rows5">
+                    <div class="cols6">
+                        <p class="p10">Lucknow Metro Helpline</p>
+                        <p class="p11">0522-2288869</p>
+                        <p class="p12">24*7 all gays</p>
+                    </div>
+                    <div class="cols7">
+                        <p class="p10">Kanpur Metro Helpline</p>
+                        <p class="p11">0512-2246200</p>
+                        <p class="p12">24*7 all gays</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li style="margin-left: 70px;">HOME</li>
+                <li>ABOUT >
+                    <ul>
+                        <li class="menu_width">About LMRC  </li>
+                        <li class="menu_width">The LMRC teem</li>
+                        <li class="menu_width">Vision and mission</li>
+                        <li class="menu_width">Md's Message </li>
+                        <li class="menu_width">Bourd of Directors</li>
+                        <li class="menu_width">Certification</li>
+                    </ul>
+                </li>
+                <li style="width: 160px;">PASSENGER INFO >
+                <ul>
+                    <li class="menu_width">Lucknow metro</li>
+                    <li class="menu_width">Kanpur metro</li>
+                </ul>
+                </li>
+                <li>PROJECTS >
+                    <ul>
+                        <li class="menu_width">Project overviews</li>
+                        <li class="menu_width">Present Networks</li>
+                        <li class="menu_width">Projects Status</li>
+                        <li class="menu_width">DPR of Lucknow metro</li>
+                        <li class="menu_width">DPR of Kanpur metro</li>
+                        <li class="menu_width"> DPR of agara metro</li>
+                    </ul>
+                </li>
+                <li>MEDIA >
+                    <ul>
+                        <li class="menu_width">Press Release</li>
+                        <li class="menu_width">LMRC Rewords</li>
+                        <li class="menu_width"> Project Status</li>
+                    </ul>
+                </li>
+                <li style="width: 130px;">RESOURCES >
+                <ul>
+                    <li class="menu_width">Downloads</li>
+                    <li class="menu_width">Publications</li>
+                    <li class="menu_width">Procurement</li>
+                </ul>
+                </li>
+                <li>CAREERS >
+                    <ul>
+                        <li class="menu_width">Recruitment 2021</li>
+                        <li class="menu_width">Recruitment 2019</li>
+                        <li class="menu_width">Deputation</li>
+                        <li class="menu_width">Notics</li>
+                        <li class="menu_width">Results</li>
+                    </ul>
+                </li>
+                <li>TENDES >
+                    <ul>
+                        <li class="menu_width">Projects</li>
+                        <li class="menu_width">Operations maintaince</li>
+                        <li class="menu_width">Propertis Development</li>
+                        <li class="menu_width">Services</li>
+                    </ul>
+                </li>
+                <li>VIGILANCE >
+                    <ul>
+                        <li class="menu_width">LMRC</li>
+                        <li class="menu_width">Vigilance</li>
+                    </ul>
+                </li>
+                <li>RTI >
+                    <ul>
+                        <li class="menu_width">Information</li>
+                        <li class="menu_width">contacts</li>
+                    </ul>
+                </li>
+                <li>CONTACT</li>
+            </ul>
+        </nav>
+        <div class="main">
+            <div class="cols15"></div>
+            <div class="cols16">
+                <div class="rows10">Quick Links...</div>
+                <div class="rows11">
+                    <div class="rows12" style="font-size: 35px; line-height: 56.5px; box-sizing: border-box; padding-left: 10px; padding-top: 5px; font-weight: bold;"><ion-icon name="train-outline"></ion-icon></div>
+                    <div class="rows13">Your Metro</div>
+                    <div class="rows12" style="font-size: 40px; font-weight: bold; padding-left: 16px; box-sizing: border-box;" id="ho">˃</div>
+                </div>
+                <div class="rows11">
+                    <div class="rows12" style="font-size: 35px; line-height: 56.5px; box-sizing: border-box; padding-left: 10px; padding-top: 5px; font-weight: bold;"><ion-icon name="map-outline"></ion-icon></div>
+                    <div class="rows13">Your Metro</div>
+                    <div class="rows12" style="font-size: 40px; font-weight: bold; padding-left: 16px; box-sizing: border-box; " id="ho">˃</div>
+                </div>
+                <div class="rows11">
+                    <div class="rows12" style="font-size: 35px; line-height: 56.5px; box-sizing: border-box; padding-left: 10px;  padding-top: 5px; font-weight: bold;"><ion-icon name="ticket-outline"></ion-icon></div>
+                    <div class="rows13">Your Metro</div>
+                    <div class="rows12" style="font-size: 40px; font-weight: bold; padding-left: 16px; box-sizing: border-box; " id="ho">˃</div>
+                </div>
+                <div class="rows11">
+                    <div class="rows12" style="font-size: 35px; line-height: 56.5px; box-sizing: border-box; padding-left: 10px; padding-top: 5px; font-weight: bold;"><ion-icon name="star-outline"></ion-icon></div>
+                    <div class="rows13">Your Metro</div>
+                    <div class="rows12" style="font-size: 40px; font-weight: bold; padding-left: 16px; box-sizing: border-box;" id="ho">˃</div>
+                </div>
+                <div class="rows11">
+                    <div class="rows12" style="font-size: 35px; line-height: 56.5px; box-sizing: border-box; padding-left: 10px; padding-top: 5px; font-weight: bold;"><ion-icon name="call-outline"></ion-icon></div>
+                    <div class="rows13">Your Metro</div>
+                    <div class="rows12" style="font-size: 40px; font-weight: bold; padding-left: 16px; box-sizing: border-box; color: white;" id="ho">˃</div>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div class="cols17">
+            <div class="rows14">LETEST UPDATES ►</div>
+            <div class="rows15">
+                <marquee behavior="" direction="">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, ratione molestias accusamus
+                     reiciendis nihil rerum illum totam sequi iure eos, perferendis quaerat. Harum voluptas,
+                      ipsum optio blanditiis nulla molestias! Exercitationem ratione, ipsam quasi totam earum necessitatibus itaque 
+                      nulla optio eaque dolorem debitis ipsum perferendis magni. Praesentium labore optio voluptas iste repellendus eius,
+                       cum illo ducimus? Voluptas optio eos repellendus eum ratione rem assumenda natus cumque soluta. Aliquam earum exercitationem
+                        excepturi! Beatae sint quaerat excepturi in incidunt delectus necessitatibus, saepe quisquam vero! Quae quidem reiciendis 
+                        quod illum perspiciatis cum officiis dolores enim eius, accusantium sunt minima omnis consequatur aliquam pariatur voluptate
+                         repudiandae. Temporibus accusantium harum saepe eligendi, perspiciatis ut consequatur repellendus numquam! Beatae non debitis
+                          similique facilis architecto praesentium veritatis quis, voluptate a perspiciatis quam consequatur consequuntur odit vel alias 
+                          culpa at dolorum delectus? Velit labore modi provident. Maxime, alias! Debitis repellat deserunt molestias? Magnam consequatur
+                           quibusdam ratione ipsam odit, quaerat, recusandae adipisci libero necessitatibus sunt asperiores vitae molestiae vero
+                            facere dolorem dolor ea officia voluptate iusto,
+                     porro quam corporis sapiente. Quae recusandae quisquam quibusdam deleniti unde!
+                </marquee>
+            </div>
+        </div>
+        <div class="rows16">
+            <div class="cols18">
+                <div class="rows17"> MANAGING DIRECTORS MEASSAGES</div>
+                <div class="rows18">
+                    <div class="cols20">
+                        <img src="office.jpg" id="off" alt=""><br>
+                        <p style="text-align: center; font-weight: bold; font-size: 20px;">SHRI SUSHIL KUMAR</p>
+                        <p style="text-align: center;">(MANAGING DIRECTOR)</p>
+                    </div>
+                    <div class="cols21">
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam tempora id ipsa porro hic,
+                             nemo reiciendis suscipit enim magni aliquid nisi fugit molestias aliquam, fuga unde voluptatibus
+                            consequatur autem earum dolor vero minus illum velit minima amet? Natus, eius eveniet ut impedit
+                            labore fugit odit, cum, a itaque optio ullam accusamus dicta sapiente in sequi hic! Atque,
+                            excepturi illum assumenda iure asperiores amet officia quasi a ea saepe odit vel odio corrupti
+                            dignissimos itaque ab? Commodi, adipisci? Qui voluptate voluptas dicta distinctio quaerat facilis a,
+                            consectetur minus soluta laudantium vitae quos adipisci?
+                            Id cupiditate maiores neque ex doloribus, laudantium voluptas.</p>
+                            <p style="text-align: right; box-sizing: border-box; padding-top: 30px; color:red;">Read More...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cols19">
+                <p style="padding-left: 20px; padding-top: 20px; font-size: 22px; box-sizing: border-box;">Register your Metro</p>
+                <p style="padding-left: 20px; padding-top: px; font-size: 40px; box-sizing: border-box; color: #00b3a1;">GoSmart Card ></p>
+                <p style="padding-left: 20px; padding-top: 20px; font-size: 17px; box-sizing: border-box;">Avial enhanced privileges</p>
+                <div class="online">
+                    <div class="one-1">
+                        <ion-icon name="wallet-outline" class="well"></ion-icon><br>
+                        <p style="font-size: 15px; text-align: center; color: #00b3a1;">Online Recharge</p>
+                    </div>
+                    <div class="one-1">
+                        <ion-icon name="wifi-outline" class="well"></ion-icon><br>
+                        <p style="font-size: 15px; text-align: center; color: #00b3a1;">Activate Wifi</p>
+                    </div>
+                    <div class="one-1">
+                        <ion-icon name="people-outline" class="well"></ion-icon>
+                        <p style="font-size: 15px;text-align: center; color: #00b3a1;">Gassle-free Travel</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="locations">
+            <div class="loca-1">
+                <div class="fare"><ion-icon name="calculator-outline" style="color: white; box-sizing: border-box; padding-left: 20px; font-size: 30px; padding-top: 10px;"></ion-icon>
+                <span style="font-size: 25PX; color: white; font-weight: bold; box-sizing: border-box; position: relative; top: -7px; padding-left: 5px;">FARE CALCULATOR</span>
+                
+                </div>
+                <div class="fare2">
+                    <p style="padding-left: 20px; padding-top: 20px; box-sizing: border-box; font-size: 20px;">From</p>
+                    <select class="sele"> 
+                        <option>SELECT SOURCE*</option>
+                        <option>Munshi Puliya</option>
+                        <option>IT College</option>
+                        <option>Nishad Ganj</option>
+                        <option>Charabag Station</option>
+                        <option>Airport Lucknow</option>
+                        
+                    </select><br>
+                    <p style="padding-left: 20px; padding-top: 20px; box-sizing: border-box; font-size: 20px;">To</p>
+                    <select class="sele"> 
+                        <option>SELECT DESTINATION</option>
+                        <option>Munshi Puliya</option>
+                        <option>IT College</option>
+                        <option>Nishad Ganj</option>
+                        <option>Charabag Station</option>
+                        <option>Airport Lucknow</option>
+                        
+                    </select><br>
+                    <input type="text" value="GET FARE" class="get">
+
+                    <!-- <p>To</p>
+                    <input type="text" placeholder="Select Source *"><br> -->
+
+                </div>
+            </div>
+            <div class="loca-2">
+                
+                <div class="fare" style="background: #1795d4;"><ion-icon name="location-outline" style="color: white; box-sizing: border-box; padding-left: 20px; font-size: 30px; padding-top: 10px;"></ion-icon>
+                <span style="font-size: 25PX; color: white; font-weight: bold; box-sizing: border-box; position: relative; top: -7px; padding-left: 5px;">METRO ROUTE MAP</span>
+                </div>
+                <div class="fare2" ><img src="map.jfif" alt="" height="300px" width="395px"></div>
+            </div>
+            <div class="loca-2">
+                <div class="fare" style="background: #00b3a1;"><ion-icon name="copy-outline" style="color: white; box-sizing: border-box; padding-left: 20px; font-size: 30px; padding-top: 10px; "></ion-icon>
+                <span style="font-size: 25PX; color: white; font-weight: bold; box-sizing: border-box; position: relative; top: -7px; padding-left: 5px;;">IN THE NEWS</span>
+                </div>
+                <div class="fare2">
+                    <div class="news"> <img src="download.jfif" alt="" width="100" height="95" style="float: left;"> <p style="padding-left: 50px; font-size: 15px; box-sizing: border-box; padding-top: 8px; text-align: justify;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet repellendus doloremque cupiditate aliquid ullam ipsam recusandae quaerat fugiat corporis doloribus.</p></div>
+                    <div class="news"><img src="bharat.png" alt="" width="100" height="95" style="float: left;"> <p style="padding-left: 50px; font-size: 15px; box-sizing: border-box; padding-top: 8px; text-align: justify;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet repellendus doloremque cupiditate aliquid ullam ipsam recusandae quaerat fugiat corporis doloribus.</p></div>
+                    <div class="news"><img src="er.png" alt="" width="100" height="95" style="float: left;"> <p style="padding-left: 50px; font-size: 15px; box-sizing: border-box; padding-top: 8px; text-align: justify;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet repellendus doloremque cupiditate aliquid ullam ipsam recusandae quaerat fugiat corporis doloribus.</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="instance">
+            <div class="ins-1" id="m1"><p style="font-size: 22PX;box-sizing: border-box; padding-left: 28px; color: white; padding-top: 30px;">Register your</p><p style="padding-left: 28px; font-size: 30px; color: white; padding-top: 5px;">COMPLAINT HERE</p></div>
+            <div class="ins-1" id="m2"><p style="font-size: 22PX;box-sizing: border-box; padding-left: 28px; color: white; padding-top: 30px;">Register your</p><p style="padding-left: 28px; font-size: 30px; color: white; padding-top: 5px;">COMPLAINT HERE</p></div>
+            <div class="ins-1" id="m3"><p style="font-size: 22PX;box-sizing: border-box; padding-left: 28px; color: white; padding-top: 30px;">Register your</p><p style="padding-left: 28px; font-size: 30px; color: white; padding-top: 5px;">COMPLAINT HERE</p></div>
+        </div>
+        <div class="gallery">
+            <div class="gall-1">
+                <div class="gall-top"><ion-icon name="woman-outline" style="color: white; box-sizing: border-box; font-size: 30px; padding-top: 8px; padding-left: 10px; float: left;"></ion-icon><p style="padding-top: 10px; font-size: 25px; color: white; padding-left: 20px; float: left;">PROJECTS</p></div>
+                <div class="gallbot"><div class="innner">
+                    <p style="box-sizing: border-box; padding-left: 20px; padding-top: 38px; font-size: 25px;">> Project Overviews</p>
+                    <p style="box-sizing: border-box; padding-left: 20px; padding-top: 38px; font-size: 25px;">> Project Overviews</p>
+                    <p style="box-sizing: border-box; padding-left: 20px; padding-top: 38px; font-size: 25px;">> Project Overviews</p>
+                </div></div>
+                <div class="inner-1">CLICK TO SEE</div>
+            </div>
+            <div class="gall-2">
+                <div class="gall-top" style="background: #d42723;"><ion-icon name="logo-capacitor" style="color: white; box-sizing: border-box; font-size: 30px; padding-top: 8px; padding-left: 10px; float: left;"></ion-icon><p style="padding-top: 10px; font-size: 25px; color: white; padding-left: 20px; float: left;">PROJECTS</p></div>
+                <div class="hot"></div>
+                <div class="inner-1" style="background: #d42723;">CLICK TO SEE</div>
+            </div>
+            <div class="gall-2">
+                <div class="image-g"><div class="g-inner"><ion-icon name="images-outline" style="float: right; font-size: 70px; color: white; box-sizing: border-box; padding-right: 50px; padding-top: 50px;"></ion-icon> <p style="color: white; font-size: 35px; padding-top: 120px; padding-left: 30px;">Image Gallery˃˃</p></div></div>
+                <div class="video-g" style="margin-top: 10px;"><div class="g-inner" style="background: rgba(207,106,8,0.8);"><ion-icon name="videocam-outline" style="float: right; font-size: 70px; color: white; box-sizing: border-box; padding-right: 50px; padding-top: 50px;"></ion-icon> <p style="color: white; font-size: 35px; padding-top: 120px; padding-left: 30px;">Image Gallery˃˃</p></div></div>
+            </div>
+        </div>
+        <footer>
+            <div class="footer-top">
+                <div class="footer-laft">
+                    <h2>About LMRC</h2>
+                    <p style="padding-top: 10px;">► About</p>
+                    <p style="padding-top: 10px;">► Press Release</p>
+                    <p style="padding-top: 10px;">► Mobile App</p>
+                    <p style="padding-top: 10px;">► Tourist Attractions</p>
+                    <p style="padding-top: 10px;">► The LMRC Team</p>
+                    <p style="padding-top: 10px;">► Certification</p>
+                    <p style="padding-top: 10px;">► Contact us</p>
+                    <p style="padding-top: 10px;">► Tourist Attractions</p>
+                    <p style="padding-top: 10px;">► The LMRC Team</p>
+                </div>
+                <div class="footer-main1">
+                    <h2>Helpful Information</h2>
+                    <p style="padding-top: 10px;">► Fare Details</p>
+                    <p style="padding-top: 10px;">► Metro Route Map</p>
+                    <p style="padding-top: 10px;">► Lost and Found</p>
+                    <p style="padding-top: 10px;">► Recruitment </p>
+                    <p style="padding-top: 10px;">► Register GoSmart Card</p>
+                    <p style="padding-top: 10px;">► FAQs</p>
+                    <p style="padding-top: 10px;">► RTI </p>
+                    <p style="padding-top: 10px;">► Tourist Attractions</p>
+                    <p style="padding-top: 10px;">► The LMRC Team</p>
+                </div>
+                <div class="footer-main2">
+                    <h2>Policy</h2>
+                    <p style="padding-top: 10px;">► LMRC Green Policy</p>
+                    <p style="padding-top: 10px;">► Film Shooting Policy</p>
+                    <p style="padding-top: 10px;">► Terms of Use</p>
+                    <p style="padding-top: 10px;">► Privacy Policy</p>
+                    <p style="padding-top: 10px;">► Hyperlink</p>
+                    <p style="padding-top: 10px;">► Disclaimer</p>
+                    <p style="padding-top: 10px;">► Sitemap </p>
+                    <p style="padding-top: 10px;">► Tourist Attractions</p>
+                    <p style="padding-top: 10px;">► The LMRC Team</p>
+                </div>
+                <div class="footer-right">
+                    <h2>Other Govt. Site</h2>
+                    <p style="padding-top: 10px;">► Govt. of India</p>
+                    <p style="padding-top: 10px;">► Indian Railways</p>
+                    <p style="padding-top: 10px;">► Govt. of UP</p>
+                    <p style="padding-top: 10px;">► Make in Lndia </p>
+                    <p style="padding-top: 10px;">► Digital India</p>
+                    <p style="padding-top: 10px;">► Incredible India</p>
+                    <p style="padding-top: 10px;">► European Investment Bank </p>
+                    <p style="padding-top: 10px;">► Tourist Attractions</p>
+                    <p style="padding-top: 10px;">► The LMRC Team</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="bootom-left"><span style="font-size: 22px;">©</span>Copyright 2017. All Rights Reseved by Lucknow Metro Rail Comporation. Designed and Developed by Eightee Pixels.</div>
+                <div class="bootom-right">Hits: <div class="number">0030026717</div></div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
