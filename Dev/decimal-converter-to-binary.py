@@ -20,6 +20,6 @@ def main():
 if __name__ == "__main__":
 	main()
 
- // Sample output
-//you will get a answer like as below
-//The binary of the number 10 is 1010
+#Sample display
+#you will get a answer like as below
+#The binary of the number 10 is 1010
