@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dance with Canvas</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    h1 {
+      position: absolute;
+      padding: 25px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: Arial, sans-serif;
+      font-size: 36px;
+      color: #ffffff;
+      background: rgba(0, 0, 0, 0.2);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+      border-radius: 50px;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body onclick="playMusic()">
+  <h1>Dance with Canvas</h1>
+  <canvas id="myCanvas"></canvas>
+  <!-- Audio file path https://drive.google.com/uc?id=1V_mESy5OGOdd0egglB3udJsEiDKQmDfr&export=download.mp3 -->
+
+  <audio id="bgMusic" autoplay loop hidden>
+    <source src="C:\Users\VA40149063\Downloads\audio-for-html.mp3" type="audio/mpeg">
+    <source src="https://drive.google.com/uc?id=1V_mESy5OGOdd0egglB3udJsEiDKQmDfr&export=download" type="audio/mpeg">
+    <!-- Add more source tags for other audio formats if needed -->
+  </audio>
+
+  <script>
+    // Alert for starting music
+    alert("Click anywhere to start music and let's dance with canvas xD !!!");
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // Set the canvas size to the screen dimensions
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Set the line style
+    ctx.lineWidth = 5;
+
+    // Initialize an empty array to store the points
+    let points = [];
+
+    // Function to generate random points and update the shape
+    function updateShape() {
+      // Clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Clear the points array
+      points = [];
+
+      // Generate random values for the points
+      for (let i = 0; i < 7; i++) {
+        const x = getRandomInt(20, canvas.width - 20);
+        const y = getRandomInt(20, canvas.height - 20);
+        points.push({ x, y });
+      }
+
+      // Set a random color for the stroke
+      ctx.strokeStyle = getRandomColor();
+
+      // Start drawing the shape
+      ctx.beginPath();
+      for (let i = 0; i < points.length; i++) {
+        const { x, y } = points[i];
+        ctx.lineTo(x, y);
+      }
+
+      // Draw the lines
+      ctx.stroke();
+    }
+
+    // Function to get a random integer between min and max (inclusive)
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    // Function to get a random color
+    function getRandomColor() {
+      const letters = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    // Set the interval to update the shape every 0.1 seconds (100 milliseconds)
+    setInterval(updateShape, 100);
+
+    // Play the audio automatically
+    function playMusic() {
+      const audio = document.getElementById("bgMusic");
+      audio.play();
+    };
+  </script>
+</body>
+</html>
