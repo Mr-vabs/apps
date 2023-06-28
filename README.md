@@ -33,6 +33,7 @@ Go through listed links for deployment,
 
 - [Boat](https://mr-vabs.github.io/apps/Css%20art/Boat.html)
 - [Ball Animation](https://mr-vabs.github.io/apps/Css%20art/ball-animation.html)
+- [Dance With Canvas](https://mr-vabs.github.io/apps/Css%20art/dance%20with%20canvas.html)
 
 ### Dev
 
