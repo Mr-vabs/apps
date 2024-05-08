@@ -19,6 +19,7 @@ Go through listed links for deployment,
 <hr>
 
 - [Annu](https://mr-vabs.github.io/apps/B'day/Annu.html)
+- [Aastha](https://mr-vabs.github.io/apps/B'day/Aastha.html)
 - [Zombie](https://mr-vabs.github.io/apps/B'day/Zombie.html)
 
 ### Challenges
