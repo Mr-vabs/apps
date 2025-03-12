@@ -54,11 +54,12 @@ Go through listed links for deployment,
 
 - [Password Generator](https://mr-vabs.github.io/apps/Password%20Generator/index.html)
 
-### Html Canvas
+### HTML
 
 <hr>
 
-- [Webs](https://mr-vabs.github.io/apps/Webs/index.html)
+- [Canvas](https://mr-vabs.github.io/apps/Webs/index.html)
+- [Attire](https://mr-vabs.github.io/apps/Webs/recommendation.html)
 
 <hr>
 
