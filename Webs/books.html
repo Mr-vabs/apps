@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Book Cards with React</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & Babel CDN -->
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      .book-card {
+        display: inline-block;
+        width: 250px;
+        height: 400px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 1rem;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .buy-button {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        background: rgba(255, 255, 255, 0.85);
+        padding: 6px 14px;
+        font-size: 0.9rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        color: #1f2937;
+        transition: all 0.2s ease-in-out;
+        text-decoration: none;
+      }
+
+      .buy-button:hover {
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const books = [
+        {
+          id: 1,
+          name: "Vardan",
+          image:
+            "https://m.media-amazon.com/images/I/91TN+59DzdL._UF1000,1000_QL80_FMwebp_.jpg",
+          link: "https://amzn.in/d/fQTmIbu"
+        },
+        {
+          id: 2,
+          name: "Prema",
+          image:
+            "https://m.media-amazon.com/images/I/71mBdAGvvGL._UF1000,1000_QL80_FMwebp_.jpg",
+          link: "https://amzn.in/d/01FBOjr"
+        },
+        {
+          id: 3,
+          name: "Ashadh Ka Ek Din",
+          image:
+            "https://m.media-amazon.com/images/I/A1mVEPF3YFL._UF1000,1000_QL80_FMwebp_.jpg",
+          link: "https://amzn.in/d/0refx8o"
+        },
+        {
+          id: 4,
+          name: "Suraj Ka Satvan Ghoda",
+          image:
+            "https://rukminim2.flixcart.com/image/830/996/xif0q/book/p/5/e/suraj-ka-satwan-ghoda-original-imagtkndhrhghsqb.jpeg?q=60&crop=false",
+          link: "https://dl.flipkart.com/s/526x6FuuuN"
+        },
+        {
+          id: 5,
+          name: "Usne Kaha Tha",
+          image:
+            "https://m.media-amazon.com/images/I/A118ahmo2ZL._UF1000,1000_QL80_FMwebp_.jpg",
+          link: "https://amzn.in/d/eEjRHtO"
+        }
+      ];
+
+      const BookCard = ({ image, link }) => (
+        <div className="book-card" style={{ backgroundImage: `url(${image})` }}>
+          <a
+            href={link}
+            target="_blank"
+            className="buy-button"
+            rel="noopener noreferrer"
+          >
+            खरीदें
+          </a>
+        </div>
+      );
+
+      const BookGallery = () => (
+        <div className="flex flex-wrap justify-center p-4">
+          {books.map(book => (
+            <div key={book.id} className="m-2">
+              <BookCard image={book.image} link={book.link} />
+            </div>
+          ))}
+        </div>
+      );
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<BookGallery />);
+    </script>
+  </body>
+  </html>
+  
