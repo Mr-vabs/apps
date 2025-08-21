@@ -61,6 +61,8 @@ Go through listed links for deployment,
 - [Spider Canvas](https://mr-vabs.github.io/apps/Webs/index.html)
 - [Attire](https://mr-vabs.github.io/apps/Webs/recommendation.html)
 - [Books](https://mr-vabs.github.io/apps/Webs/books.html)
+- [Catalogue](https://mr-vabs.github.io/apps/Webs/catalogue.html)
+https://github.com/Mr-vabs/apps/blob/main/Webs%
 
 <hr>
 
