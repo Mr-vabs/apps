@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UP Police Hindi Typing Master (V5)</title>
+    
+    <!-- React & ReactDOM (The Engine) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel (To understand the code) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS (For Styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-hindi { font-family: 'Noto Sans Devanagari', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 h-screen overflow-hidden">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useMemo } = React;
+
+        // --- ICONS (SVG) ---
+        // We define these manually so you don't need external icon libraries
+        const Icons = {
+            Menu: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>,
+            X: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>,
+            Settings: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.47a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>,
+            Trophy: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>,
+            RotateCcw: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>,
+            ChevronRight: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6"/></svg>,
+            CheckCircle2: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>,
+            GraduationCap: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>,
+            Lock: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        };
+
+        // --- DRILL GENERATORS ---
+        const createSyllableDrill = (id, syllable, hint, count = 20) => ({
+            id, type: 'word', content: syllable, repeat: count, hint: `Repetition: ${hint}`, category: 'Muscle Memory'
+        });
+
+        const createMatraDrill = (id, matraKey, matraChar, hint, count = 10) => {
+            const mix = `k${matraKey} h${matraKey} l${matraKey} j${matraKey}`; 
+            return {
+                id, type: 'word', content: mix, repeat: count, hint: `Matra Drill: ${matraChar}`, category: 'Matras'
+            };
+        };
+
+        const createWordDrill = (id, words, hint, count = 15) => ({
+            id, type: 'word', content: words, repeat: count, hint: `Vocabulary: ${hint}`, category: 'Words'
+        });
+
+        // --- CURRICULUM DATA ---
+        const CURRICULUM = {
+            1: {
+                title: "Day 1: Home Row Basics",
+                desc: "Focus: क, प, र, त, च and Matras",
+                exercises: [
+                    createSyllableDrill('d1_1', 'kk hh jj ll', 'Double Tap (कक पप...)'),
+                    createSyllableDrill('d1_2', 'kj hj lj ;j', 'Ra-Ending (कर पर तर चर)'),
+                    createSyllableDrill('d1_3', 'kl hl jl ;l', 'Ta-Ending (कत पत रत चत)'),
+                    createMatraDrill('d1_4', 'e', 'ा (Aa) - ka pa ra ta', 15),
+                    createMatraDrill('d1_5', 'f', 'ि (i) - ki pi ri ti', 15),
+                    createMatraDrill('d1_6', 's', 'े (e) - ke pe re te', 15),
+                    createMatraDrill('d1_7', 'g', 'ु (u) - ku pu ru tu', 15),
+                    createWordDrill('d1_8', 'कर पर तर चर', 'Simple 2-Char Words'),
+                    createWordDrill('d1_12', 'सरकार', 'Sarkar (Govt)'),
+                    createWordDrill('d1_13', 'रपट', 'Rapat (Report)'),
+                    { id: 'd1_final', type: 'line', content: 'सरकार का पता रपट कर', repeat: 10, hint: 'FINAL TEST: Home Row', category: 'Test' }
+                ]
+            },
+            2: {
+                title: "Day 2: Top Row & Matras",
+                desc: "Focus: Matras (ी, ू, ै, ौ) and Top Consonants",
+                exercises: [
+                    createSyllableDrill('d2_1', 'yy uu ii oo pp', 'Top Row Doubles'),
+                    createMatraDrill('d2_3', 'r', 'ी (ee) - ki pi ri ti'), 
+                    createMatraDrill('d2_4', 't', 'ू (oo) - ku pu ru tu'),
+                    createMatraDrill('d2_5', 'w', 'ै (ai) - kai pai rai tai'),
+                    createMatraDrill('d2_6', 'q', 'ौ (au) - kau pau rau tau'),
+                    createWordDrill('d2_7', 'जल कल पल', 'Jal Kal Pal'),
+                    createWordDrill('d2_10', 'है', 'Hai (Is) - Most Common'),
+                    { id: 'd2_final', type: 'line', content: 'जल ही जीवन है', repeat: 10, hint: 'FINAL TEST', category: 'Test' }
+                ]
+            },
+            3: {
+                title: "Day 3: Bottom Row",
+                desc: "Focus: म, न, व, स and Anusvar",
+                exercises: [
+                    createSyllableDrill('d3_1', 'cc vv bb nn mm', 'Bottom Row Doubles'),
+                    createMatraDrill('d3_2', 'x', 'ं (Anusvar) - kam pam ram'),
+                    createWordDrill('d3_3', 'समय', 'Samay (Time)'),
+                    createWordDrill('d3_4', 'नमन', 'Naman (Bow)'),
+                    createWordDrill('d3_6', 'गर्म', 'Garam (Hot)'),
+                    createWordDrill('d3_8', 'संभव', 'Sambhav (Possible)'),
+                    { id: 'd3_final', type: 'line', content: 'समय बहुत कम है', repeat: 10, hint: 'FINAL TEST', category: 'Test' }
+                ]
+            },
+            4: {
+                title: "Day 4: Shift Key (Half Chars)",
+                desc: "Speed Breakers: Half Characters",
+                exercises: [
+                    createWordDrill('d4_1', 'kK hH lL oO pP', 'Full/Half Pairs (कख पफ...)'),
+                    createWordDrill('d4_2', 'क्या', 'Kya (What)'),
+                    createWordDrill('d4_3', 'क्यों', 'Kyon (Why)'),
+                    createWordDrill('d4_4', 'स्थान', 'Sthan (Place)'),
+                    createWordDrill('d4_6', 'मुख्य', 'Mukhya (Main)'),
+                    createWordDrill('d4_7', 'प्यार', 'Pyar (Love)'),
+                    { id: 'd4_final', type: 'line', content: 'ध्यान ही मुख्य है', repeat: 10, hint: 'FINAL TEST', category: 'Test' }
+                ]
+            },
+            5: {
+                title: "Day 5: Official Vocab",
+                desc: "Words for Police/Govt Tests",
+                exercises: [
+                    createWordDrill('d5_1', 'के है में कि और से', 'Connectors'),
+                    createWordDrill('d5_2', 'पुलिस थाना अधिकारी', 'Police Vocab 1'),
+                    createWordDrill('d5_3', 'निरीक्षण कार्यवाही अपराध', 'Police Vocab 2'),
+                    createWordDrill('d5_5', 'सेवा में श्रीमान', 'Application Start'),
+                    { id: 'd5_final', type: 'line', content: 'पुलिस ने कार्यवाही की', repeat: 10, hint: 'FINAL TEST', category: 'Test' }
+                ]
+            },
+            6: {
+                title: "Day 6: Speed & Rhythm",
+                desc: "Continuous Flow",
+                exercises: [
+                    { id: 'd6_1', type: 'sentence', content: 'राम आम खाता है', repeat: 5, hint: 'Rhythm Drill 1', category: 'Flow' },
+                    { id: 'd6_2', type: 'sentence', content: 'सदा सत्य बोलो', repeat: 5, hint: 'Rhythm Drill 2', category: 'Flow' },
+                    { id: 'd6_final', type: 'paragraph', content: 'भारत एक कृषि प्रधान देश है। यहाँ की अधिकांश जनसंख्या गाँवों में रहती है।', repeat: 3, hint: 'Mini Paragraph', category: 'Test' }
+                ]
+            },
+            7: {
+                title: "Day 7: Exam Simulation",
+                desc: "Worst Case Scenarios @ 30 WPM",
+                exercises: [
+                    { id: 'd7_1', type: 'paragraph', content: 'शिक्षा मनुष्य के जीवन में बहुत महत्वपूर्ण भूमिका निभाती है। यह हमें सही और गलत में अंतर करना सिखाती है।', repeat: 3, hint: 'Mock 1: Education', category: 'Exam' },
+                    { id: 'd7_2', type: 'paragraph', content: 'संविधान के अनुच्छेद ३४३ के अनुसार संघ की राजभाषा हिंदी और लिपि देवनागरी है। शासकीय कार्यों में इसका प्रयोग अनिवार्य है।', repeat: 3, hint: 'Mock 2: Legal', category: 'Exam' },
+                    { id: 'd7_3', type: 'paragraph', content: 'उत्तर प्रदेश पुलिस का आदर्श वाक्य सुरक्षा आपकी संकल्प हमारा है। पुलिस कर्मियों को समाज में शांति व्यवस्था बनाए रखने का कार्य सौंपा गया है।', repeat: 3, hint: 'Mock 3: UP Police', category: 'Exam' }
+                ]
+            }
+        };
+
+        const KEYBOARD_LAYOUT = [
+            [
+                { code: 'Backquote', key: '`', h1: '़', h2: 'ञ', w: 'w-10' },
+                { code: 'Digit1', key: '1', h1: '१', h2: 'ज्ञ', w: 'w-10' },
+                { code: 'Digit2', key: '2', h1: '२', h2: 'श्र', w: 'w-10' },
+                { code: 'Digit3', key: '3', h1: '३', h2: 'रू', w: 'w-10' },
+                { code: 'Digit4', key: '4', h1: '४', h2: 'ः', w: 'w-10' },
+                { code: 'Digit5', key: '5', h1: '५', h2: 'श्र', w: 'w-10' },
+                { code: 'Digit6', key: '6', h1: '६', h2: 'त्र', w: 'w-10' },
+                { code: 'Digit7', key: '7', h1: '७', h2: 'क्ष', w: 'w-10' },
+                { code: 'Digit8', key: '8', h1: '८', h2: 'श', w: 'w-10' },
+                { code: 'Digit9', key: '9', h1: '९', h2: '(', w: 'w-10' },
+                { code: 'Digit0', key: '0', h1: '०', h2: ')', w: 'w-10' },
+                { code: 'Minus', key: '-', h1: '.', h2: 'ऋ', w: 'w-10' },
+                { code: 'Equal', key: '=', h1: 'ृ', h2: 'र्', w: 'w-10' },
+                { code: 'Backspace', key: '⌫', h1: '', h2: '', w: 'w-auto flex-1' }
+            ],
+            [
+                { code: 'Tab', key: 'Tab', h1: '', h2: '', w: 'w-14' },
+                { code: 'KeyQ', key: 'q', h1: 'ौ', h2: 'औ', w: 'w-10' },
+                { code: 'KeyW', key: 'w', h1: 'ै', h2: 'ऐ', w: 'w-10' },
+                { code: 'KeyE', key: 'e', h1: 'ा', h2: 'आ', w: 'w-10' },
+                { code: 'KeyR', key: 'r', h1: 'ी', h2: 'ई', w: 'w-10' },
+                { code: 'KeyT', key: 't', h1: 'ू', h2: 'ऊ', w: 'w-10' },
+                { code: 'KeyY', key: 'y', h1: 'ब', h2: 'भ', w: 'w-10' },
+                { code: 'KeyU', key: 'u', h1: 'ह', h2: 'ङ', w: 'w-10' },
+                { code: 'KeyI', key: 'i', h1: 'ग', h2: 'घ', w: 'w-10' },
+                { code: 'KeyO', key: 'o', h1: 'द', h2: 'ध', w: 'w-10' },
+                { code: 'KeyP', key: 'p', h1: 'ज', h2: 'झ', w: 'w-10' },
+                { code: 'BracketLeft', key: '[', h1: 'ड', h2: 'ढ', w: 'w-10' },
+                { code: 'BracketRight', key: ']', h1: '़', h2: 'ञ', w: 'w-10' },
+                { code: 'Backslash', key: '\\', h1: 'ॉ', h2: 'ऑ', w: 'w-10' }
+            ],
+            [
+                { code: 'CapsLock', key: 'Caps', h1: '', h2: '', w: 'w-16' },
+                { code: 'KeyA', key: 'a', h1: 'ो', h2: 'ओ', w: 'w-10' },
+                { code: 'KeyS', key: 's', h1: 'े', h2: 'ए', w: 'w-10' },
+                { code: 'KeyD', key: 'd', h1: '्', h2: 'अ', w: 'w-10' },
+                { code: 'KeyF', key: 'f', h1: 'ि', h2: 'इ', w: 'w-10' },
+                { code: 'KeyG', key: 'g', h1: 'ु', h2: 'उ', w: 'w-10' },
+                { code: 'KeyH', key: 'h', h1: 'प', h2: 'फ', w: 'w-10' },
+                { code: 'KeyJ', key: 'j', h1: 'र', h2: 'र्', w: 'w-10' },
+                { code: 'KeyK', key: 'k', h1: 'क', h2: 'ख', w: 'w-10' },
+                { code: 'KeyL', key: 'l', h1: 'त', h2: 'थ', w: 'w-10' },
+                { code: 'Semicolon', key: ';', h1: 'च', h2: 'छ', w: 'w-10' },
+                { code: 'Quote', key: "'", h1: 'ट', h2: 'ठ', w: 'w-10' },
+                { code: 'Enter', key: 'Enter', h1: '↵', h2: '', w: 'w-auto flex-1' }
+            ],
+            [
+                { code: 'ShiftLeft', key: 'Shift', h1: '', h2: '', w: 'w-20' },
+                { code: 'KeyZ', key: 'z', h1: '्र', h2: 'र्', w: 'w-10' },
+                { code: 'KeyX', key: 'x', h1: 'ं', h2: 'ँ', w: 'w-10' },
+                { code: 'KeyC', key: 'c', h1: 'म', h2: 'ण', w: 'w-10' },
+                { code: 'KeyV', key: 'v', h1: 'न', h2: 'ऩ', w: 'w-10' },
+                { code: 'KeyB', key: 'b', h1: 'व', h2: 'ळ', w: 'w-10' },
+                { code: 'KeyN', key: 'n', h1: 'ल', h2: 'ल्र', w: 'w-10' },
+                { code: 'KeyM', key: 'm', h1: 'स', h2: 'श', w: 'w-10' },
+                { code: 'Comma', key: ',', h1: ',', h2: 'ष', w: 'w-10' },
+                { code: 'Period', key: '.', h1: '.', h2: '।', w: 'w-10' },
+                { code: 'Slash', key: '/', h1: 'य', h2: '?', w: 'w-10' },
+                { code: 'ShiftRight', key: 'Shift', h1: '', h2: '', w: 'w-auto flex-1' }
+            ],
+            [
+                { code: 'Space', key: 'Space', h1: '', h2: '', w: 'w-64 mx-auto' }
+            ]
+        ];
+
+        const ENG_TO_HINDI = {
+            'k': 'क', 'K': 'ख', 'h': 'प', 'H': 'फ', 'l': 'त', 'L': 'थ',
+            's': 'े', 'S': 'ए', 'y': 'ब', 'Y': 'भ', 'c': 'म', 'C': 'ण',
+            'v': 'न', 'V': 'ऩ', 'j': 'र', 'J': 'र्', 'a': 'ो', 'A': 'ओ',
+            'd': '्', 'D': 'अ', 'f': 'ि', 'F': 'इ', 'g': 'ु', 'G': 'उ',
+            'q': 'ौ', 'Q': 'औ', 'w': 'ै', 'W': 'ऐ', 'e': 'ा', 'E': 'आ',
+            'r': 'ी', 'R': 'ई', 't': 'ू', 'T': 'ऊ', 'u': 'ह', 'U': 'ङ',
+            'i': 'ग', 'I': 'घ', 'o': 'द', 'O': 'ध', 'p': 'ज', 'P': 'झ',
+            'z': '्र', 'Z': 'र्', 'x': 'ं', 'X': 'ँ', 'b': 'व', 'B': 'ळ',
+            'n': 'ल', 'N': 'ल्र', 'm': 'स', 'M': 'श',
+            '[': 'ड', '{': 'ढ', ']': '़', '}': 'ञ',
+            ',': ',', '<': 'ष', '.': '.', '>': '।',
+            '/': 'य', '?': '?', '\'': 'ट', '\"': 'ठ',
+            ';': 'च', ':': 'छ'
+        };
+
+        // --- COMPONENTS ---
+        const VirtualKeyboard = ({ nextChar, pressedKeys }) => {
+            const targetKey = useMemo(() => {
+                if (!nextChar) return { code: null, shift: false };
+                if (nextChar === ' ') return { code: 'Space', shift: false };
+                
+                for (const row of KEYBOARD_LAYOUT) {
+                    for (const k of row) {
+                        if (k.h1 === nextChar || k.key === nextChar) return { code: k.code, shift: false };
+                        if (k.h2 === nextChar) return { code: k.code, shift: true };
+                    }
+                }
+                return { code: null, shift: false };
+            }, [nextChar]);
+
+            return (
+                <div className="flex flex-col gap-1.5 select-none w-full scale-95 origin-center">
+                    {KEYBOARD_LAYOUT.map((row, rIdx) => (
+                        <div key={rIdx} className="flex justify-center gap-1">
+                            {row.map((k) => {
+                                const isTarget = targetKey.code === k.code;
+                                const isShiftNeeded = targetKey.shift && (k.key === 'Shift');
+                                const isPressed = pressedKeys.has(k.code);
+                                
+                                let bg = "bg-slate-800 border-slate-900 text-slate-500";
+                                let shadow = "shadow-[0_3px_0_0_rgb(15,23,42)]";
+                                let translate = "";
+
+                                if (isTarget || isShiftNeeded) {
+                                    bg = "bg-green-600 border-green-800 text-white";
+                                }
+                                if (isPressed) {
+                                    bg = "bg-blue-500 border-blue-700 text-white";
+                                    shadow = "shadow-none";
+                                    translate = "translate-y-[3px]";
+                                }
+
+                                return (
+                                    <div 
+                                        key={k.code}
+                                        className={`${k.w} h-10 md:h-12 rounded border-b-2 flex flex-col items-center justify-center transition-all duration-75 relative ${bg} ${shadow} ${translate}`}
+                                    >
+                                        <span className="absolute top-0.5 left-1 text-[8px] font-bold opacity-40">{k.key.length === 1 ? k.key.toUpperCase() : ''}</span>
+                                        {k.key !== 'Space' && k.key !== 'Shift' && k.key !== 'Enter' && k.key !== 'Tab' && k.key !== 'Caps' && k.key !== '⌫' && (
+                                            <div className="flex flex-col items-center leading-none mt-0.5">
+                                                <span className="text-[9px] opacity-80">{k.h2}</span>
+                                                <span className="text-sm font-bold">{k.h1}</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [day, setDay] = useState(1);
+            const [drillIndex, setDrillIndex] = useState(0);
+            const [inputText, setInputText] = useState("");
+            const [startTime, setStartTime] = useState(null);
+            const [stats, setStats] = useState({ wpm: 0, accuracy: 100, errors: 0, total: 0 });
+            const [pressedKeys, setPressedKeys] = useState(new Set());
+            const [isCompleted, setIsCompleted] = useState(false);
+            const [isSidebarOpen, setSidebarOpen] = useState(false);
+            const [disableBackspace, setDisableBackspace] = useState(false);
+            const inputRef = useRef(null);
+
+            const currentDrill = CURRICULUM[day].exercises[drillIndex];
+            const totalDrills = CURRICULUM[day].exercises.length;
+            const progressPercent = ((drillIndex) / totalDrills) * 100;
+
+            const targetText = useMemo(() => {
+                const { type, content, repeat } = currentDrill;
+                if (['line', 'paragraph', 'sentence'].includes(type)) return content;
+                
+                let text = content;
+                if (/[a-zA-Z]/.test(content)) {
+                    if (content.includes(' ')) {
+                        text = content.split(' ').map(word => {
+                            return word.split('').map(c => ENG_TO_HINDI[c] || c).join('');
+                        }).join(' ');
+                    } else {
+                        text = content.split('').map(c => ENG_TO_HINDI[c] || c).join(' '); 
+                        if (type === 'word') {
+                            text = content.split('').map(c => ENG_TO_HINDI[c] || c).join('');
+                        }
+                    }
+                }
+                
+                return Array(repeat).fill(text).join(' ');
+            }, [currentDrill]);
+
+            const nextChar = targetText[inputText.length] || null;
+
+            useEffect(() => { resetDrill(); }, [day, drillIndex]);
+            useEffect(() => { if (inputRef.current && !isCompleted && !isSidebarOpen) inputRef.current.focus(); }, [inputText, isCompleted, isSidebarOpen]);
+            useEffect(() => {
+                let interval;
+                if (startTime && !isCompleted) {
+                    interval = setInterval(() => {
+                        const mins = (Date.now() - startTime) / 60000;
+                        const wpm = Math.round((inputText.length / 5) / mins);
+                        setStats(prev => ({ ...prev, wpm: wpm || 0 }));
+                    }, 1000);
+                }
+                return () => clearInterval(interval);
+            }, [startTime, inputText, isCompleted]);
+
+            const resetDrill = () => {
+                setInputText("");
+                setStartTime(null);
+                setStats({ wpm: 0, accuracy: 100, errors: 0, total: 0 });
+                setIsCompleted(false);
+                if (inputRef.current) inputRef.current.focus();
+            };
+
+            const handleKeyDown = (e) => {
+                setPressedKeys(prev => new Set(prev).add(e.code));
+                if (disableBackspace && e.key === 'Backspace') {
+                    e.preventDefault();
+                }
+            };
+
+            const handleKeyUp = (e) => {
+                setPressedKeys(prev => {
+                    const next = new Set(prev);
+                    next.delete(e.code);
+                    return next;
+                });
+            };
+
+            const handleChange = (e) => {
+                const val = e.target.value;
+                if (isCompleted) return;
+                if (!startTime) setStartTime(Date.now());
+
+                if (val.length > inputText.length) {
+                    const typedChar = val.slice(-1);
+                    const expectedChar = targetText[val.length - 1];
+                    const newTotal = stats.total + 1;
+                    let newErrors = stats.errors;
+                    if (typedChar !== expectedChar) newErrors += 1;
+                    
+                    setStats(prev => ({
+                        ...prev,
+                        total: newTotal,
+                        errors: newErrors,
+                        accuracy: Math.round(((newTotal - newErrors) / newTotal) * 100)
+                    }));
+                }
+
+                setInputText(val);
+                if (val.length === targetText.length) setIsCompleted(true);
+            };
+
+            const nextDrill = () => {
+                if (drillIndex < totalDrills - 1) {
+                    setDrillIndex(drillIndex + 1);
+                } else {
+                    setDrillIndex(0);
+                    alert("Day " + day + " Completed!");
+                }
+            };
+
+            return (
+                <div className="min-h-screen bg-slate-900 text-slate-100 font-sans flex overflow-hidden" onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
+                    {/* SIDEBAR */}
+                    <div className={`fixed inset-y-0 left-0 z-40 w-72 bg-slate-800 border-r border-slate-700 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 flex flex-col shadow-2xl`}>
+                        <div className="p-4 border-b border-slate-700 flex justify-between items-center bg-slate-800">
+                            <div className="font-bold text-lg flex items-center gap-2"><Icons.GraduationCap /> Curriculum</div>
+                            <button onClick={() => setSidebarOpen(false)} className="md:hidden text-slate-400"><Icons.X /></button>
+                        </div>
+                        
+                        <div className="p-4 bg-slate-800 border-b border-slate-700">
+                            <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+                                <Icons.Settings /> Exam Settings
+                            </div>
+                            <label className="flex items-center gap-3 cursor-pointer p-2 rounded hover:bg-slate-700 transition-colors">
+                                <div className={`w-10 h-5 rounded-full relative transition-colors ${disableBackspace ? 'bg-red-500' : 'bg-slate-600'}`}>
+                                    <input type="checkbox" checked={disableBackspace} onChange={(e) => setDisableBackspace(e.target.checked)} className="opacity-0 w-full h-full absolute z-10 cursor-pointer" />
+                                    <div className={`w-3 h-3 bg-white rounded-full absolute top-1 transition-transform ${disableBackspace ? 'left-6' : 'left-1'}`}></div>
+                                </div>
+                                <div className="text-sm">
+                                    <div>Disable Backspace</div>
+                                    <div className="text-[10px] text-slate-400">Strict Exam Mode</div>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <div className="p-2 grid grid-cols-4 gap-1 border-b border-slate-700 bg-slate-800">
+                            {Object.keys(CURRICULUM).map(d => (
+                                <button key={d} onClick={() => { setDay(parseInt(d)); setDrillIndex(0); }} className={`p-2 rounded text-xs font-bold transition-colors ${day === parseInt(d) ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}>
+                                    Day {d}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto p-2 space-y-1 bg-slate-900/50">
+                            <div className="px-2 py-2 text-xs uppercase font-bold text-slate-500 tracking-wider">{CURRICULUM[day].title}</div>
+                            {CURRICULUM[day].exercises.map((ex, idx) => (
+                                <button key={ex.id} onClick={() => { setDrillIndex(idx); setSidebarOpen(false); }} className={`w-full text-left px-3 py-3 rounded-lg text-sm flex items-center gap-3 transition-all ${drillIndex === idx ? 'bg-blue-600/20 text-blue-200 border border-blue-500/50' : 'text-slate-400 hover:bg-slate-700 hover:text-white'}`}>
+                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${drillIndex === idx ? 'bg-blue-500 text-white' : 'bg-slate-700'}`}>{idx + 1}</div>
+                                    <div className="flex-1 truncate"><div className="font-medium truncate">{ex.hint}</div><div className="text-[10px] opacity-60 uppercase">{ex.category}</div></div>
+                                    {idx < drillIndex && <span className="text-green-500"><Icons.CheckCircle2 /></span>}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* MAIN CONTENT */}
+                    <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
+                        <div className="md:hidden p-4 bg-slate-800 border-b border-slate-700 flex justify-between items-center">
+                            <div className="font-bold text-white">UP Police Typing</div>
+                            <button onClick={() => setSidebarOpen(true)} className="p-2 bg-slate-700 rounded text-white"><Icons.Menu /></button>
+                        </div>
+
+                        <div className="p-4 md:p-6 pb-2">
+                            <div className="flex justify-between items-end mb-4">
+                                <div>
+                                    <h1 className="text-2xl font-bold text-white hidden md:block">Exercise {drillIndex + 1}: <span className="text-blue-400">{currentDrill.hint}</span></h1>
+                                    <div className="text-sm text-slate-400 md:hidden">Exercise {drillIndex + 1} / {totalDrills}</div>
+                                </div>
+                                <div className="flex gap-4 text-sm font-mono">
+                                    <div className="text-right"><div className="text-slate-500 text-xs uppercase">Speed</div><div className={`text-xl font-bold ${stats.wpm >= 30 ? 'text-green-400' : 'text-orange-400'}`}>{stats.wpm} WPM</div></div>
+                                    <div className="text-right"><div className="text-slate-500 text-xs uppercase">Accuracy</div><div className="text-xl font-bold text-blue-400">{stats.accuracy}%</div></div>
+                                </div>
+                            </div>
+                            <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                                <div className="h-full bg-blue-500 transition-all duration-300" style={{ width: `${progressPercent}%` }}></div>
+                            </div>
+                        </div>
+
+                        <div className="flex-1 flex flex-col md:flex-row gap-4 p-4 md:p-6 overflow-y-auto">
+                            <div className="flex-1 flex flex-col gap-4">
+                                <div className="bg-slate-800 rounded-xl border border-slate-700 p-4 md:p-6 shadow-lg min-h-[120px] relative overflow-hidden flex flex-col">
+                                    <div className="absolute top-0 right-0 bg-slate-700 px-3 py-1 rounded-bl-xl text-xs font-mono text-slate-300 border-b border-l border-slate-600 flex items-center gap-2">
+                                        {disableBackspace && <div className="text-red-400 flex items-center gap-1"><Icons.Lock /> NO BACKSPACE</div>}
+                                        {!disableBackspace && <span>Target</span>}
+                                    </div>
+                                    <div className="text-2xl md:text-3xl leading-relaxed font-hindi tracking-wide text-slate-300 break-words">
+                                        {targetText.split('').map((char, i) => {
+                                            let color = "text-slate-500";
+                                            if (i < inputText.length) {
+                                                color = inputText[i] === char ? "text-green-400" : "text-red-500 bg-red-900/20";
+                                            } else if (i === inputText.length) {
+                                                color = "text-blue-400 bg-blue-500/20 ring-1 ring-blue-500 rounded px-0.5";
+                                            }
+                                            return <span key={i} className={`${color} transition-colors`}>{char}</span>
+                                        })}
+                                    </div>
+                                </div>
+
+                                <div className={`flex-1 rounded-xl border-2 p-4 md:p-6 shadow-lg focus-within:ring-4 transition-all relative flex flex-col ${disableBackspace ? 'border-red-900/30 focus-within:border-red-500/50 focus-within:ring-red-500/10 bg-slate-900' : 'bg-slate-800 border-slate-700 focus-within:border-blue-500/50 focus-within:ring-blue-500/10'}`}>
+                                    <textarea ref={inputRef} value={inputText} onChange={handleChange} disabled={isCompleted} spellCheck={false} className="w-full h-full bg-transparent text-2xl md:text-3xl font-hindi text-white outline-none resize-none" placeholder={!isCompleted ? (disableBackspace ? "Type carefully (Backspace disabled)..." : "Start typing...") : ""} />
+                                    {isCompleted && (
+                                        <div className="absolute inset-0 z-10 bg-slate-900/90 backdrop-blur-sm rounded-lg flex flex-col items-center justify-center animate-in fade-in duration-300">
+                                            <div className="text-yellow-400 mb-4"><Icons.Trophy /></div>
+                                            <h2 className="text-3xl font-bold text-white mb-2">Excellent!</h2>
+                                            <div className="text-slate-400 mb-6 text-sm">
+                                                {disableBackspace && <span className="text-red-400 font-bold mr-2">[Hard Mode]</span>}
+                                                WPM: <span className="text-white font-bold">{stats.wpm}</span> • Acc: <span className="text-white font-bold">{stats.accuracy}%</span>
+                                            </div>
+                                            <div className="flex gap-4">
+                                                <button onClick={resetDrill} className="px-6 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold flex items-center gap-2"><Icons.RotateCcw /> Retry</button>
+                                                <button onClick={nextDrill} className="px-6 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold flex items-center gap-2 shadow-lg shadow-blue-500/25">Next <Icons.ChevronRight /></button>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="md:w-[450px] shrink-0 flex flex-col">
+                                <div className="bg-slate-950 rounded-xl border border-slate-800 p-4 shadow-2xl h-full">
+                                    <div className="flex justify-between items-center mb-4 text-xs font-bold uppercase text-slate-500 tracking-wider">
+                                        <span>Finger Guide</span>
+                                        <span className="text-green-400 flex items-center gap-2">
+                                            Next: <span className="bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-white text-sm">{nextChar === ' ' ? 'Space' : nextChar || 'End'}</span>
+                                        </span>
+                                    </div>
+                                    <div className="flex-1 flex items-center">
+                                        <VirtualKeyboard nextChar={nextChar} pressedKeys={pressedKeys} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
+
