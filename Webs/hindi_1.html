@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UP Police Hindi Typing (V13) - Visual Key Mapping</title>
+    <title>UP Police Hindi Typing (V14) - 0 to Hero Curriculum</title>
     
     <!-- React & Tailwind -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -64,140 +64,200 @@
             'Z': 'र्', 'X': 'ँ', 'C': 'ण', 'V': 'ऩ', 'B': 'ळ', 'N': 'ल्र', 'M': 'श', '<': 'ष', '>': '।', '?': '?'
         };
 
+        const FINGER_MAP = {
+            // Left Hand
+            '`': 'Left Pinky', '1': 'Left Pinky', 'q': 'Left Pinky', 'a': 'Left Pinky', 'z': 'Left Pinky',
+            '2': 'Left Ring', 'w': 'Left Ring', 's': 'Left Ring', 'x': 'Left Ring',
+            '3': 'Left Middle', 'e': 'Left Middle', 'd': 'Left Middle', 'c': 'Left Middle',
+            '4': 'Left Index', 'r': 'Left Index', 'f': 'Left Index', 'v': 'Left Index',
+            '5': 'Left Index', 't': 'Left Index', 'g': 'Left Index', 'b': 'Left Index',
+            
+            // Right Hand
+            '6': 'Right Index', 'y': 'Right Index', 'h': 'Right Index', 'n': 'Right Index',
+            '7': 'Right Index', 'u': 'Right Index', 'j': 'Right Index', 'm': 'Right Index',
+            '8': 'Right Middle', 'i': 'Right Middle', 'k': 'Right Middle', ',': 'Right Middle',
+            '9': 'Right Ring', 'o': 'Right Ring', 'l': 'Right Ring', '.': 'Right Ring',
+            '0': 'Right Pinky', 'p': 'Right Pinky', ';': 'Right Pinky', '/': 'Right Pinky',
+            '-': 'Right Pinky', '[': 'Right Pinky', '\'': 'Right Pinky',
+            '=': 'Right Pinky', ']': 'Right Pinky',
+            
+            'Space': 'Thumb'
+        };
+
         const keysToHindi = (keyStr) => keyStr.split('').map(k => INSCRIPT[k] || k).join('');
 
-        const createDrill = (id, keysInput, hint, repeat = 15) => {
+        const createDrill = (id, keysInput, hint, repeat = 1, duration = 0) => {
             let content = "";
             if (keysInput.includes(' ')) {
                 content = keysInput.split(' ').map(wordKeys => keysToHindi(wordKeys)).join(' ');
             } else {
                 content = keysToHindi(keysInput);
             }
-            return { id, type: 'word', content: Array(repeat).fill(content).join(' '), hint: `${hint}`, raw: keysInput };
+            
+            // For block repetition (e.g. kkkk), we don't use the repeat arg on the array if it's already a sequence
+            // but we might repeat the whole block
+            const finalContent = Array(repeat).fill(content).join(' ');
+
+            return {
+                id,
+                type: 'word',
+                content: finalContent,
+                hint: `${hint}`,
+                raw: keysInput,
+                duration: duration // in seconds (0 = no limit)
+            };
         };
 
-        // --- CURRICULUM (V12 CONTENT) ---
+        // --- CURRICULUM (COMPREHENSIVE 0 TO HERO) ---
         const CURRICULUM = {
             1: {
-                title: "Day 1: Home Row (क प त च र)",
+                title: "Day 1: Home Row (Foundation)",
                 exercises: [
-                    createDrill('d1_1', 'k k k k', 'Right Mid: क (k)', 20),
-                    createDrill('d1_2', 'h h h h', 'Right Index: प (h)', 20),
-                    createDrill('d1_3', 'j j j j', 'Right Index2: र (j)', 20),
-                    createDrill('d1_4', 'l l l l', 'Right Ring: त (l)', 20),
-                    createDrill('d1_5', '; ; ; ;', 'Right Pinky: च (;)', 20),
-                    createDrill('d1_6', "' ' ' '", 'Right Pinky2: ट (\')', 20),
-                    createDrill('d1_7', 'e e e e', 'Reach: ा (e)', 20),
-                    createDrill('d1_8', 'f f f f', 'Left Index: ि (f)', 20),
-                    createDrill('d1_9', 's s s s', 'Left Ring: े (s)', 20),
-                    createDrill('d1_10', 'g g g g', 'Left Index2: ु (g)', 20),
-                    createDrill('d1_11', 'ke ke ke ke', 'क + ा = का (ke)', 15),
-                    createDrill('d1_12', 'kf kf kf kf', 'क + ि = कि (kf)', 15),
-                    createDrill('d1_13', 'ks ks ks ks', 'क + े = के (ks)', 15),
-                    createDrill('d1_14', 'kg kg kg kg', 'क + ु = कु (kg)', 15),
-                    createDrill('d1_15', 'kj kj kj', 'कर (kj)', 20),
-                    createDrill('d1_16', 'hj hj hj', 'पर (hj)', 20),
-                    createDrill('d1_17', 'lj lj lj', 'तर (lj)', 20),
-                    createDrill('d1_18', ';j ;j ;j', 'चर (;j)', 20),
-                    createDrill('d1_19', 'lk lk lk', 'तक (lk)', 20),
-                    createDrill('d1_20', 'he he', 'पा (he)', 15),
-                    createDrill('d1_21', 'hle hle', 'पता (hle)', 15),
-                    { id: 'd1_test', type: 'paragraph', content: 'कर पर तर चर पता', repeat: 10, hint: 'TEST: Home Row Mix', raw: '' }
+                    // 1. Repeated Single Chars (Blocks)
+                    createDrill('d1_1', 'aaaa ssss dddd ffff gggg', 'Left Hand Home Blocks', 3),
+                    createDrill('d1_2', 'hhhh jjjj kkkk llll ;;;; \'\'\'\'', 'Right Hand Home Blocks', 3),
+                    
+                    // 2. Easy Combinations (Pattern)
+                    createDrill('d1_3', 'asdf hjkl', 'Simple Flow', 10),
+                    createDrill('d1_4', 'asdfg hjkl;', 'Extended Flow', 10),
+                    createDrill('d1_5', 'fdsa ;lkj', 'Reverse Flow', 10),
+                    
+                    // 3. Medium Combinations (Tricky)
+                    createDrill('d1_6', 'afsd ;jlk', 'Index-Pinky Jump', 10),
+                    createDrill('d1_7', 'agfd ;lkj', 'Stretch Return', 10),
+                    createDrill('d1_8', 'gsaf hlk;', 'Cross Hand Rhythm', 10),
+                    
+                    // 4. Hard Combinations
+                    createDrill('d1_9', 'fgjh', 'Index Stretches Only', 15),
+                    createDrill('d1_10', 'ad ;l sf jk', 'Pinky-Index Pairs', 10),
+                    createDrill('d1_11', 'gfdsa ;lkjh', 'Full Row Sweep', 10),
+                    
+                    // 5. Non-Pattern Mix (Random)
+                    createDrill('d1_12', 'sadf jkl;', 'Random Easy', 10),
+                    createDrill('d1_13', 'fads l;kj', 'Random Medium', 10),
+                    createDrill('d1_14', 'gfsd hjkl', 'Random Hard', 10),
+                    
+                    // 6. Two-Consonant/Matra Words (Home Row Only)
+                    createDrill('d1_15', 'kk hh jj ll', 'Consonant Doubles', 10),
+                    createDrill('d1_16', 'kj hj lj ;j', 'Ra-Ending (kar par)', 10),
+                    createDrill('d1_17', 'kf ks ka kg', 'Matras: i e o u', 10),
+                    createDrill('d1_18', 'kak sas hal', 'Simple Words', 10),
+                    
+                    // 7. 3-4 Consonant Words
+                    createDrill('d1_19', 'kfk ksk kgk', 'Matra Sandwiches', 10),
+                    createDrill('d1_20', 'kfkf ksks', 'Alternating Matras', 10),
+                    createDrill('d1_21', 'sarkar', 'Word: Sarkar', 10),
+                    createDrill('d1_22', 'halchal', 'Word: Halchal', 10)
                 ]
             },
             2: {
-                title: "Day 2: Top Row (ब ह ग द ज)",
+                title: "Day 2: Upper Row (Intensive)",
                 exercises: [
-                    createDrill('d2_1', 'u u u u', 'Right Index: ह (u)', 20),
-                    createDrill('d2_2', 'i i i i', 'Right Mid: ग (i)', 20),
-                    createDrill('d2_3', 'o o o o', 'Right Ring: द (o)', 20),
-                    createDrill('d2_4', 'p p p p', 'Right Pinky: ज (p)', 20),
-                    createDrill('d2_5', 'y y y y', 'Right Stretch: ब (y)', 20),
-                    createDrill('d2_6', 'r r r r', 'Left Index: ी (r)', 20),
-                    createDrill('d2_7', 't t t t', 'Left Stretch: ू (t)', 20),
-                    createDrill('d2_8', 'w w w w', 'Left Ring: ै (w)', 20),
-                    createDrill('d2_9', 'q q q q', 'Left Pinky: ौ (q)', 20),
-                    createDrill('d2_10', 'kr kr kr', 'क + ी = की (kr)', 15),
-                    createDrill('d2_11', 'kt kt kt', 'क + ू = कू (kt)', 15),
-                    createDrill('d2_12', 'kw kw kw', 'क + ै = कै (kw)', 15),
-                    createDrill('d2_13', 'kq kq kq', 'क + ौ = कौ (kq)', 15),
-                    createDrill('d2_14', 'h u h u', 'p -> h (प ह)', 20),
-                    createDrill('d2_15', 'k i k i', 'k -> g (क ग)', 20),
-                    createDrill('d2_16', 'l o l o', 't -> d (त द)', 20),
-                    createDrill('d2_14_fix', 'pj pj pj', 'जर (pj)', 15),
-                    createDrill('d2_15_word', 'uw uw uw', 'है (uw)', 15),
-                    createDrill('d2_16_word', 'ke ke ke', 'का (ke)', 15),
-                    createDrill('d2_17', 'kf kf kf', 'कि (kf)', 15),
-                    createDrill('d2_19', 'Qj Qj Qj', 'और (Qj)', 15),
-                    { id: 'd2_test', type: 'paragraph', content: 'वह घर पर है', repeat: 10, hint: 'TEST: Sentence', raw: '' }
+                    // 1. Repeated Blocks
+                    createDrill('d2_1', 'qqqq wwww eeee rrrr tttt', 'Left Top Blocks', 3),
+                    createDrill('d2_2', 'yyyy uuuu iiii oooo pppp', 'Right Top Blocks', 3),
+                    
+                    // 2. Patterns
+                    createDrill('d2_3', 'qwert poiuy', 'Row Sweep', 10),
+                    createDrill('d2_4', 'qetw ryuip', 'Skip Key Pattern', 10),
+                    createDrill('d2_5', 'trewq yuiop', 'Reverse Sweep', 10),
+                    
+                    // 3. Vertical Reach (Home <-> Top)
+                    createDrill('d2_6', 'a q s w d e f r g t', 'Left Hand Verticals', 5),
+                    createDrill('d2_7', 'h y j u k i l o ; p', 'Right Hand Verticals', 5),
+                    
+                    // 4. Random Top Row
+                    createDrill('d2_8', 'tweq yiop', 'Random Top 1', 10),
+                    createDrill('d2_9', 'rtqw pouy', 'Random Top 2', 10),
+                    
+                    // 5. Words (Upper + Home)
+                    createDrill('d2_10', 'jal kal pal', 'Simple Words', 10),
+                    createDrill('d2_11', 'hai kai aur', 'Matra Words', 10),
+                    createDrill('d2_12', 'pani rani', 'Words with Ni', 10),
+                    createDrill('d2_13', 'parivar', 'Word: Parivar', 10),
+                    createDrill('d2_14', 'adhikar', 'Word: Adhikar', 10)
                 ]
             },
             3: {
-                title: "Day 3: Bottom Row & Full Words",
+                title: "Day 3: Lower Row & Speed",
                 exercises: [
-                    createDrill('d3_1', 'c c c c', 'Left Mid: म (c)', 20),
-                    createDrill('d3_2', 'v v v v', 'Left Index: न (v)', 20),
-                    createDrill('d3_3', 'b b b b', 'Left Stretch: व (b)', 20),
-                    createDrill('d3_4', 'n n n n', 'Right Index: ल (n)', 20),
-                    createDrill('d3_5', 'm m m m', 'Right Mid: स (m)', 20),
-                    createDrill('d3_6', '/ / / /', 'Right Pinky: य (/)', 20),
-                    createDrill('d3_7', 'x x x x', 'Left Ring: ं (x)', 30),
-                    createDrill('d3_8', 'kx kx kx', 'कं (kx)', 15),
-                    createDrill('d3_9', 'mx mx mx', 'सं (mx)', 15),
-                    createDrill('d3_10', 'mc/ mc/', 'समय (mc/)', 15),
-                    createDrill('d3_11', 'vcv vcv', 'नमन (vcv)', 15),
-                    createDrill('d3_12_fix', 'mejs mejs', 'सारे (mejs)', 15),
-                    createDrill('d3_13_fix', 'kcn kcn', 'कमल (kcn)', 15),
-                    createDrill('d3_14', 'mkjke mkjke', 'सरकार (mkjke)', 15),
-                    createDrill('d3_15', 'pn pn', 'जल (pn)', 15),
-                    { id: 'd3_test', type: 'paragraph', content: 'समय बहुत कम है', repeat: 10, hint: 'TEST: All Rows', raw: '' }
+                    // 1. Repeated Blocks
+                    createDrill('d3_1', 'zzzz xxxx cccc vvvv bbbb', 'Left Bottom Blocks', 3),
+                    createDrill('d3_2', 'nnnn mmmm ,,,, .... ////', 'Right Bottom Blocks', 3),
+                    
+                    // 2. Patterns
+                    createDrill('d3_3', 'zxcvb nm,./', 'Bottom Sweep', 10),
+                    createDrill('d3_4', 'bvcxz /.,mn', 'Reverse Sweep', 10),
+                    
+                    // 3. Tricky Bottom Transitions
+                    createDrill('d3_5', 'c v b n m', 'Index/Middle focus', 15),
+                    createDrill('d3_6', 'x c v b n', 'Ring to Index', 15),
+                    
+                    // 4. Random Bottom
+                    createDrill('d3_7', 'vbcx m,./', 'Random Bottom 1', 10),
+                    createDrill('d3_8', 'zbvn m,./', 'Random Bottom 2', 10),
+                    
+                    // 5. Full Keyboard Words (3 Min Timers)
+                    createDrill('d3_9', 'samay', 'Word: Samay', 20, 180), // 3 min
+                    createDrill('d3_10', 'kamal naman', 'Words: Kamal Naman', 15, 180), // 3 min
+                    createDrill('d3_11', 'sarkar kanoon', 'Govt Words', 15, 180), // 3 min
+                    createDrill('d3_12', 'shant mangal', 'Anusvar Words', 15, 180), // 3 min
+                    createDrill('d3_13', 'sambhav', 'Word: Sambhav', 15, 180) // 3 min
                 ]
             },
             4: {
-                title: "Day 4: Shift Key (Half Characters)",
+                title: "Day 4: Middle + Upper Mixing",
                 exercises: [
-                    createDrill('d4_1', 'K K K K', 'ख (Shift+k)', 20),
-                    createDrill('d4_2', 'H H H H', 'फ (Shift+h)', 20),
-                    createDrill('d4_3', 'L L L L', 'थ (Shift+l)', 20),
-                    createDrill('d4_4', 'O O O O', 'ध (Shift+o)', 20),
-                    createDrill('d4_5', 'P P P P', 'झ (Shift+p)', 20),
-                    createDrill('d4_6_fix', 'I I I I', 'घ (Shift+i)', 20),
-                    createDrill('d4_7', '< < < <', 'ष (Shift+,)', 20),
-                    createDrill('d4_8', 'Keve', 'खाना (Keve)', 15),
-                    createDrill('d4_9', 'Hn', 'फल (Hn)', 15),
-                    createDrill('d4_10_fix', 'Lenr Lenr', 'थाली (Lenr)', 15),
-                    createDrill('d4_11', 'Ov', 'धन (Ov)', 15),
-                    { id: 'd4_test', type: 'paragraph', content: 'फल और थाली लाओ', repeat: 10, hint: 'TEST: Shift Words', raw: '' }
+                    createDrill('d4_1', 'ki ku ke ko', 'Home Cons + Top Matra', 20),
+                    createDrill('d4_2', 'ri ru re ro', 'Top Cons + Top Matra', 20),
+                    createDrill('d4_3', 'ak is ud of', 'Vowel Starts', 20),
+                    createDrill('d4_4', 'paani peena', 'Water Words', 15, 180),
+                    createDrill('d4_5', 'khelna kudna', 'Play Words', 15, 180),
+                    createDrill('d4_6', 'chalna rukna', 'Walk Words', 15, 180),
+                    createDrill('d4_7', 'aaj kal parso', 'Time Words', 15, 180),
+                    createDrill('d4_8', 'hamesha', 'Word: Hamesha', 20, 180),
+                    createDrill('d4_9', 'koshish', 'Word: Koshish', 20, 180),
+                    createDrill('d4_10', 'safalta', 'Word: Safalta', 20, 180)
                 ]
             },
             5: {
-                title: "Day 5: Conjuncts (Halant 'd')",
+                title: "Day 5: Middle + Lower (Familiar Words)",
                 exercises: [
-                    createDrill('d5_1', 'd d d d', 'Halant (d)', 30),
-                    createDrill('d5_2', 'kd kd kd', 'क् (kd)', 20),
-                    createDrill('d5_3_fix', 'kd/e kd/e', 'क्या (kd/e)', 15),
-                    createDrill('d5_4', 'kd/eq kd/eq', 'क्यों (kd/eq)', 15),
-                    createDrill('d5_5_fix', 'vd/e/ vd/e/', 'न्याय (vd/e/)', 15),
-                    createDrill('d5_6_fix', 'mdLeve mdLeve', 'स्थान (mdLeve)', 15),
-                    { id: 'd5_test', type: 'paragraph', content: 'न्याय और स्थान मुख्य हैं', repeat: 10, hint: 'TEST: Conjuncts', raw: '' }
+                    createDrill('d5_1', 'man tan dhan', 'Rhyming -an', 20),
+                    createDrill('d5_2', 'kab jab tab', 'Rhyming -ab', 20),
+                    createDrill('d5_3', 'naram garam', 'Rhyming -aram', 20),
+                    createDrill('d5_4', 'saman daman', 'Rhyming -aman', 20),
+                    createDrill('d5_5', 'samay samaj', 'Similiar Starts', 20, 180),
+                    createDrill('d5_6', 'namak chamak', 'Rhyming -amak', 20, 180),
+                    createDrill('d5_7', 'saral taral', 'Rhyming -aral', 20, 180),
+                    createDrill('d5_8', 'kalam balam', 'Rhyming -alam', 20, 300), // 5 min
+                    createDrill('d5_9', 'jan gan man', 'Anthem Words', 20, 300), // 5 min
+                    createDrill('d5_10', 'vande mataram', 'Song Words', 15, 300) // 5 min
                 ]
             },
             6: {
-                title: "Day 6: Speed & High Frequency",
+                title: "Day 6: Full Keyboard (Exam Prep)",
                 exercises: [
-                    createDrill('d6_1', 'ks uw cdx kf Qj ms', 'के है में कि और से', 10),
-                    createDrill('d6_2', 'ks ke /u bu pe', 'को का यह वह जो', 10),
-                    createDrill('d6_3', 'helfm Leve Dfijkj', 'पुलिस थाना अधिकारी', 10),
-                    { id: 'd6_6', type: 'paragraph', content: 'राम आम खाता है', repeat: 10, hint: 'Flow: Ram Aam', raw: '' },
-                    { id: 'd6_7', type: 'paragraph', content: 'सदा सत्य बोलो', repeat: 10, hint: 'Flow: Sada Satya', raw: '' }
+                    createDrill('d6_1', 'ke hai mein ki', 'High Freq 1', 20, 300),
+                    createDrill('d6_2', 'aur se ko ka', 'High Freq 2', 20, 300),
+                    createDrill('d6_3', 'karna hona lena', 'Verbs', 20, 300),
+                    createDrill('d6_4', 'police thana report', 'Police Vocab', 15, 420), // 7 min
+                    createDrill('d6_5', 'nyayalaya samvidhan', 'Legal Vocab', 15, 420), // 7 min
+                    createDrill('d6_6', 'adhikar kartavya', 'Civics Vocab', 15, 420), // 7 min
+                    createDrill('d6_7', 'prarthna patra', 'Application', 15, 600), // 10 min
+                    createDrill('d6_8', 'mahoday savinay', 'Formal Address', 15, 600), // 10 min
+                    createDrill('d6_9', 'bhavdiya hastakshar', 'Closing', 15, 600), // 10 min
+                    { id: 'd6_10', type: 'paragraph', content: 'भारत एक महान देश है। यहाँ अनेक धर्मों के लोग रहते हैं।', repeat: 5, hint: 'Paragraph 1', duration: 600, raw: '' }
                 ]
             },
             7: {
-                title: "Day 7: Full Mock Exams (30 WPM)",
+                title: "Day 7: Mock Tests (15 Mins)",
                 exercises: [
-                    { id: 'd7_1', type: 'paragraph', content: 'शिक्षा मनुष्य के जीवन में बहुत महत्वपूर्ण भूमिका निभाती है। यह हमें सही और गलत में अंतर करना सिखाती है।', repeat: 3, hint: 'Mock 1: Education', raw: '' },
-                    { id: 'd7_2', type: 'paragraph', content: 'संविधान के अनुच्छेद ३४३ के अनुसार संघ की राजभाषा हिंदी और लिपि देवनागरी है। शासकीय कार्यों में इसका प्रयोग अनिवार्य है।', repeat: 3, hint: 'Mock 2: Legal', raw: '' },
-                    { id: 'd7_3', type: 'paragraph', content: 'उत्तर प्रदेश पुलिस का आदर्श वाक्य सुरक्षा आपकी संकल्प हमारा है। पुलिस कर्मियों को समाज में शांति व्यवस्था बनाए रखने का कार्य सौंपा गया है।', repeat: 3, hint: 'Mock 3: UP Police', raw: '' }
+                    { id: 'd7_1', type: 'paragraph', content: 'शिक्षा मनुष्य के जीवन का आधार है। यह हमें सही और गलत में भेद करना सिखाती है। बिना शिक्षा के मनुष्य पशु समान है।', repeat: 10, hint: 'Mock 1 (Easy)', duration: 900, raw: '' },
+                    { id: 'd7_2', type: 'paragraph', content: 'अनुशासन सफलता की पहली सीढ़ी है। विद्यार्थी जीवन में अनुशासन का विशेष महत्व है। जो समय का सदुपयोग करते हैं वे ही सफल होते हैं।', repeat: 10, hint: 'Mock 2 (Medium)', duration: 900, raw: '' },
+                    { id: 'd7_3', type: 'paragraph', content: 'पर्यावरण की रक्षा करना हमारा कर्तव्य है। पेड़ पौधे हमें प्राणवायु देते हैं। प्रदूषण को रोकना आज की सबसे बड़ी आवश्यकता है।', repeat: 10, hint: 'Mock 3 (Medium)', duration: 900, raw: '' },
+                    { id: 'd7_4', type: 'paragraph', content: 'संविधान के अनुच्छेद ३४३ के अनुसार संघ की राजभाषा हिंदी और लिपि देवनागरी है। शासकीय कार्यों में हिंदी का प्रयोग अनिवार्य है।', repeat: 10, hint: 'Mock 4 (Hard/Legal)', duration: 900, raw: '' },
+                    { id: 'd7_5', type: 'paragraph', content: 'उत्तर प्रदेश पुलिस का ध्येय वाक्य सुरक्षा आपकी संकल्प हमारा है। पुलिस बल समाज में कानून व्यवस्था बनाए रखने के लिए प्रतिबद्ध है।', repeat: 10, hint: 'Mock 5 (UP Police)', duration: 900, raw: '' }
                 ]
             }
         };
@@ -333,14 +393,19 @@
             );
         };
 
-        const Timer = ({ status, time }) => {
+        const Timer = ({ status, time, mode = 'up' }) => {
             const formatTime = (seconds) => {
                 const m = Math.floor(seconds / 60).toString().padStart(2, '0');
                 const s = (seconds % 60).toString().padStart(2, '0');
                 return `${m}:${s}`;
             };
+            
+            // Visual logic: Green if plenty time, Red if low time (for countdown)
+            let colorClass = "bg-green-500/10 text-green-400 border-green-500/30";
+            if (mode === 'down' && time < 60) colorClass = "bg-red-500/10 text-red-400 border-red-500/30 animate-pulse";
+
             return (
-                <div className={`flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-lg font-bold transition-colors ${status === 'running' ? 'bg-green-500/10 text-green-400 border border-green-500/30' : 'bg-slate-800 text-slate-400'}`}>
+                <div className={`flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-lg font-bold border transition-colors ${status === 'running' ? colorClass : 'bg-slate-800 text-slate-400 border-transparent'}`}>
                     <Icons.Timer />
                     {formatTime(time)}
                 </div>
@@ -370,8 +435,27 @@
             const progressPercent = ((drillIndex) / totalDrills) * 100;
             const targetText = useMemo(() => currentDrill.content, [currentDrill]);
             const nextChar = targetText[inputText.length] || null;
+            
+            // Finger Guide Logic
+            const nextKeyEnglish = useMemo(() => {
+                if (!nextChar) return null;
+                if (nextChar === ' ') return 'Space';
+                // Reverse lookup in INSCRIPT map to find english key for hindi char
+                return Object.keys(INSCRIPT).find(key => INSCRIPT[key] === nextChar) || null;
+            }, [nextChar]);
+            
+            const fingerHint = nextKeyEnglish ? (FINGER_MAP[nextKeyEnglish.toLowerCase()] || 'Thumb') : 'Done';
 
-            useEffect(() => { resetDrill(); }, [day, drillIndex]);
+            // Reset logic when drill changes
+            useEffect(() => { 
+                resetDrill(); 
+                // Set initial time based on drill duration
+                if (currentDrill.duration) {
+                    setElapsedTime(currentDrill.duration);
+                } else {
+                    setElapsedTime(0);
+                }
+            }, [day, drillIndex]);
             
             useEffect(() => { 
                 if (inputRef.current && timerStatus !== 'paused' && !isCompleted && !isSidebarOpen) {
@@ -383,21 +467,43 @@
                 let interval;
                 if (timerStatus === 'running') {
                     interval = setInterval(() => {
-                        setElapsedTime(prev => prev + 1);
+                        // Countdown vs Countup
+                        if (currentDrill.duration) {
+                            setElapsedTime(prev => {
+                                if (prev <= 1) {
+                                    setTimerStatus('finished');
+                                    setIsCompleted(true);
+                                    return 0;
+                                }
+                                return prev - 1;
+                            });
+                        } else {
+                            setElapsedTime(prev => prev + 1);
+                        }
+                        
+                        // Live Stats Update
                         setStats(prev => {
-                            const mins = (elapsedTime + 1) / 60;
-                            const wpm = mins > 0 ? Math.round((inputText.length / 5) / mins) : 0;
-                            return { ...prev, wpm };
+                            let mins;
+                            if (currentDrill.duration) {
+                                mins = (currentDrill.duration - elapsedTime + 1) / 60; // Time spent so far
+                            } else {
+                                mins = (elapsedTime + 1) / 60;
+                            }
+                            // Avoid div by zero
+                            if (mins <= 0) mins = 0.01;
+                            
+                            const wpm = Math.round((inputText.length / 5) / mins);
+                            return { ...prev, wpm: wpm > 0 ? wpm : 0 };
                         });
                     }, 1000);
                 }
                 return () => clearInterval(interval);
-            }, [timerStatus, elapsedTime, inputText]);
+            }, [timerStatus, elapsedTime, inputText, currentDrill.duration]);
 
             const resetDrill = () => {
                 setInputText("");
                 setTimerStatus('idle');
-                setElapsedTime(0);
+                setElapsedTime(currentDrill.duration || 0);
                 setStats({ wpm: 0, accuracy: 100, errors: 0, total: 0 });
                 setIsCompleted(false);
                 setIsShaking(false);
@@ -454,6 +560,9 @@
                 }
 
                 setInputText(val);
+                
+                // Completion Check (Only if not time-based or if text is fully typed)
+                // For timed tests, we usually let time run out, but if they finish text, we can stop too.
                 if (val.length === targetText.length) {
                     setTimerStatus('finished');
                     setIsCompleted(true);
@@ -461,7 +570,7 @@
             };
 
             const nextDrill = () => {
-                if (drillIndex < totalDrills - 1) {
+                if (drillIndex < CURRICULUM[day].exercises.length - 1) {
                     setDrillIndex(drillIndex + 1);
                 } else {
                     setDrillIndex(0);
@@ -528,7 +637,7 @@
                                 </div>
                             </div>
                             <div className="flex items-center gap-4">
-                                <Timer status={timerStatus} time={elapsedTime} />
+                                <Timer status={timerStatus} time={elapsedTime} mode={currentDrill.duration ? 'down' : 'up'} />
                                 <button onClick={togglePause} disabled={timerStatus === 'idle' || timerStatus === 'finished'} className={`p-3 rounded-full transition-all ${timerStatus === 'running' ? 'bg-yellow-500 text-black hover:bg-yellow-400' : 'bg-slate-700 text-slate-400'}`}>
                                     {timerStatus === 'paused' ? <Icons.Play /> : <Icons.Pause />}
                                 </button>
@@ -546,7 +655,7 @@
                                 <div className="flex-1 p-8 flex flex-col justify-center items-center relative overflow-hidden">
                                     <div className="absolute top-4 left-4 bg-slate-800 px-3 py-1 rounded-full text-xs font-mono text-slate-400 border border-slate-700 flex items-center gap-2">
                                          {strictMode && <span className="text-red-400 flex items-center gap-1 font-bold"><Icons.Skull /> SUDDEN DEATH</span>}
-                                         <span>Target Text</span>
+                                         {currentDrill.duration ? <span className="text-orange-400 flex items-center gap-1 font-bold">⏱️ TIMED TEST</span> : <span>Target Text</span>}
                                     </div>
                                     <div className="text-4xl md:text-5xl leading-relaxed font-hindi tracking-wide text-slate-300 text-center break-words max-w-3xl">
                                         {targetText.split('').map((char, i) => {
@@ -569,6 +678,7 @@
                                         </div>
                                         <div className="flex items-center gap-2">
                                             Next Key: <span className="bg-yellow-500 text-black px-2 py-0.5 rounded font-mono font-bold text-sm">{nextChar === ' ' ? 'Space' : (nextChar ? Object.keys(INSCRIPT).find(key => INSCRIPT[key] === nextChar) || nextChar : 'End')}</span>
+                                            <span className="text-slate-400 text-[10px] ml-2 border border-slate-700 px-2 py-0.5 rounded">Use: <span className="text-green-400 font-bold">{fingerHint}</span></span>
                                         </div>
                                     </div>
                                     <VirtualKeyboard nextChar={nextChar} pressedKeys={pressedKeys} />
