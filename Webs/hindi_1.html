@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UP Police Hindi Typing (V12) - Layout & Content Fix</title>
+    
+    <!-- React & Tailwind -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-hindi { font-family: 'Noto Sans Devanagari', sans-serif; }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .animate-shake { animation: shake 0.3s ease-in-out; }
+        
+        /* Custom Scrollbar */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #0f172a; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 h-screen overflow-hidden">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef, useMemo } = React;
+
+        // --- ICONS ---
+        const Icons = {
+            Play: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>,
+            Pause: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>,
+            Timer: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
+            Menu: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>,
+            X: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>,
+            Refresh: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>,
+            Check: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>,
+            Lock: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>,
+            Skull: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="m12.5 17-.5-1-.5 1h1z"/><path d="M16 20a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20"/></svg>
+        };
+
+        // --- TRUE INSCRIPT MAPPING ---
+        const INSCRIPT = {
+            '`': '़', '1': '१', '2': '२', '3': '३', '4': '४', '5': '५', '6': '६', '7': '७', '8': '८', '9': '९', '0': '०', '-': '.', '=': 'ृ',
+            'q': 'ौ', 'w': 'ै', 'e': 'ा', 'r': 'ी', 't': 'ू', 'y': 'ब', 'u': 'ह', 'i': 'ग', 'o': 'द', 'p': 'ज', '[': 'ड', ']': '़', '\\': 'ॉ',
+            'a': 'ो', 's': 'े', 'd': '्', 'f': 'ि', 'g': 'ु', 'h': 'प', 'j': 'र', 'k': 'क', 'l': 'त', ';': 'च', "'": 'ट',
+            'z': '्र', 'x': 'ं', 'c': 'म', 'v': 'न', 'b': 'व', 'n': 'ल', 'm': 'स', ',': ',', '.': '.', '/': 'य',
+            'Q': 'औ', 'W': 'ऐ', 'E': 'आ', 'R': 'ई', 'T': 'ऊ', 'Y': 'भ', 'U': 'ङ', 'I': 'घ', 'O': 'ध', 'P': 'झ', '{': 'ढ', '}': 'ञ', '|': 'ऑ',
+            'A': 'ओ', 'S': 'ए', 'D': 'अ', 'F': 'इ', 'G': 'उ', 'H': 'फ', 'J': 'र्', 'K': 'ख', 'L': 'थ', ':': 'छ', '"': 'ठ',
+            'Z': 'र्', 'X': 'ँ', 'C': 'ण', 'V': 'ऩ', 'B': 'ळ', 'N': 'ल्र', 'M': 'श', '<': 'ष', '>': '।', '?': '?'
+        };
+
+        const keysToHindi = (keyStr) => keyStr.split('').map(k => INSCRIPT[k] || k).join('');
+
+        const createDrill = (id, keysInput, hint, repeat = 15) => {
+            let content = "";
+            if (keysInput.includes(' ')) {
+                content = keysInput.split(' ').map(wordKeys => keysToHindi(wordKeys)).join(' ');
+            } else {
+                content = keysToHindi(keysInput);
+            }
+            return {
+                id,
+                type: 'word',
+                content: Array(repeat).fill(content).join(' '),
+                hint: `${hint}`,
+                raw: keysInput
+            };
+        };
+
+        // --- CURRICULUM (FIXED CONTENT) ---
+        const CURRICULUM = {
+            1: {
+                title: "Day 1: Home Row (क प त च र)",
+                exercises: [
+                    createDrill('d1_1', 'k k k k', 'Right Mid: क (k)', 20),
+                    createDrill('d1_2', 'h h h h', 'Right Index: प (h)', 20),
+                    createDrill('d1_3', 'j j j j', 'Right Index2: र (j)', 20),
+                    createDrill('d1_4', 'l l l l', 'Right Ring: त (l)', 20),
+                    createDrill('d1_5', '; ; ; ;', 'Right Pinky: च (;)', 20),
+                    createDrill('d1_6', "' ' ' '", 'Right Pinky2: ट (\')', 20),
+                    createDrill('d1_7', 'e e e e', 'Reach: ा (e)', 20),
+                    createDrill('d1_8', 'f f f f', 'Left Index: ि (f)', 20),
+                    createDrill('d1_9', 's s s s', 'Left Ring: े (s)', 20),
+                    createDrill('d1_10', 'g g g g', 'Left Index2: ु (g)', 20),
+                    createDrill('d1_11', 'ke ke ke ke', 'क + ा = का (ke)', 15),
+                    createDrill('d1_12', 'kf kf kf kf', 'क + ि = कि (kf)', 15),
+                    createDrill('d1_13', 'ks ks ks ks', 'क + े = के (ks)', 15),
+                    createDrill('d1_14', 'kg kg kg kg', 'क + ु = कु (kg)', 15),
+                    createDrill('d1_15', 'kj kj kj', 'कर (kj)', 20),
+                    createDrill('d1_16', 'hj hj hj', 'पर (hj)', 20),
+                    createDrill('d1_17', 'lj lj lj', 'तर (lj)', 20),
+                    createDrill('d1_18', ';j ;j ;j', 'चर (;j)', 20),
+                    createDrill('d1_19', 'lk lk lk', 'तक (lk)', 20),
+                    createDrill('d1_20', 'he he', 'पा (he)', 15), // FIXED
+                    createDrill('d1_21', 'hle hle', 'पता (hle)', 15), // FIXED
+                    { id: 'd1_test', type: 'paragraph', content: 'कर पर तर चर पता', repeat: 10, hint: 'TEST: Home Row Mix', raw: '' }
+                ]
+            },
+            2: {
+                title: "Day 2: Top Row (ब ह ग द ज)",
+                exercises: [
+                    createDrill('d2_1', 'u u u u', 'Right Index: ह (u)', 20),
+                    createDrill('d2_2', 'i i i i', 'Right Mid: ग (i)', 20),
+                    createDrill('d2_3', 'o o o o', 'Right Ring: द (o)', 20),
+                    createDrill('d2_4', 'p p p p', 'Right Pinky: ज (p)', 20),
+                    createDrill('d2_5', 'y y y y', 'Right Stretch: ब (y)', 20),
+                    createDrill('d2_6', 'r r r r', 'Left Index: ी (r)', 20),
+                    createDrill('d2_7', 't t t t', 'Left Stretch: ू (t)', 20),
+                    createDrill('d2_8', 'w w w w', 'Left Ring: ै (w)', 20),
+                    createDrill('d2_9', 'q q q q', 'Left Pinky: ौ (q)', 20),
+                    createDrill('d2_10', 'kr kr kr', 'क + ी = की (kr)', 15),
+                    createDrill('d2_11', 'kt kt kt', 'क + ू = कू (kt)', 15),
+                    createDrill('d2_12', 'kw kw kw', 'क + ै = कै (kw)', 15),
+                    createDrill('d2_13', 'kq kq kq', 'क + ौ = कौ (kq)', 15),
+                    createDrill('d2_14', 'h u h u', 'p -> h (प ह)', 20),
+                    createDrill('d2_15', 'k i k i', 'k -> g (क ग)', 20),
+                    createDrill('d2_16', 'l o l o', 't -> d (त द)', 20),
+                    createDrill('d2_14_fix', 'pj pj pj', 'जर (pj)', 15),
+                    createDrill('d2_15_word', 'uw uw uw', 'है (uw)', 15),
+                    createDrill('d2_16_word', 'ke ke ke', 'का (ke)', 15),
+                    createDrill('d2_17', 'kf kf kf', 'कि (kf)', 15),
+                    createDrill('d2_19', 'Qj Qj Qj', 'और (Qj)', 15),
+                    { id: 'd2_test', type: 'paragraph', content: 'वह घर पर है', repeat: 10, hint: 'TEST: Sentence', raw: '' }
+                ]
+            },
+            3: {
+                title: "Day 3: Bottom Row & Full Words",
+                exercises: [
+                    createDrill('d3_1', 'c c c c', 'Left Mid: म (c)', 20),
+                    createDrill('d3_2', 'v v v v', 'Left Index: न (v)', 20),
+                    createDrill('d3_3', 'b b b b', 'Left Stretch: व (b)', 20),
+                    createDrill('d3_4', 'n n n n', 'Right Index: ल (n)', 20),
+                    createDrill('d3_5', 'm m m m', 'Right Mid: स (m)', 20),
+                    createDrill('d3_6', '/ / / /', 'Right Pinky: य (/)', 20),
+                    createDrill('d3_7', 'x x x x', 'Left Ring: ं (x)', 30),
+                    createDrill('d3_8', 'kx kx kx', 'कं (kx)', 15),
+                    createDrill('d3_9', 'mx mx mx', 'सं (mx)', 15),
+                    createDrill('d3_10', 'mc/ mc/', 'समय (mc/)', 15),
+                    createDrill('d3_11', 'vcv vcv', 'नमन (vcv)', 15),
+                    createDrill('d3_12_fix', 'mejs mejs', 'सारे (mejs)', 15),
+                    createDrill('d3_13_fix', 'kcn kcn', 'कमल (kcn)', 15),
+                    createDrill('d3_14', 'mkjke mkjke', 'सरकार (mkjke)', 15),
+                    createDrill('d3_15', 'pn pn', 'जल (pn)', 15),
+                    { id: 'd3_test', type: 'paragraph', content: 'समय बहुत कम है', repeat: 10, hint: 'TEST: All Rows', raw: '' }
+                ]
+            },
+            4: {
+                title: "Day 4: Shift Key (Half Characters)",
+                exercises: [
+                    createDrill('d4_1', 'K K K K', 'ख (Shift+k)', 20),
+                    createDrill('d4_2', 'H H H H', 'फ (Shift+h)', 20),
+                    createDrill('d4_3', 'L L L L', 'थ (Shift+l)', 20),
+                    createDrill('d4_4', 'O O O O', 'ध (Shift+o)', 20),
+                    createDrill('d4_5', 'P P P P', 'झ (Shift+p)', 20),
+                    createDrill('d4_6_fix', 'I I I I', 'घ (Shift+i)', 20),
+                    createDrill('d4_7', '< < < <', 'ष (Shift+,)', 20),
+                    createDrill('d4_8', 'Keve', 'खाना (Keve)', 15),
+                    createDrill('d4_9', 'Hn', 'फल (Hn)', 15),
+                    createDrill('d4_10_fix', 'Lenr Lenr', 'थाली (Lenr)', 15),
+                    createDrill('d4_11', 'Ov', 'धन (Ov)', 15),
+                    { id: 'd4_test', type: 'paragraph', content: 'फल और थाली लाओ', repeat: 10, hint: 'TEST: Shift Words', raw: '' }
+                ]
+            },
+            5: {
+                title: "Day 5: Conjuncts (Halant 'd')",
+                exercises: [
+                    createDrill('d5_1', 'd d d d', 'Halant (d)', 30),
+                    createDrill('d5_2', 'kd kd kd', 'क् (kd)', 20),
+                    createDrill('d5_3_fix', 'kd/e kd/e', 'क्या (kd/e)', 15),
+                    createDrill('d5_4', 'kd/eq kd/eq', 'क्यों (kd/eq)', 15),
+                    createDrill('d5_5_fix', 'vd/e/ vd/e/', 'न्याय (vd/e/)', 15),
+                    createDrill('d5_6_fix', 'mdLeve mdLeve', 'स्थान (mdLeve)', 15),
+                    { id: 'd5_test', type: 'paragraph', content: 'न्याय और स्थान मुख्य हैं', repeat: 10, hint: 'TEST: Conjuncts', raw: '' }
+                ]
+            },
+            6: {
+                title: "Day 6: Speed & High Frequency",
+                exercises: [
+                    createDrill('d6_1', 'ks uw cdx kf Qj ms', 'के है में कि और से', 10),
+                    createDrill('d6_2', 'ks ke /u bu pe', 'को का यह वह जो', 10),
+                    createDrill('d6_3', 'helfm Leve Dfijkj', 'पुलिस थाना अधिकारी', 10),
+                    { id: 'd6_6', type: 'paragraph', content: 'राम आम खाता है', repeat: 10, hint: 'Flow: Ram Aam', raw: '' },
+                    { id: 'd6_7', type: 'paragraph', content: 'सदा सत्य बोलो', repeat: 10, hint: 'Flow: Sada Satya', raw: '' }
+                ]
+            },
+            7: {
+                title: "Day 7: Full Mock Exams (30 WPM)",
+                exercises: [
+                    { id: 'd7_1', type: 'paragraph', content: 'शिक्षा मनुष्य के जीवन में बहुत महत्वपूर्ण भूमिका निभाती है। यह हमें सही और गलत में अंतर करना सिखाती है।', repeat: 3, hint: 'Mock 1: Education', raw: '' },
+                    { id: 'd7_2', type: 'paragraph', content: 'संविधान के अनुच्छेद ३४३ के अनुसार संघ की राजभाषा हिंदी और लिपि देवनागरी है। शासकीय कार्यों में इसका प्रयोग अनिवार्य है।', repeat: 3, hint: 'Mock 2: Legal', raw: '' },
+                    { id: 'd7_3', type: 'paragraph', content: 'उत्तर प्रदेश पुलिस का आदर्श वाक्य सुरक्षा आपकी संकल्प हमारा है। पुलिस कर्मियों को समाज में शांति व्यवस्था बनाए रखने का कार्य सौंपा गया है।', repeat: 3, hint: 'Mock 3: UP Police', raw: '' }
+                ]
+            }
+        };
+
+        const KEYBOARD_LAYOUT = [
+            [
+                { code: 'Backquote', key: '`', h1: '़', h2: 'ञ', w: 'w-10' },
+                { code: 'Digit1', key: '1', h1: '१', h2: 'ज्ञ', w: 'w-10' },
+                { code: 'Digit2', key: '2', h1: '२', h2: 'श्र', w: 'w-10' },
+                { code: 'Digit3', key: '3', h1: '३', h2: 'रू', w: 'w-10' },
+                { code: 'Digit4', key: '4', h1: '४', h2: 'ः', w: 'w-10' },
+                { code: 'Digit5', key: '5', h1: '५', h2: 'श्र', w: 'w-10' },
+                { code: 'Digit6', key: '6', h1: '६', h2: 'त्र', w: 'w-10' },
+                { code: 'Digit7', key: '7', h1: '७', h2: 'क्ष', w: 'w-10' },
+                { code: 'Digit8', key: '8', h1: '८', h2: 'श', w: 'w-10' },
+                { code: 'Digit9', key: '9', h1: '९', h2: '(', w: 'w-10' },
+                { code: 'Digit0', key: '0', h1: '०', h2: ')', w: 'w-10' },
+                { code: 'Minus', key: '-', h1: '.', h2: 'ऋ', w: 'w-10' },
+                { code: 'Equal', key: '=', h1: 'ृ', h2: 'र्', w: 'w-10' },
+                { code: 'Backspace', key: '⌫', h1: '', h2: '', w: 'w-auto flex-1' }
+            ],
+            [
+                { code: 'Tab', key: 'Tab', h1: '', h2: '', w: 'w-14' },
+                { code: 'KeyQ', key: 'q', h1: 'ौ', h2: 'औ', w: 'w-10' },
+                { code: 'KeyW', key: 'w', h1: 'ै', h2: 'ऐ', w: 'w-10' },
+                { code: 'KeyE', key: 'e', h1: 'ा', h2: 'आ', w: 'w-10' },
+                { code: 'KeyR', key: 'r', h1: 'ी', h2: 'ई', w: 'w-10' },
+                { code: 'KeyT', key: 't', h1: 'ू', h2: 'ऊ', w: 'w-10' },
+                { code: 'KeyY', key: 'y', h1: 'ब', h2: 'भ', w: 'w-10' },
+                { code: 'KeyU', key: 'u', h1: 'ह', h2: 'ङ', w: 'w-10' },
+                { code: 'KeyI', key: 'i', h1: 'ग', h2: 'घ', w: 'w-10' },
+                { code: 'KeyO', key: 'o', h1: 'द', h2: 'ध', w: 'w-10' },
+                { code: 'KeyP', key: 'p', h1: 'ज', h2: 'झ', w: 'w-10' },
+                { code: 'BracketLeft', key: '[', h1: 'ड', h2: 'ढ', w: 'w-10' },
+                { code: 'BracketRight', key: ']', h1: '़', h2: 'ञ', w: 'w-10' },
+                { code: 'Backslash', key: '\\', h1: 'ॉ', h2: 'ऑ', w: 'w-10' }
+            ],
+            [
+                { code: 'CapsLock', key: 'Caps', h1: '', h2: '', w: 'w-16' },
+                { code: 'KeyA', key: 'a', h1: 'ो', h2: 'ओ', w: 'w-10' },
+                { code: 'KeyS', key: 's', h1: 'े', h2: 'ए', w: 'w-10' },
+                { code: 'KeyD', key: 'd', h1: '्', h2: 'अ', w: 'w-10' },
+                { code: 'KeyF', key: 'f', h1: 'ि', h2: 'इ', w: 'w-10' },
+                { code: 'KeyG', key: 'g', h1: 'ु', h2: 'उ', w: 'w-10' },
+                { code: 'KeyH', key: 'h', h1: 'प', h2: 'फ', w: 'w-10' },
+                { code: 'KeyJ', key: 'j', h1: 'र', h2: 'र्', w: 'w-10' },
+                { code: 'KeyK', key: 'k', h1: 'क', h2: 'ख', w: 'w-10' },
+                { code: 'KeyL', key: 'l', h1: 'त', h2: 'थ', w: 'w-10' },
+                { code: 'Semicolon', key: ';', h1: 'च', h2: 'छ', w: 'w-10' },
+                { code: 'Quote', key: "'", h1: 'ट', h2: 'ठ', w: 'w-10' },
+                { code: 'Enter', key: 'Enter', h1: '↵', h2: '', w: 'w-auto flex-1' }
+            ],
+            [
+                { code: 'ShiftLeft', key: 'Shift', h1: '', h2: '', w: 'w-20' },
+                { code: 'KeyZ', key: 'z', h1: '्र', h2: 'र्', w: 'w-10' },
+                { code: 'KeyX', key: 'x', h1: 'ं', h2: 'ँ', w: 'w-10' },
+                { code: 'KeyC', key: 'c', h1: 'म', h2: 'ण', w: 'w-10' },
+                { code: 'KeyV', key: 'v', h1: 'न', h2: 'ऩ', w: 'w-10' },
+                { code: 'KeyB', key: 'b', h1: 'व', h2: 'ळ', w: 'w-10' },
+                { code: 'KeyN', key: 'n', h1: 'ल', h2: 'ल्र', w: 'w-10' },
+                { code: 'KeyM', key: 'm', h1: 'स', h2: 'श', w: 'w-10' },
+                { code: 'Comma', key: ',', h1: ',', h2: 'ष', w: 'w-10' },
+                { code: 'Period', key: '.', h1: '.', h2: '।', w: 'w-10' },
+                { code: 'Slash', key: '/', h1: 'य', h2: '?', w: 'w-10' },
+                { code: 'ShiftRight', key: 'Shift', h1: '', h2: '', w: 'w-auto flex-1' }
+            ],
+            [
+                { code: 'Space', key: 'Space', h1: '', h2: '', w: 'w-64 mx-auto' }
+            ]
+        ];
+
+        // --- COMPONENTS ---
+        const VirtualKeyboard = ({ nextChar, pressedKeys }) => {
+            const targetKey = useMemo(() => {
+                if (!nextChar) return { code: null, shift: false };
+                if (nextChar === ' ') return { code: 'Space', shift: false };
+                
+                for (const row of KEYBOARD_LAYOUT) {
+                    for (const k of row) {
+                        if (k.h1 === nextChar || k.key === nextChar) return { code: k.code, shift: false };
+                        if (k.h2 === nextChar) return { code: k.code, shift: true };
+                    }
+                }
+                return { code: null, shift: false };
+            }, [nextChar]);
+
+            return (
+                <div className="flex flex-col gap-1.5 select-none w-full scale-95 origin-center">
+                    {KEYBOARD_LAYOUT.map((row, rIdx) => (
+                        <div key={rIdx} className="flex justify-center gap-1">
+                            {row.map((k) => {
+                                const isTarget = targetKey.code === k.code;
+                                const isShiftNeeded = targetKey.shift && (k.key === 'Shift');
+                                const isPressed = pressedKeys.has(k.code);
+                                let bg = "bg-slate-800 border-slate-900 text-slate-500";
+                                let shadow = "shadow-[0_3px_0_0_rgb(15,23,42)]";
+                                let translate = "";
+                                if (isTarget || isShiftNeeded) bg = "bg-green-600 border-green-800 text-white";
+                                if (isPressed) {
+                                    bg = "bg-blue-500 border-blue-700 text-white";
+                                    shadow = "shadow-none";
+                                    translate = "translate-y-[3px]";
+                                }
+                                return (
+                                    <div key={k.code} className={`${k.w} h-10 md:h-12 rounded border-b-2 flex flex-col items-center justify-center transition-all duration-75 relative ${bg} ${shadow} ${translate}`}>
+                                        <span className="absolute top-0.5 left-1 text-[8px] font-bold opacity-40">{k.key.length === 1 ? k.key.toUpperCase() : ''}</span>
+                                        {k.key !== 'Space' && k.key !== 'Shift' && k.key !== 'Enter' && k.key !== 'Tab' && k.key !== 'Caps' && k.key !== '⌫' && (
+                                            <div className="flex flex-col items-center leading-none mt-0.5">
+                                                <span className="text-[9px] opacity-80">{k.h2}</span>
+                                                <span className="text-sm font-bold">{k.h1}</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+
+        const Timer = ({ status, time }) => {
+            const formatTime = (seconds) => {
+                const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+                const s = (seconds % 60).toString().padStart(2, '0');
+                return `${m}:${s}`;
+            };
+            return (
+                <div className={`flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-lg font-bold transition-colors ${status === 'running' ? 'bg-green-500/10 text-green-400 border border-green-500/30' : 'bg-slate-800 text-slate-400'}`}>
+                    <Icons.Timer />
+                    {formatTime(time)}
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [day, setDay] = useState(1);
+            const [drillIndex, setDrillIndex] = useState(0);
+            const [inputText, setInputText] = useState("");
+            const [timerStatus, setTimerStatus] = useState('idle');
+            const [elapsedTime, setElapsedTime] = useState(0);
+            const [stats, setStats] = useState({ wpm: 0, accuracy: 100, errors: 0, total: 0 });
+            const [pressedKeys, setPressedKeys] = useState(new Set());
+            const [isCompleted, setIsCompleted] = useState(false);
+            const [isSidebarOpen, setSidebarOpen] = useState(false);
+            
+            // Settings
+            const [disableBackspace, setDisableBackspace] = useState(false);
+            const [strictMode, setStrictMode] = useState(false); 
+            const [isShaking, setIsShaking] = useState(false); 
+
+            const inputRef = useRef(null);
+
+            const currentDrill = CURRICULUM[day].exercises[drillIndex];
+            const totalDrills = CURRICULUM[day].exercises.length;
+            const progressPercent = ((drillIndex) / totalDrills) * 100;
+            const targetText = useMemo(() => currentDrill.content, [currentDrill]);
+            const nextChar = targetText[inputText.length] || null;
+
+            useEffect(() => { resetDrill(); }, [day, drillIndex]);
+            
+            useEffect(() => { 
+                if (inputRef.current && timerStatus !== 'paused' && !isCompleted && !isSidebarOpen) {
+                    inputRef.current.focus(); 
+                }
+            }, [inputText, isCompleted, isSidebarOpen, timerStatus]);
+
+            useEffect(() => {
+                let interval;
+                if (timerStatus === 'running') {
+                    interval = setInterval(() => {
+                        setElapsedTime(prev => prev + 1);
+                        setStats(prev => {
+                            const mins = (elapsedTime + 1) / 60;
+                            const wpm = mins > 0 ? Math.round((inputText.length / 5) / mins) : 0;
+                            return { ...prev, wpm };
+                        });
+                    }, 1000);
+                }
+                return () => clearInterval(interval);
+            }, [timerStatus, elapsedTime, inputText]);
+
+            const resetDrill = () => {
+                setInputText("");
+                setTimerStatus('idle');
+                setElapsedTime(0);
+                setStats({ wpm: 0, accuracy: 100, errors: 0, total: 0 });
+                setIsCompleted(false);
+                setIsShaking(false);
+                if (inputRef.current) inputRef.current.focus();
+            };
+
+            const togglePause = () => {
+                if (timerStatus === 'running') setTimerStatus('paused');
+                else if (timerStatus === 'paused') setTimerStatus('running');
+            };
+
+            const handleKeyDown = (e) => {
+                setPressedKeys(prev => new Set(prev).add(e.code));
+                if (disableBackspace && e.key === 'Backspace') e.preventDefault();
+            };
+
+            const handleKeyUp = (e) => {
+                setPressedKeys(prev => {
+                    const next = new Set(prev);
+                    next.delete(e.code);
+                    return next;
+                });
+            };
+
+            const handleChange = (e) => {
+                const val = e.target.value;
+                if (isCompleted || timerStatus === 'paused') return;
+
+                if (timerStatus === 'idle' && val.length > 0) setTimerStatus('running');
+
+                if (val.length > inputText.length) {
+                    const typedChar = val.slice(-1);
+                    const expectedChar = targetText[val.length - 1];
+                    
+                    if (strictMode && typedChar !== expectedChar) {
+                        setIsShaking(true);
+                        setTimeout(() => {
+                            setIsShaking(false);
+                            resetDrill();
+                        }, 500);
+                        return;
+                    }
+
+                    const newTotal = stats.total + 1;
+                    let newErrors = stats.errors;
+                    if (typedChar !== expectedChar) newErrors += 1;
+                    
+                    setStats(prev => ({
+                        ...prev,
+                        total: newTotal,
+                        errors: newErrors,
+                        accuracy: Math.round(((newTotal - newErrors) / newTotal) * 100)
+                    }));
+                }
+
+                setInputText(val);
+                if (val.length === targetText.length) {
+                    setTimerStatus('finished');
+                    setIsCompleted(true);
+                }
+            };
+
+            const nextDrill = () => {
+                if (drillIndex < totalDrills - 1) {
+                    setDrillIndex(drillIndex + 1);
+                } else {
+                    setDrillIndex(0);
+                    alert("Day " + day + " Completed!");
+                }
+            };
+
+            return (
+                <div className={`min-h-screen bg-slate-900 text-slate-100 font-sans flex overflow-hidden ${isShaking ? 'animate-shake' : ''}`} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
+                    
+                    {/* SIDEBAR */}
+                    <div className={`fixed inset-y-0 left-0 z-50 w-72 bg-slate-800 border-r border-slate-700 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0 flex flex-col shadow-2xl`}>
+                         <div className="p-4 border-b border-slate-700 flex justify-between items-center bg-slate-800 shrink-0">
+                            <div className="font-bold text-lg flex items-center gap-2">Curriculum</div>
+                            <button onClick={() => setSidebarOpen(false)} className="md:hidden text-slate-400"><Icons.X /></button>
+                        </div>
+                        <div className="p-4 bg-slate-800 border-b border-slate-700 shrink-0 space-y-3">
+                             <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">Exam Settings</div>
+                             <label className="flex items-center gap-3 cursor-pointer p-2 rounded hover:bg-slate-700 transition-colors">
+                                <div className={`w-8 h-4 rounded-full relative transition-colors ${disableBackspace ? 'bg-red-500' : 'bg-slate-600'}`}>
+                                    <input type="checkbox" checked={disableBackspace} onChange={(e) => setDisableBackspace(e.target.checked)} className="opacity-0 w-full h-full absolute z-10 cursor-pointer" />
+                                    <div className={`w-2 h-2 bg-white rounded-full absolute top-1 transition-transform ${disableBackspace ? 'left-5' : 'left-1'}`}></div>
+                                </div>
+                                <span className="text-sm flex items-center gap-2"><Icons.Lock /> No Backspace</span>
+                             </label>
+                             <label className="flex items-center gap-3 cursor-pointer p-2 rounded hover:bg-slate-700 transition-colors">
+                                <div className={`w-8 h-4 rounded-full relative transition-colors ${strictMode ? 'bg-red-600' : 'bg-slate-600'}`}>
+                                    <input type="checkbox" checked={strictMode} onChange={(e) => setStrictMode(e.target.checked)} className="opacity-0 w-full h-full absolute z-10 cursor-pointer" />
+                                    <div className={`w-2 h-2 bg-white rounded-full absolute top-1 transition-transform ${strictMode ? 'left-5' : 'left-1'}`}></div>
+                                </div>
+                                <span className="text-sm flex items-center gap-2"><Icons.Skull /> Sudden Death</span>
+                             </label>
+                        </div>
+                        <div className="p-2 grid grid-cols-4 gap-1 border-b border-slate-700 bg-slate-800 shrink-0">
+                            {Object.keys(CURRICULUM).map(d => (
+                                <button key={d} onClick={() => { setDay(parseInt(d)); setDrillIndex(0); }} className={`p-2 rounded text-xs font-bold transition-colors ${day === parseInt(d) ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-400 hover:bg-slate-600'}`}>
+                                    Day {d}
+                                </button>
+                            ))}
+                        </div>
+                        <div className="flex-1 overflow-y-auto p-2 space-y-1 bg-slate-900/50 custom-scroll">
+                            <div className="px-2 py-2 text-xs uppercase font-bold text-slate-500 tracking-wider sticky top-0 bg-slate-900/90 backdrop-blur z-10 border-b border-slate-800 mb-2">{CURRICULUM[day].title}</div>
+                            {CURRICULUM[day].exercises.map((ex, idx) => (
+                                <button key={ex.id} onClick={() => { setDrillIndex(idx); setSidebarOpen(false); }} className={`w-full text-left px-3 py-3 rounded-lg text-sm flex items-center gap-3 transition-all ${drillIndex === idx ? 'bg-blue-600/20 text-blue-200 border border-blue-500/50' : 'text-slate-400 hover:bg-slate-700 hover:text-white'}`}>
+                                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${drillIndex === idx ? 'bg-blue-500 text-white' : 'bg-slate-700'}`}>{idx + 1}</div>
+                                    <div className="flex-1 truncate"><div className="font-medium truncate">{ex.hint}</div></div>
+                                    {idx < drillIndex && <span className="text-green-500"><Icons.Check /></span>}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* MAIN CONTENT */}
+                    <div className="flex-1 flex flex-col h-screen overflow-hidden relative">
+                        {/* TOP BAR */}
+                        <div className="p-4 md:px-8 border-b border-slate-700 bg-slate-800 flex justify-between items-center shrink-0 z-20 shadow-lg">
+                            <div className="flex items-center gap-4">
+                                <button onClick={() => setSidebarOpen(true)} className="md:hidden p-2 bg-slate-700 rounded text-white"><Icons.Menu /></button>
+                                <div>
+                                    <h1 className="text-xl font-bold text-white leading-none">UP Police Typing</h1>
+                                    <p className="text-xs text-slate-400 font-mono mt-1">
+                                        {strictMode ? <span className="text-red-400 font-bold">STRICT MODE ACTIVE</span> : `Exercise ${drillIndex + 1}/${totalDrills}`}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <Timer status={timerStatus} time={elapsedTime} />
+                                <button onClick={togglePause} disabled={timerStatus === 'idle' || timerStatus === 'finished'} className={`p-3 rounded-full transition-all ${timerStatus === 'running' ? 'bg-yellow-500 text-black hover:bg-yellow-400' : 'bg-slate-700 text-slate-400'}`}>
+                                    {timerStatus === 'paused' ? <Icons.Play /> : <Icons.Pause />}
+                                </button>
+                                <button onClick={resetDrill} className="p-3 bg-slate-700 rounded-full hover:bg-slate-600 text-white"><Icons.Refresh /></button>
+                            </div>
+                        </div>
+
+                        {/* WORKSPACE - SWITCHED LAYOUT */}
+                        <div className="flex-1 flex flex-col md:flex-row gap-6 p-6 overflow-y-auto">
+                            
+                            {/* LEFT COLUMN: TARGET + KEYBOARD */}
+                            <div className="flex-1 flex flex-col gap-6">
+                                {/* TARGET CARD */}
+                                <div className="bg-slate-800 rounded-xl border border-slate-700 p-6 shadow-lg min-h-[140px] relative overflow-hidden flex flex-col shrink-0">
+                                    <div className="absolute top-0 right-0 bg-slate-700 px-3 py-1 rounded-bl-xl text-xs font-mono text-slate-300 border-b border-l border-slate-600 flex items-center gap-2">
+                                         {strictMode && <span className="text-red-400 flex items-center gap-1 font-bold"><Icons.Skull /> SUDDEN DEATH</span>}
+                                         {!strictMode && disableBackspace && <span className="text-orange-400 flex items-center gap-1"><Icons.Lock /> LOCKED</span>}
+                                         <span>Target</span>
+                                    </div>
+                                    <div className="text-3xl leading-relaxed font-hindi tracking-wide text-slate-300 break-words">
+                                        {targetText.split('').map((char, i) => {
+                                            let color = "text-slate-500";
+                                            if (i < inputText.length) {
+                                                color = inputText[i] === char ? "text-green-400" : "text-red-500 bg-red-900/20";
+                                            } else if (i === inputText.length) {
+                                                color = "text-blue-400 bg-blue-500/20 ring-1 ring-blue-500 rounded px-0.5";
+                                            }
+                                            return <span key={i} className={`${color} transition-colors`}>{char}</span>
+                                        })}
+                                    </div>
+                                </div>
+
+                                {/* KEYBOARD (Moved Here) */}
+                                <div className="bg-slate-950 rounded-xl border border-slate-800 p-4 shadow-2xl flex flex-col flex-1 min-h-[300px] justify-center">
+                                    <div className="flex justify-between items-center mb-4 text-xs font-bold uppercase text-slate-500 tracking-wider">
+                                        <span>Finger Guide</span>
+                                        <span className="text-green-400 flex items-center gap-2">
+                                            Next: <span className="bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-white text-sm">{nextChar === ' ' ? 'Space' : nextChar || 'End'}</span>
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center justify-center">
+                                        <VirtualKeyboard nextChar={nextChar} pressedKeys={pressedKeys} />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* RIGHT COLUMN: INPUT (Full Height) */}
+                            <div className="flex-1 flex flex-col relative min-h-[400px]">
+                                <div className="absolute top-0 right-0 z-10 px-4 py-2 text-xs font-bold text-slate-500 uppercase tracking-wider bg-slate-900/80 rounded-bl-xl backdrop-blur-sm pointer-events-none">Typing Area</div>
+                                <textarea
+                                    ref={inputRef}
+                                    value={inputText}
+                                    onChange={handleChange}
+                                    disabled={isCompleted || timerStatus === 'paused'}
+                                    spellCheck={false}
+                                    className={`w-full h-full rounded-xl border-2 p-6 text-3xl font-hindi text-white outline-none resize-none transition-all ${strictMode ? 'border-red-900/30 focus:border-red-500/50 focus:ring-red-500/10' : 'bg-slate-800 border-slate-700 focus:border-blue-500/50 focus:ring-blue-500/10'} ${timerStatus === 'paused' ? 'bg-slate-800/50 blur-sm' : 'bg-slate-800'}`}
+                                    placeholder={timerStatus === 'idle' ? "Start typing to begin timer..." : ""}
+                                />
+                                
+                                {/* PAUSE OVERLAY */}
+                                {timerStatus === 'paused' && (
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center z-10 rounded-xl bg-slate-900/50 backdrop-blur-sm">
+                                        <div className="bg-yellow-500 text-black p-4 rounded-full mb-2"><Icons.Pause /></div>
+                                        <div className="text-2xl font-bold">PAUSED</div>
+                                        <button onClick={togglePause} className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold">Resume</button>
+                                    </div>
+                                )}
+
+                                {/* COMPLETION OVERLAY */}
+                                {isCompleted && (
+                                    <div className="absolute inset-0 z-20 bg-slate-900/95 backdrop-blur-md rounded-xl flex flex-col items-center justify-center animate-in fade-in duration-300">
+                                        <h2 className="text-4xl font-bold text-white mb-2">Great Job!</h2>
+                                        <div className="text-slate-400 mb-8 text-lg flex gap-6">
+                                            <div>Speed: <span className="text-white font-bold text-2xl">{stats.wpm}</span> WPM</div>
+                                            <div>Acc: <span className="text-white font-bold text-2xl">{stats.accuracy}%</span></div>
+                                        </div>
+                                        <div className="flex gap-4">
+                                            <button onClick={resetDrill} className="px-6 py-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold flex items-center gap-2"><Icons.Refresh /> Retry</button>
+                                            <button onClick={nextDrill} className="px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold flex items-center gap-2 shadow-lg shadow-blue-500/25">Next Exercise</button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
