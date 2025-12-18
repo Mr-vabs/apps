@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UP Police Hindi Typing (V12) - Layout & Content Fix</title>
+    <title>UP Police Hindi Typing (V13) - Visual Key Mapping</title>
     
     <!-- React & Tailwind -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -12,11 +12,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
     <style>
         body { font-family: 'Inter', sans-serif; }
         .font-hindi { font-family: 'Noto Sans Devanagari', sans-serif; }
+        .font-mono-key { font-family: 'JetBrains Mono', monospace; }
         
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -48,7 +49,8 @@
             Refresh: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>,
             Check: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12"/></svg>,
             Lock: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>,
-            Skull: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="m12.5 17-.5-1-.5 1h1z"/><path d="M16 20a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20"/></svg>
+            Skull: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M8 20v2h8v-2"/><path d="m12.5 17-.5-1-.5 1h1z"/><path d="M16 20a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20"/></svg>,
+            Keyboard: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="M6 8h.001"/><path d="M10 8h.001"/><path d="M14 8h.001"/><path d="M18 8h.001"/><path d="M6 12h.001"/><path d="M10 12h.001"/><path d="M14 12h.001"/><path d="M18 12h.001"/><path d="M7 16h10"/></svg>
         };
 
         // --- TRUE INSCRIPT MAPPING ---
@@ -71,16 +73,10 @@
             } else {
                 content = keysToHindi(keysInput);
             }
-            return {
-                id,
-                type: 'word',
-                content: Array(repeat).fill(content).join(' '),
-                hint: `${hint}`,
-                raw: keysInput
-            };
+            return { id, type: 'word', content: Array(repeat).fill(content).join(' '), hint: `${hint}`, raw: keysInput };
         };
 
-        // --- CURRICULUM (FIXED CONTENT) ---
+        // --- CURRICULUM (V12 CONTENT) ---
         const CURRICULUM = {
             1: {
                 title: "Day 1: Home Row (क प त च र)",
@@ -104,8 +100,8 @@
                     createDrill('d1_17', 'lj lj lj', 'तर (lj)', 20),
                     createDrill('d1_18', ';j ;j ;j', 'चर (;j)', 20),
                     createDrill('d1_19', 'lk lk lk', 'तक (lk)', 20),
-                    createDrill('d1_20', 'he he', 'पा (he)', 15), // FIXED
-                    createDrill('d1_21', 'hle hle', 'पता (hle)', 15), // FIXED
+                    createDrill('d1_20', 'he he', 'पा (he)', 15),
+                    createDrill('d1_21', 'hle hle', 'पता (hle)', 15),
                     { id: 'd1_test', type: 'paragraph', content: 'कर पर तर चर पता', repeat: 10, hint: 'TEST: Home Row Mix', raw: '' }
                 ]
             },
@@ -289,29 +285,43 @@
             }, [nextChar]);
 
             return (
-                <div className="flex flex-col gap-1.5 select-none w-full scale-95 origin-center">
+                <div className="flex flex-col gap-2 select-none w-full scale-100 origin-center max-w-4xl mx-auto">
                     {KEYBOARD_LAYOUT.map((row, rIdx) => (
-                        <div key={rIdx} className="flex justify-center gap-1">
+                        <div key={rIdx} className="flex justify-center gap-2">
                             {row.map((k) => {
                                 const isTarget = targetKey.code === k.code;
                                 const isShiftNeeded = targetKey.shift && (k.key === 'Shift');
                                 const isPressed = pressedKeys.has(k.code);
-                                let bg = "bg-slate-800 border-slate-900 text-slate-500";
-                                let shadow = "shadow-[0_3px_0_0_rgb(15,23,42)]";
+                                
+                                let bg = "bg-slate-800 border-slate-900 border-b-4 text-slate-500";
                                 let translate = "";
-                                if (isTarget || isShiftNeeded) bg = "bg-green-600 border-green-800 text-white";
-                                if (isPressed) {
-                                    bg = "bg-blue-500 border-blue-700 text-white";
-                                    shadow = "shadow-none";
-                                    translate = "translate-y-[3px]";
+                                let glow = "";
+
+                                if (isTarget || isShiftNeeded) {
+                                    bg = "bg-yellow-500 border-yellow-700 border-b-4 text-black ring-4 ring-yellow-500/30";
+                                    glow = "animate-pulse";
                                 }
+                                if (isPressed) {
+                                    bg = "bg-blue-500 border-blue-700 border-b-0 mt-1 text-white";
+                                }
+
                                 return (
-                                    <div key={k.code} className={`${k.w} h-10 md:h-12 rounded border-b-2 flex flex-col items-center justify-center transition-all duration-75 relative ${bg} ${shadow} ${translate}`}>
-                                        <span className="absolute top-0.5 left-1 text-[8px] font-bold opacity-40">{k.key.length === 1 ? k.key.toUpperCase() : ''}</span>
-                                        {k.key !== 'Space' && k.key !== 'Shift' && k.key !== 'Enter' && k.key !== 'Tab' && k.key !== 'Caps' && k.key !== '⌫' && (
-                                            <div className="flex flex-col items-center leading-none mt-0.5">
-                                                <span className="text-[9px] opacity-80">{k.h2}</span>
-                                                <span className="text-sm font-bold">{k.h1}</span>
+                                    <div key={k.code} className={`${k.w} h-14 md:h-16 rounded-lg flex flex-col items-center justify-center transition-all duration-75 relative ${bg} ${translate} ${glow}`}>
+                                        
+                                        {/* ENGLISH KEY (THE VISUAL ANCHOR) */}
+                                        <div className={`font-mono-key text-lg md:text-2xl font-bold ${isTarget || isShiftNeeded ? 'text-black' : 'text-slate-200'}`}>
+                                            {k.key === 'Space' ? 'Space' : (k.key.length === 1 ? k.key.toUpperCase() : k.key)}
+                                        </div>
+
+                                        {/* HINDI KEY (THE OUTPUT) */}
+                                        {k.key.length === 1 && (
+                                            <div className="absolute bottom-1 right-1.5 flex gap-1 opacity-70">
+                                                <span className="text-[10px] md:text-xs font-hindi">{k.h1}</span>
+                                            </div>
+                                        )}
+                                        {k.key.length === 1 && (
+                                            <div className="absolute top-1 left-1.5 flex gap-1 opacity-50">
+                                                <span className="text-[10px] md:text-xs font-hindi">{k.h2}</span>
                                             </div>
                                         )}
                                     </div>
@@ -526,78 +536,91 @@
                             </div>
                         </div>
 
-                        {/* WORKSPACE - SWITCHED LAYOUT */}
-                        <div className="flex-1 flex flex-col md:flex-row gap-6 p-6 overflow-y-auto">
+                        {/* WORKSPACE - NEW 65/35 LAYOUT */}
+                        <div className="flex-1 flex flex-col md:flex-row gap-0 overflow-hidden">
                             
-                            {/* LEFT COLUMN: TARGET + KEYBOARD */}
-                            <div className="flex-1 flex flex-col gap-6">
-                                {/* TARGET CARD */}
-                                <div className="bg-slate-800 rounded-xl border border-slate-700 p-6 shadow-lg min-h-[140px] relative overflow-hidden flex flex-col shrink-0">
-                                    <div className="absolute top-0 right-0 bg-slate-700 px-3 py-1 rounded-bl-xl text-xs font-mono text-slate-300 border-b border-l border-slate-600 flex items-center gap-2">
+                            {/* LEFT SIDE (65%): Target + Keyboard */}
+                            <div className="flex-[6.5] flex flex-col bg-slate-900 border-r border-slate-800 relative">
+                                
+                                {/* 1. TARGET TEXT (Top) */}
+                                <div className="flex-1 p-8 flex flex-col justify-center items-center relative overflow-hidden">
+                                    <div className="absolute top-4 left-4 bg-slate-800 px-3 py-1 rounded-full text-xs font-mono text-slate-400 border border-slate-700 flex items-center gap-2">
                                          {strictMode && <span className="text-red-400 flex items-center gap-1 font-bold"><Icons.Skull /> SUDDEN DEATH</span>}
-                                         {!strictMode && disableBackspace && <span className="text-orange-400 flex items-center gap-1"><Icons.Lock /> LOCKED</span>}
-                                         <span>Target</span>
+                                         <span>Target Text</span>
                                     </div>
-                                    <div className="text-3xl leading-relaxed font-hindi tracking-wide text-slate-300 break-words">
+                                    <div className="text-4xl md:text-5xl leading-relaxed font-hindi tracking-wide text-slate-300 text-center break-words max-w-3xl">
                                         {targetText.split('').map((char, i) => {
                                             let color = "text-slate-500";
                                             if (i < inputText.length) {
                                                 color = inputText[i] === char ? "text-green-400" : "text-red-500 bg-red-900/20";
                                             } else if (i === inputText.length) {
-                                                color = "text-blue-400 bg-blue-500/20 ring-1 ring-blue-500 rounded px-0.5";
+                                                color = "text-blue-400 bg-blue-500/20 ring-2 ring-blue-500 rounded px-1";
                                             }
-                                            return <span key={i} className={`${color} transition-colors`}>{char}</span>
+                                            return <span key={i} className={`${color} transition-colors duration-75`}>{char}</span>
                                         })}
                                     </div>
                                 </div>
 
-                                {/* KEYBOARD (Moved Here) */}
-                                <div className="bg-slate-950 rounded-xl border border-slate-800 p-4 shadow-2xl flex flex-col flex-1 min-h-[300px] justify-center">
-                                    <div className="flex justify-between items-center mb-4 text-xs font-bold uppercase text-slate-500 tracking-wider">
-                                        <span>Finger Guide</span>
-                                        <span className="text-green-400 flex items-center gap-2">
-                                            Next: <span className="bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-white text-sm">{nextChar === ' ' ? 'Space' : nextChar || 'End'}</span>
-                                        </span>
+                                {/* 2. KEYBOARD (Bottom) */}
+                                <div className="bg-slate-950 border-t border-slate-800 p-6 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] z-10">
+                                    <div className="flex justify-between items-center mb-4 px-4 text-xs font-bold uppercase text-slate-500 tracking-wider">
+                                        <div className="flex items-center gap-2">
+                                            <Icons.Keyboard /> Virtual Keyboard
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            Next Key: <span className="bg-yellow-500 text-black px-2 py-0.5 rounded font-mono font-bold text-sm">{nextChar === ' ' ? 'Space' : (nextChar ? Object.keys(INSCRIPT).find(key => INSCRIPT[key] === nextChar) || nextChar : 'End')}</span>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center justify-center">
-                                        <VirtualKeyboard nextChar={nextChar} pressedKeys={pressedKeys} />
-                                    </div>
+                                    <VirtualKeyboard nextChar={nextChar} pressedKeys={pressedKeys} />
                                 </div>
                             </div>
 
-                            {/* RIGHT COLUMN: INPUT (Full Height) */}
-                            <div className="flex-1 flex flex-col relative min-h-[400px]">
-                                <div className="absolute top-0 right-0 z-10 px-4 py-2 text-xs font-bold text-slate-500 uppercase tracking-wider bg-slate-900/80 rounded-bl-xl backdrop-blur-sm pointer-events-none">Typing Area</div>
+                            {/* RIGHT SIDE (35%): Input Area */}
+                            <div className="flex-[3.5] bg-slate-800/50 flex flex-col relative border-l border-slate-700 shadow-inner">
+                                <div className="bg-slate-900 px-6 py-3 border-b border-slate-800 flex justify-between items-center">
+                                    <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Your Input</span>
+                                    <div className="flex gap-3 text-xs font-mono">
+                                        <span className="text-green-400">WPM: {stats.wpm}</span>
+                                        <span className="text-blue-400">ACC: {stats.accuracy}%</span>
+                                    </div>
+                                </div>
                                 <textarea
                                     ref={inputRef}
                                     value={inputText}
                                     onChange={handleChange}
                                     disabled={isCompleted || timerStatus === 'paused'}
                                     spellCheck={false}
-                                    className={`w-full h-full rounded-xl border-2 p-6 text-3xl font-hindi text-white outline-none resize-none transition-all ${strictMode ? 'border-red-900/30 focus:border-red-500/50 focus:ring-red-500/10' : 'bg-slate-800 border-slate-700 focus:border-blue-500/50 focus:ring-blue-500/10'} ${timerStatus === 'paused' ? 'bg-slate-800/50 blur-sm' : 'bg-slate-800'}`}
-                                    placeholder={timerStatus === 'idle' ? "Start typing to begin timer..." : ""}
+                                    className={`w-full h-full bg-transparent p-6 text-2xl font-hindi text-white outline-none resize-none transition-all placeholder:text-slate-600 ${strictMode ? 'focus:bg-red-900/10' : 'focus:bg-slate-800'} ${timerStatus === 'paused' ? 'blur-sm' : ''}`}
+                                    placeholder={timerStatus === 'idle' ? "Click here & start typing..." : ""}
                                 />
                                 
                                 {/* PAUSE OVERLAY */}
                                 {timerStatus === 'paused' && (
-                                    <div className="absolute inset-0 flex flex-col items-center justify-center z-10 rounded-xl bg-slate-900/50 backdrop-blur-sm">
-                                        <div className="bg-yellow-500 text-black p-4 rounded-full mb-2"><Icons.Pause /></div>
-                                        <div className="text-2xl font-bold">PAUSED</div>
-                                        <button onClick={togglePause} className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-bold">Resume</button>
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-slate-900/60 backdrop-blur-sm">
+                                        <div className="bg-yellow-500 text-black p-4 rounded-full mb-2 shadow-lg"><Icons.Pause /></div>
+                                        <div className="text-2xl font-bold text-white tracking-widest">PAUSED</div>
+                                        <button onClick={togglePause} className="mt-6 px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold shadow-lg transform transition hover:scale-105">Resume</button>
                                     </div>
                                 )}
 
                                 {/* COMPLETION OVERLAY */}
                                 {isCompleted && (
-                                    <div className="absolute inset-0 z-20 bg-slate-900/95 backdrop-blur-md rounded-xl flex flex-col items-center justify-center animate-in fade-in duration-300">
+                                    <div className="absolute inset-0 z-20 bg-slate-900/95 backdrop-blur-md flex flex-col items-center justify-center animate-in fade-in zoom-in duration-300">
+                                        <div className="text-yellow-400 mb-2 scale-150"><Icons.Check /></div>
                                         <h2 className="text-4xl font-bold text-white mb-2">Great Job!</h2>
-                                        <div className="text-slate-400 mb-8 text-lg flex gap-6">
-                                            <div>Speed: <span className="text-white font-bold text-2xl">{stats.wpm}</span> WPM</div>
-                                            <div>Acc: <span className="text-white font-bold text-2xl">{stats.accuracy}%</span></div>
+                                        <div className="text-slate-400 mb-8 text-lg flex gap-8">
+                                            <div className="text-center">
+                                                <div className="text-3xl font-bold text-white">{stats.wpm}</div>
+                                                <div className="text-xs uppercase tracking-wider">WPM</div>
+                                            </div>
+                                            <div className="text-center">
+                                                <div className="text-3xl font-bold text-white">{stats.accuracy}%</div>
+                                                <div className="text-xs uppercase tracking-wider">Accuracy</div>
+                                            </div>
                                         </div>
                                         <div className="flex gap-4">
-                                            <button onClick={resetDrill} className="px-6 py-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold flex items-center gap-2"><Icons.Refresh /> Retry</button>
-                                            <button onClick={nextDrill} className="px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold flex items-center gap-2 shadow-lg shadow-blue-500/25">Next Exercise</button>
+                                            <button onClick={resetDrill} className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center gap-2 border border-slate-700"><Icons.Refresh /> Retry</button>
+                                            <button onClick={nextDrill} className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold flex items-center gap-2 shadow-lg transform transition hover:scale-105">Next Level <Icons.Play /></button>
                                         </div>
                                     </div>
                                 )}
