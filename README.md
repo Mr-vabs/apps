@@ -62,6 +62,8 @@ Go through listed links for deployment,
 - [Attire](https://mr-vabs.github.io/apps/Webs/recommendation.html)
 - [Books](https://mr-vabs.github.io/apps/Webs/books.html)
 - [Catalogue](https://mr-vabs.github.io/apps/Webs/catalogue.html)
+- [Hindi 0](https://mr-vabs.github.io/apps/Webs/hindi.html)
+- [Hindi 1](https://mr-vabs.github.io/apps/Webs/hindi_1.html)
 
 <hr>
 
