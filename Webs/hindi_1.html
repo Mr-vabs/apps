@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UP Police Hindi Typing (V14) - 0 to Hero Curriculum</title>
+    <title>UP Police Hindi Typing (Final) - Structured & Sensible</title>
     
     <!-- React & Tailwind -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -89,13 +89,13 @@
         const createDrill = (id, keysInput, hint, repeat = 1, duration = 0) => {
             let content = "";
             if (keysInput.includes(' ')) {
+                // If input has spaces (e.g., "word1 word2"), map each block independently
                 content = keysInput.split(' ').map(wordKeys => keysToHindi(wordKeys)).join(' ');
             } else {
                 content = keysToHindi(keysInput);
             }
             
-            // For block repetition (e.g. kkkk), we don't use the repeat arg on the array if it's already a sequence
-            // but we might repeat the whole block
+            // Generate full string
             const finalContent = Array(repeat).fill(content).join(' ');
 
             return {
@@ -104,182 +104,173 @@
                 content: finalContent,
                 hint: `${hint}`,
                 raw: keysInput,
-                duration: duration // in seconds (0 = no limit)
+                duration: duration // in seconds
             };
         };
 
-        // --- CURRICULUM (COMPREHENSIVE 0 TO HERO) ---
-        // STRUCTURE:
-        // Day 1: Home Row (Single Key Reps -> Simple words with 'e' reach)
-        // Day 2: Top Row (Single Key Reps -> Vertical combos -> Words)
-        // Day 3: Bottom Row (Single Key Reps -> All Row Mix)
-        // Day 4-6: Integration & Speed
-        // Day 7: Exam Mocks (Long paragraphs for endurance)
-        
+        // --- CURRICULUM (FIXED & SENSIBLE) ---
         const CURRICULUM = {
             1: {
-                title: "Day 1: Home Row (Foundation)",
+                title: "Day 1: Home Row (क प त च र)",
                 exercises: [
-                    // --- PART 1: FINGER DRILLS (4x REPETITION) ---
-                    // Right Hand: k=ka, h=pa, j=ra, l=ta, ;=cha
-                    createDrill('d1_1', 'kkkk hhhh jjjj llll ;;;;', 'Right Hand Drill (4x)', 3),
-                    // Left Hand: e=aa, f=i, s=e, g=u, d=halant
-                    createDrill('d1_2', 'eeee ffff ssss gggg dddd', 'Left Hand Drill (4x)', 3),
-                    
-                    // --- PART 2: ALTERNATING PATTERNS ---
-                    createDrill('d1_3', 'khkh jljl fsfs gdgd', 'Alternate Fingers', 10),
-                    createDrill('d1_4', 'asdf hjkl', 'Row Flow (Left-Right)', 10),
-                    
-                    // --- PART 3: MATRA PRACTICE (Consonant + Matra) ---
-                    // ka, ki, ke, ku (using ONLY home row keys + e)
-                    createDrill('d1_5', 'ke kf ks kg', 'Matra Mix (ka ki ke ku)', 15),
-                    createDrill('d1_6', 'he hf hs hg', 'Matra Mix (pa pi pe pu)', 15),
-                    createDrill('d1_7', 'je jf js jg', 'Matra Mix (ra ri re ru)', 15),
-                    createDrill('d1_8', 'le lf ls lg', 'Matra Mix (ta ti te tu)', 15),
+                    // --- PART 1: BLOCK REPETITION (Soni Style) ---
+                    // Right: k=ka, h=pa, j=ra, l=ta, ;=cha
+                    createDrill('d1_1', 'kkkk', 'Drill: कककक', 5),
+                    createDrill('d1_2', 'hhhh', 'Drill: पपपप', 5),
+                    createDrill('d1_3', 'jjjj', 'Drill: रररर', 5),
+                    createDrill('d1_4', 'llll', 'Drill: तततत', 5),
+                    createDrill('d1_5', ';;;;', 'Drill: चचचच', 5),
+                    // Left: e=aa, f=i, s=e, g=u
+                    createDrill('d1_6', 'eeee', 'Drill: ाााा', 5),
+                    createDrill('d1_7', 'ffff', 'Drill: िििि', 5),
+                    createDrill('d1_8', 'ssss', 'Drill: ेेेे', 5),
+                    createDrill('d1_9', 'gggg', 'Drill: ुुुु', 5),
 
-                    // --- PART 4: REAL WORDS (Using ONLY Home Row + e) ---
-                    createDrill('d1_9', 'kar par tar char', '2-Char Words (kar par...)', 15),
-                    createDrill('d1_10', 'kal pal tal', '2-Char Words (kal pal...)', 15), // Wait, 'l' is 'ta'. 'n' is 'la'. 'n' is bottom row. Can't use 'kal'.
-                    // Correction: 'l' key = 'ta'. 'n' key = 'la'. 
-                    // To write 'kal' (ka-la) we need 'k' + 'n'. 'n' is bottom row.
-                    // So Day 1 cannot have words with 'la' (L letter). 
-                    // Available consonants: k(ka), h(pa), j(ra), l(ta), ;(cha), '(ta-varg)
-                    // Words: kar (kj), par (hj), tar (lj), char (;j), tak (lk), pat (hl), tat (ll), chat (;l).
-                    
-                    createDrill('d1_9_fix', 'kj hj lj ;j', 'Words: kar par tar char', 15),
-                    createDrill('d1_10_fix', 'lk hl ll ;l', 'Words: tak pat tat chat', 15),
-                    createDrill('d1_11', 'hke hle ;ke', 'Words: paa taa chaa', 15),
-                    createDrill('d1_12', 'pata chara rata', 'Words: pata chara rata', 15), // hle ;je jjl (rata? r=j, t=l. jle? no jjl? no. jle)
+                    // --- PART 2: SIMPLE PATTERNS ---
+                    createDrill('d1_10', 'khkh', 'Pattern: क पक प', 10),
+                    createDrill('d1_11', 'ljlj', 'Pattern: त रत र', 10),
+                    createDrill('d1_12', 'efef', 'Pattern: ा िा ि', 10),
+                    createDrill('d1_13', 'asdf hjkl', 'Row Flow', 10),
+
+                    // --- PART 3: MATRA COMBINATIONS ---
+                    // ka, pa, ra, ta, cha
+                    createDrill('d1_14', 'ke he je le ;e', 'Aa Matra: का पा रा ता चा', 10),
+                    createDrill('d1_15', 'kf hf jf lf ;f', 'i Matra: कि पि रि ति चि', 10),
+                    createDrill('d1_16', 'ks hs js ls ;s', 'e Matra: के पे रे ते चे', 10),
+                    createDrill('d1_17', 'kg hg jg lg ;g', 'u Matra: कु पु रु तु चु', 10),
+
+                    // --- PART 4: SENSIBLE WORDS (Using ONLY Home keys + e) ---
+                    // Available: k, h, j, l, ;, e (aa)
+                    createDrill('d1_18', 'kj hj lj ;j', '2-Char: कर पर तर चर', 15),
+                    createDrill('d1_19', 'lk hk', '2-Char: तक पक', 15),
+                    createDrill('d1_20', 'hke hle ;ke', 'Matra Words: पा ता चा', 15),
+                    createDrill('d1_21', 'kaka papa tata chacha', 'Relations: काका पापा ताता चाचा', 10),
+                    createDrill('d1_22', 'pata chara', 'Words: पता (Address) चारा (Fodder)', 10),
                     
                     // --- PART 5: SENTENCE ---
-                    createDrill('d1_final', 'sarkar pata rapat', 'Mix: sarkar pata rapat', 10)
+                    createDrill('d1_final', 'kaka pata kar', 'Sentence: काका पता कर', 15)
                 ]
             },
             2: {
-                title: "Day 2: Upper Row (Intensive)",
+                title: "Day 2: Top Row (ब ह ग द ज)",
                 exercises: [
-                    // --- PART 1: FINGER DRILLS (4x) ---
-                    // Right Top: u=ha, i=ga, o=da, p=ja, y=ba
-                    createDrill('d2_1', 'uuuu iiii oooo pppp yyyy', 'Right Top Drill', 3),
-                    // Left Top: r=ee, t=oo, w=ai, q=au
-                    createDrill('d2_2', 'rrrr tttt wwww qqqq', 'Left Top Drill', 3),
+                    // --- BLOCK REPETITION ---
+                    createDrill('d2_1', 'uuuu', 'Drill: हहहह (ha)', 5),
+                    createDrill('d2_2', 'iiii', 'Drill: गगगग (ga)', 5),
+                    createDrill('d2_3', 'oooo', 'Drill: दददद (da)', 5),
+                    createDrill('d2_4', 'pppp', 'Drill: जजजज (ja)', 5),
+                    createDrill('d2_5', 'yyyy', 'Drill: बबबब (ba)', 5),
                     
-                    // --- PART 2: VERTICAL REACH (Home -> Top) ---
-                    // h(pa)->u(ha), k(ka)->i(ga), l(ta)->o(da), ;(cha)->p(ja)
-                    createDrill('d2_3', 'hu ki lo ;p', 'Vertical Reach', 10),
+                    // --- MATRA BLOCKS ---
+                    createDrill('d2_6', 'rrrr', 'Drill: ीीीी (ee)', 5),
+                    createDrill('d2_7', 'tttt', 'Drill: ूूूू (oo)', 5),
+                    createDrill('d2_8', 'wwww', 'Drill: ैैैै (ai)', 5),
+                    createDrill('d2_9', 'qqqq', 'Drill: ौौौौ (au)', 5),
+
+                    // --- VERTICAL TRANSITIONS ---
+                    createDrill('d2_10', 'hu ki lo ;p', 'Home->Top Jumps', 15),
+
+                    // --- WORDS (Home + Top) ---
+                    createDrill('d2_11', 'pj oj yj', 'Words: जर दर बर', 15),
+                    createDrill('d2_12', 'ij uj', 'Words: गर हर', 15),
+                    createDrill('d2_13', 'uw', 'Word: है (is)', 20),
+                    createDrill('d2_14', 'ke ki ku', 'Review: का कि कु', 10),
+                    createDrill('d2_15', 'kr kt kw kq', 'New Matras: की कू कै कौ', 10),
                     
-                    // --- PART 3: MATRA MIXING (Top Row Matras) ---
-                    // ki(kr), ku(kt), kai(kw), kau(kq)
-                    createDrill('d2_4', 'kr kt kw kq', 'Matra Mix (Kee Koo Kai Kau)', 15),
-                    
-                    // --- PART 4: WORDS (Home + Top) ---
-                    // Now we have: ha, ga, da, ja, ba.
-                    // Words: hai (uw), gai (iw), dai (ow).
-                    createDrill('d2_5', 'uw iw ow', 'Words: hai gai dai', 15),
-                    createDrill('d2_6', 'jal dal pal', 'Words: jal dal pal', 15), // j=p(top), l=n(bottom). WAIT. 'n' is bottom row. We don't have 'la' yet.
-                    // Correction: 'p' key is 'ja'. 'l' key is 'ta'. We need 'la' (n key - bottom).
-                    // So we cannot make 'jal' yet.
-                    // Words using available keys:
-                    // ba (y), ga (i), da (o), ja (p), ha (u).
-                    // par (hj - ok), jar (pj - ok), dar (oj - ok), ghar (ip? no gh is shift), bar (yj - ok).
-                    createDrill('d2_6_fix', 'pj oj yj', 'Words: jar dar bar', 15),
-                    createDrill('d2_7', 'ij uj', 'Words: gar har', 15),
-                    
-                    createDrill('d2_8', 'ke uw', 'Common: ka hai', 15),
-                    
-                    { id: 'd2_final', type: 'paragraph', content: 'वह घर पर है', repeat: 10, hint: 'Sentence: Vah ghar par hai', raw: '' }
+                    // --- SENTENCES ---
+                    createDrill('d2_16', 'uw ij ke pj uw', 'Sentence: है गर का जर है', 10), // Nonsense but good muscle practice
+                    createDrill('d2_17', 'hai pani pi', 'Sentence: है पानी पी (using keys)', 10)
                 ]
             },
             3: {
-                title: "Day 3: Lower Row & Speed",
+                title: "Day 3: Lower Row (म न व ल स)",
                 exercises: [
-                    // --- PART 1: FINGER DRILLS (4x) ---
-                    // c=ma, v=na, b=va, n=la, m=sa
-                    createDrill('d3_1', 'cccc vvvv bbbb nnnn mmmm', 'Bottom Row Drill', 3),
+                    // --- BLOCK REPETITION ---
+                    createDrill('d3_1', 'cccc vvvv bbbb nnnn mmmm', 'Bottom Row Blocks', 3),
+                    createDrill('d3_2', 'xxxx', 'Drill: ंंंं (Dot)', 5),
+
+                    // --- WORDS (All Rows) ---
+                    // Now 'n' (la) is available. 'jal' works.
+                    createDrill('d3_3', 'pn on yn', 'Words: जल दल बल', 15),
+                    createDrill('d3_4', 'samay', 'Word: समय', 15),
+                    createDrill('d3_5', 'naman', 'Word: नमन', 15),
+                    createDrill('d3_6', 'kamal', 'Word: कमल', 15),
+                    createDrill('d3_7', 'sarkar', 'Word: सरकार', 15),
                     
-                    // --- PART 2: THE DOT (Anusvar) ---
-                    createDrill('d3_2', 'xxxx', 'Anusvar (Dot) - x', 10),
-                    createDrill('d3_3', 'kx hx mx nx', 'Dot Practice (kan pan san lan)', 15),
-                    
-                    // --- PART 3: FULL KEYBOARD WORDS ---
-                    // Now we have 'la' (n key). 'jal' is possible.
-                    createDrill('d3_4', 'pn on yn', 'Words: jal dal bal', 15),
-                    createDrill('d3_5', 'samay', 'Word: Samay', 20),
-                    createDrill('d3_6', 'naman', 'Word: Naman', 20),
-                    createDrill('d3_7', 'kamal', 'Word: Kamal', 20),
-                    createDrill('d3_8', 'sarkar', 'Word: Sarkar', 15),
-                    
-                    // --- TIMED TEST (3 Mins) ---
-                    // Generating roughly 90 words content for 3 mins at 30 WPM
-                    createDrill('d3_timed', 'samay samay samay naman naman naman kamal kamal kamal sarkar sarkar sarkar jal jal jal hai hai hai ka ka ka ki ki ki', '3 Min Speed Check', 1, 180)
+                    // --- TIMED TEST (3 Minutes) ---
+                    // Valid words using all 3 rows
+                    // "samay naman kamal sarkar jal dal bal hai ka ki ke"
+                    createDrill('d3_timed', 'samay naman kamal sarkar jal dal bal hai ka ki ke samay naman kamal sarkar jal dal bal hai ka ki ke', '3 Min Speed Check', 5, 180)
                 ]
             },
             4: {
-                title: "Day 4: Integration (Home+Top+Bottom)",
+                title: "Day 4: Integration (Mixed Practice)",
                 exercises: [
-                    createDrill('d4_1', 'ki ku ke ko', 'Matra Revision', 20),
-                    createDrill('d4_2', 'paani rani', 'Words: Paani Rani', 15),
-                    createDrill('d4_3', 'khelna kudna', 'Words: Khelna Kudna', 15),
-                    createDrill('d4_4', 'chalna rukna', 'Words: Chalna Rukna', 15),
-                    createDrill('d4_5', 'aaj kal parso', 'Time Words', 15),
+                    createDrill('d4_1', 'ki ku ke ko', 'Matra Refresh', 15),
+                    createDrill('d4_2', 'paani rani', 'Words: पानी रानी', 15),
+                    createDrill('d4_3', 'khelna kudna', 'Words: खेलना कूदना', 15),
+                    createDrill('d4_4', 'chalna rukna', 'Words: चलना रुकना', 15),
+                    createDrill('d4_5', 'aaj kal parso', 'Time: आज कल परसों', 15),
                     
-                    // 3 Min Test
-                    createDrill('d4_timed', 'paani peena hai aaj kal parso khelna kudna chalna rukna hamesha koshish safalta adhikar kartavya', '3 Min Vocab Test', 5, 180)
+                    // 3 Min Test (Mixed Words)
+                    createDrill('d4_timed', 'paani rani khelna kudna chalna rukna aaj kal parso hamesha koshish safalta', '3 Min Vocab Test', 5, 180)
                 ]
             },
             5: {
-                title: "Day 5: Vocabulary Builder",
+                title: "Day 5: Common Vocabulary",
                 exercises: [
-                    createDrill('d5_1', 'man tan dhan', 'Rhyming: -an', 20),
-                    createDrill('d5_2', 'kab jab tab', 'Rhyming: -ab', 20),
-                    createDrill('d5_3', 'naram garam', 'Rhyming: -aram', 20),
-                    createDrill('d5_4', 'saman daman', 'Rhyming: -aman', 20),
+                    createDrill('d5_1', 'man tan dhan', 'Rhyming: मन तन धन', 15),
+                    createDrill('d5_2', 'kab jab tab', 'Rhyming: कब जब तब', 15),
+                    createDrill('d5_3', 'naram garam', 'Rhyming: नरम गरम', 15),
+                    createDrill('d5_4', 'saman daman', 'Rhyming: समन दमन', 15),
                     
-                    // 5 Min Test (150 words approx needed, looping content)
-                    createDrill('d5_timed', 'man tan dhan kab jab tab naram garam saman daman samay samaj namak chamak saral taral kalam balam jan gan man vande mataram', '5 Min Rhyme Test', 10, 300)
+                    // 5 Min Test
+                    createDrill('d5_timed', 'man tan dhan kab jab tab naram garam saman daman samay samaj namak chamak saral taral kalam balam jan gan man', '5 Min Rhyme Test', 5, 300)
                 ]
             },
             6: {
                 title: "Day 6: Official Vocabulary",
                 exercises: [
-                    createDrill('d6_1', 'ke hai mein ki', 'Connectors 1', 20),
-                    createDrill('d6_2', 'aur se ko ka', 'Connectors 2', 20),
-                    createDrill('d6_3', 'police thana report', 'Police Vocab', 15),
-                    createDrill('d6_4', 'nyayalaya samvidhan', 'Legal Vocab', 15),
-                    createDrill('d6_5', 'adhikar kartavya', 'Civics Vocab', 15),
+                    createDrill('d6_1', 'ke hai mein ki', 'Connectors 1', 15),
+                    createDrill('d6_2', 'aur se ko ka', 'Connectors 2', 15),
+                    createDrill('d6_3', 'police thana report', 'Police Vocab', 10),
+                    createDrill('d6_4', 'nyayalaya samvidhan', 'Legal Vocab', 10),
+                    createDrill('d6_5', 'adhikar kartavya', 'Civics Vocab', 10),
                     
                     // 10 Min Test
-                    createDrill('d6_timed', 'police thana report nyayalaya samvidhan adhikar kartavya prarthna patra mahoday savinay bhavdiya hastakshar dinank aavedan suchna karyalaya', '10 Min Official Test', 20, 600)
+                    createDrill('d6_timed', 'police thana report nyayalaya samvidhan adhikar kartavya prarthna patra mahoday savinay bhavdiya hastakshar dinank aavedan suchna karyalaya', '10 Min Official Test', 8, 600)
                 ]
             },
             7: {
                 title: "Day 7: Full Mock Tests",
                 exercises: [
-                    // LONG PARAGRAPHS FOR 15 MINS
+                    // Mock 1 (15 Mins) - approx 400 words of content
                     { 
                         id: 'd7_1', 
                         type: 'paragraph', 
-                        content: 'शिक्षा मनुष्य के जीवन का आधार है। यह हमें सही और गलत में भेद करना सिखाती है। बिना शिक्षा के मनुष्य पशु समान है। शिक्षा से ही समाज में उन्नति होती है। एक शिक्षित व्यक्ति देश का जिम्मेदार नागरिक बनता है। हमें न केवल किताबी ज्ञान बल्कि व्यावहारिक ज्ञान भी अर्जित करना चाहिए।', 
-                        repeat: 20, // High repeat to fill time
-                        hint: 'Mock 1: Education (15 Min)', 
+                        content: 'शिक्षा मनुष्य के जीवन का आधार है। यह हमें सही और गलत में भेद करना सिखाती है। बिना शिक्षा के मनुष्य पशु समान है। शिक्षा से ही समाज में उन्नति होती है। एक शिक्षित व्यक्ति देश का जिम्मेदार नागरिक बनता है। हमें न केवल किताबी ज्ञान बल्कि व्यावहारिक ज्ञान भी अर्जित करना चाहिए। अनुशासन सफलता की पहली सीढ़ी है। विद्यार्थी जीवन में अनुशासन का विशेष महत्व है। जो समय का सदुपयोग करते हैं वे ही सफल होते हैं।', 
+                        repeat: 3, 
+                        hint: 'Mock 1: General (15 Min)', 
                         duration: 900, 
                         raw: '' 
                     },
+                    // Mock 2 (15 Mins) - Legal/Formal
                     { 
                         id: 'd7_2', 
                         type: 'paragraph', 
-                        content: 'संविधान के अनुच्छेद ३४३ के अनुसार संघ की राजभाषा हिंदी और लिपि देवनागरी है। शासकीय कार्यों में हिंदी का प्रयोग अनिवार्य है। सभी सरकारी कार्यालयों में हिंदी पखवाड़ा मनाया जाता है। हमें अपनी राजभाषा पर गर्व होना चाहिए और इसका अधिक से अधिक प्रयोग करना चाहिए।', 
-                        repeat: 20, 
-                        hint: 'Mock 2: Legal/Official (15 Min)', 
+                        content: 'संविधान के अनुच्छेद ३४३ के अनुसार संघ की राजभाषा हिंदी और लिपि देवनागरी है। शासकीय कार्यों में हिंदी का प्रयोग अनिवार्य है। सभी सरकारी कार्यालयों में हिंदी पखवाड़ा मनाया जाता है। हमें अपनी राजभाषा पर गर्व होना चाहिए और इसका अधिक से अधिक प्रयोग करना चाहिए। न्यायालय में भी हिंदी का प्रयोग बढ़ रहा है। इससे आम जनता को न्याय प्रक्रिया समझने में आसानी होती है।', 
+                        repeat: 3, 
+                        hint: 'Mock 2: Legal (15 Min)', 
                         duration: 900, 
                         raw: '' 
                     },
+                    // Mock 3 (15 Mins) - Police Specific
                     { 
                         id: 'd7_3', 
                         type: 'paragraph', 
-                        content: 'उत्तर प्रदेश पुलिस का ध्येय वाक्य सुरक्षा आपकी संकल्प हमारा है। पुलिस बल समाज में कानून व्यवस्था बनाए रखने के लिए प्रतिबद्ध है। पुलिस कर्मियों को कठिन परिस्थितियों में कार्य करना पड़ता है। हमें पुलिस का सहयोग करना चाहिए ताकि अपराध मुक्त समाज का निर्माण हो सके।', 
-                        repeat: 20, 
-                        hint: 'Mock 3: UP Police (15 Min)', 
+                        content: 'उत्तर प्रदेश पुलिस का ध्येय वाक्य सुरक्षा आपकी संकल्प हमारा है। पुलिस बल समाज में कानून व्यवस्था बनाए रखने के लिए प्रतिबद्ध है। पुलिस कर्मियों को कठिन परिस्थितियों में कार्य करना पड़ता है। हमें पुलिस का सहयोग करना चाहिए ताकि अपराध मुक्त समाज का निर्माण हो सके। पुलिस थाने में रिपोर्ट दर्ज कराने की प्रक्रिया सरल है। साइबर अपराध से बचने के लिए सतर्क रहें।', 
+                        repeat: 3, 
+                        hint: 'Mock 3: Police (15 Min)', 
                         duration: 900, 
                         raw: '' 
                     }
