@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebPage1</title>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-family: Arial;
+        }
+
+        .main_outer {
+            min-height: 700px;
+            width: 100%;
+            /* background-color: rgb(222, 222, 23); */
+        }
+
+        /* top_outer code start */
+
+        .top_outer {
+            height: 50px;
+            width: 100%;
+            /* background-color: red; */
+        }
+
+        .top1_outer {
+            height: 50px;
+            width: 80%;
+            /* background-color: blue; */
+            float: left;
+
+        }
+
+        .top_upper_outer {
+            height: 10px;
+            width: 100%;
+            /* background-color: red; */
+        }
+
+        .top_up_left {
+            height: 10px;
+            width: 40.33%;
+            background-color: #02b8bf;
+            float: left;
+
+        }
+
+        .top_down_outer {
+            height: 40px;
+            width: 100%;
+            /* background-color:white; */
+            text-align: right;
+            line-height: 40px;
+
+        }
+
+        .login_a {
+            height: 40px;
+            width: 100%;
+            color: #07bc83;
+            font-size: 20px;
+            padding-right: 20px;
+            text-decoration: none;
+            position: fixed;
+            top: 11px;
+            right: 300px;
+        }
+
+        .login_a:hover {
+            color: black;
+            transition: 1s;
+        }
+
+        .appointment_button {
+            height: 50px;
+            width: 20%;
+            background-color: #07bc83;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            line-height: 50px;
+            font-weight: bold;
+            float: left;
+            position: fixed;
+            top: 0;
+            right: 0;
+
+        }
+
+        .appointment_a {
+            text-decoration: none;
+            color: white;
+
+        }
+
+        .appointment_a:hover {
+            color: black;
+            transition: 1s;
+        }
+
+
+        /* top_outer code end */
+
+        /* website_name_outer code start */
+
+
+        .website_name_outer {
+            height: 100px;
+            width: 100%;
+            /* background-color: red; */
+        }
+
+        .name_box {
+            height: 100px;
+            width: 50%;
+            /* background-color: pink; */
+            color: #07bc83;
+            float: left;
+            font-size: 40px;
+            text-align: center;
+            line-height: 100px;
+            font-weight: bold;
+            text-shadow: 1.5px 1.5px 3px black;
+
+        }
+
+        .contact_box {
+            height: 100px;
+            width: 50%;
+            /* background-color: brown; */
+            float: left;
+            padding-left: 150px;
+            box-sizing: border-box;
+            line-height: 100px;
+            font-size: 20px;
+        }
+
+        .contact_a {
+            color: black;
+            text-decoration: none;
+        }
+
+
+        /* website_name_outer code end */
+
+
+
+
+        /* menu_outer code start */
+
+
+        .menu_outer {
+            height: 50px;
+            width: 100%;
+            background-color: #f2f2f2;
+        }
+
+        .menu_space_box {
+            height: 50px;
+            width: 12.5%;
+            /* background-color: black; */
+            float: left;
+        }
+
+        .menu_box {
+            height: 50px;
+            width: 75%;
+            /* background-color: aqua; */
+            float: left;
+        }
+
+        nav {
+            height: 50px;
+            width: 100%;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            height: 50px;
+            width: 16.666%;
+            /* background-color: bisque; */
+            float: left;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .menu_a {
+            color: black;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .menu_a:hover {
+            color: #07bc83;
+        }
+
+
+        /* menu_outer code end */
+
+
+
+        /* image_slider_outer code start */
+
+
+        .image_slider_outer {
+            height: 700px;
+            width: 100%;
+            background-color: black;
+            animation-name: slider_animation;
+            animation-duration: 10s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+
+        }
+
+        @keyframes slider_animation {
+            0% {
+                background: url(img/slide1.jpg);
+                background-size: 100% 100%;
+            }
+
+            50% {
+                background: url(img/slide2.jpg);
+                background-size: 100% 100%;
+            }
+
+            100% {
+                background: url(img/slide3.jpg);
+                background-size: 100% 100%;
+            }
+        }
+
+        .slider_box_outer {
+            height: 300px;
+            width: 900px;
+            background-color: rgba(0, 0, 0, .5);
+            margin-left: 300px;
+            margin-top: 400px;
+
+            float: left;
+        }
+
+        .slider_box {
+            height: 300px;
+            width: 300px;
+            background-color: rgba(2, 184, 191, .5);
+            float: left;
+            text-align: center;
+            padding-top: 120px;
+            box-sizing: border-box;
+            font-size: 30px;
+            line-height: 40px;
+            border-bottom: 10px solid #02b8bf;
+        }
+
+        .slider_box_a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .slider_b_tag {
+            font-size: 40px;
+        }
+
+
+        /* image_slider_outer code end */
+
+
+        /* about_outer code start */
+
+
+        .about_outer {
+            min-height: 600px;
+            width: 100%;
+            /* background-color: red; */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .about_box_outer {
+            min-height: 500px;
+            width: 80%;
+            /* background-color: white; */
+
+            margin: 50px auto;
+        }
+
+        .heading_box {
+            height: 100px;
+            width: 100%;
+            /* background-color: brown; */
+            text-align: center;
+            line-height: 40px;
+            font-size: 70px;
+            color: #02b8bf;
+            text-shadow: 2px 1px 2px black;
+            font-weight: bold;
+            padding: 30px 0px;
+
+
+        }
+
+        .about_paragraph_box_outer {
+            height: 400px;
+            width: 100%;
+            /* background-color: burlywood; */
+        }
+
+        .about_paragraph_box {
+            height: 400px;
+            width: 50%;
+            /* background-color: #02b8bf; */
+            float: left;
+            text-align: justify;
+            padding: 60px;
+            box-sizing: border-box;
+            border-right: 2px solid #808080;
+            line-height: 20px;
+
+        }
+
+
+        /* about_outer code end */
+
+
+        /* services_outer code start */
+
+
+        .services_outer {
+            min-height: 700px;
+            width: 100%;
+            /* background-color: #02b8bf; */
+            background: url(img/services_back_image.jpg);
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        .services_transparent_box {
+            min-height: 700px;
+            width: 100%;
+            background-color: rgba(17, 96, 133, .6);
+            padding: 10px;
+            box-sizing: border-box;
+
+        }
+
+        .sevices_box_outer {
+            min-height: 600px;
+            width: 80%;
+            /* background-color: black; */
+            margin: 50px auto;
+        }
+
+        .services_box_buttom_outer {
+            min-height: 450px;
+            width: 100%;
+            /* background-color: rgb(243, 12, 12,.2); */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .services_box_buttom {
+            height: 150px;
+            width: 80%;
+            /* background-color: blue; */
+            margin: 0px auto;
+            margin-top: 25px;
+        }
+
+        .services_box_buttom_1 {
+            height: 150px;
+            width: 46%;
+            background-color: rgb(17,96, 137, .7);
+            margin: 0px 2%;
+            float: left;
+            border-radius: 10px;
+            text-align: center;
+            padding: 0px 30px;
+            padding-top: 30px;
+            line-height: 20px;
+            box-sizing: border-box;
+            font-size: 15px;
+            color: white;
+        }
+
+        .services_box_a
+        {
+            font-size: 25px;
+            color: white;
+            text-decoration: none;
+
+
+        }
+
+
+        /* services_outer code end */
+
+
+        /* dentists_outer code satrt */
+
+
+        .dentists_outer
+        {
+            min-height: 700px;
+            width: 100%;
+            /* background-color: red; */
+            padding: 1px;
+            box-sizing: border-box;
+        }
+
+        .dentists_box_outer
+        {
+            min-height: 500px;
+            width: 70%;
+            margin: 100px auto;
+
+        }
+        
+        .dentists_box
+        {
+            min-height: 450px;
+            width: 100%;
+            /* background-color: black; */
+            padding: 1px;
+            box-sizing: border-box;
+        }
+
+        .dentists_photo_name_outer
+        {
+            min-height: 31 style="color:#808080;"0px;
+            width: 70%;
+            /* background-color: #02b8bf; */
+            margin:100px auto ;
+        }
+
+        .dentists_photo_name_box_outer
+        {
+           min-height: 260px;
+            width:29.333%;
+            /* background-color: #07bc83; */
+            float: left;
+            margin: 0px 2%;
+            
+            
+            
+        }
+
+        .dentists_photo_box
+        {
+            height: 240px;
+            width: 100%;
+            
+        }
+
+        .dentists_name_box
+        {
+            height: 110px;
+            width: 100%;
+            /* background:brown; */
+            background-size: 100% 100%;
+            text-align: center;
+            line-height: 30px;
+            padding-top: 10px;
+            box-sizing: border-box;
+
+        }
+
+        .dentists_button
+        {
+            height: 40px;
+            width: 100%;
+            background-color:#0bb7be;
+            border:none;
+            /* font-weight: bold; */
+            font-size: 18px;
+            color: white;
+            
+        }
+
+
+        /* dentists_outer code end */
+
+
+
+
+        /* back_photo_outer code start */
+
+
+        .back_photo_outer
+        {
+            height: 700px;
+            width: 100%;
+            /* background-color: #02b8bf; */
+            background: url(img/back_photo.jpg);
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+
+        /* back_photo_outer code end */
+
+
+        /* clients_outer code start */
+
+
+        .clients_outer
+        {
+           min-height: 700px;
+            width: 100%;
+            background-color: #116089;
+            padding: 1px;
+            box-sizing: border-box;
+            color: white;
+        }
+
+        .clients_box_outer
+        {
+            min-height: 600px;
+            width: 70%;
+            /* background-color: red; */
+            margin: 50px auto;
+            padding: 1px auto;
+            box-sizing: border-box;
+        }
+
+        .clients_box_bottom_outer
+        {
+            height: 350px;
+            width: 80%;
+            /* background-color: rgba(0, 255, 255, 0.5); */
+            margin: 50px auto;
+        }
+
+        .clients_box_bottom_top
+        {
+            height: 300px;
+            width: 23.33333%;
+            /* background-color: aqua; */
+            float: left;
+            margin: 25px 5%;
+            text-align: center;
+            /* line-height: 30px; */
+
+        }
+
+        .clients_icon_box
+        {
+            height: 100px;
+            width: 100%;
+            /* background-color: #f2f2f2; */
+            line-height:150px;
+        }
+
+        .clients_text_box
+        {
+            height: 200px;
+            width: 100%;
+            /* background-color: #f2f2f2; */
+            line-height:20px;
+        }
+
+        
+
+        /* clients_outer code end */
+
+
+
+
+    </style>
+</head>
+
+<body>
+    <div class="main_outer">
+
+
+        <!-- top_outer code start -->
+
+
+        <div class="top_outer">
+            <div class="top1_outer">
+                <div class="top_upper_outer">
+                    <div class="top_up_left"></div>
+                    <div class="top_up_left" style="background-color: #116089;"></div>
+                    <div class="top_up_left" style="background-color: #07bc83;width: 19.33%;"></div>
+                </div>
+                <div class="top_down_outer">
+                    <a href="#" class="login_a">
+                        <ion-icon name="person-circle"></ion-icon> Log In
+                    </a>
+                </div>
+            </div>
+
+            <div class="appointment_button"><a href="#" class="appointment_a">Book an Appointment</a></div>
+        </div>
+
+
+        <!-- top_outer code end -->
+
+
+
+
+        <!-- website_name_outer code start -->
+
+
+        <div class="website_name_outer">
+            <div class="name_box">
+                <span style="font-family: Cooper Black; color: #02b8bf;">ANSHU . </span> Dental Clinic
+            </div>
+            <div class="contact_box">
+                <a href="#" class="contact_a">Coll Now : +91 7651893713</a>
+            </div>
+        </div>
+
+
+        <!-- website_name_outer code end -->
+
+
+        <!-- menu_outer code strat -->
+
+
+        <div class="menu_outer">
+            <div class="menu_space_box"></div>
+            <div class="menu_box">
+                <nav>
+                    <ul>
+                        <li><a href="" class="menu_a">Home</a></li>
+                        <li><a href="" class="menu_a">About Us</a></li>
+                        <li><a href="" class="menu_a">Services</a></li>
+                        <li><a href="" class="menu_a">Our Team</a></li>
+                        <li><a href="" class="menu_a">Contact Us</a></li>
+                        <li><a href="" class="menu_a">Book Online</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="menu_space_box"></div>
+        </div>
+
+        <!-- menu_outer code end -->
+
+
+        <!-- image_slider_outer code start -->
+
+
+        <div class="image_slider_outer">
+            <div class="slider_box_outer">
+                <div class="slider_box">
+                    <a href="" class="slider_box_a">GENERAL <br> <b class="slider_b_tag">DENTISTRY</b></a>
+                </div>
+                <div class="slider_box"
+                    style="background-color: rgba(17,96,133,.4); border-bottom: 10px solid #116089;">
+                    <a href="" class="slider_box_a"> COSMETIC <br> <b class="slider_b_tag">DENTISTRY</b></a>
+                </div>
+                <div class="slider_box"
+                    style="background-color: rgba(7,188,131,.4); border-bottom: 10px solid #07bc83;">
+                    <a href="" class="slider_box_a">EMERGENCY <br> <b class="slider_b_tag">DENTISTRY</b></a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- image_slider_outer code end  -->
+
+
+        <!-- about_outer code start  -->
+
+
+        <div class="about_outer">
+            <div class="about_box_outer">
+                <div class="heading_box">ABOUT US <br> .</div>
+                <div class="about_paragraph_box_outer">
+                    <div class="about_paragraph_box">
+                        <p>I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit
+                            Text” or double click me to add your own content and make changes to the font. Feel free to
+                            drag and drop me anywhere you like on your page. I’m a great place for you to tell a story
+                            and let your users know a little more about you. <br><br><br>
+
+                            ​
+
+                            This is a great space to write long text about your company and your services. You can use
+                            this space to go into a little more detail about your company. Talk about your team and what
+                            services you provide. Tell your visitors the story of how you came up with th e idea for
+                            your business and what makes you different from your competitors. Make your company stand
+                            out and show your visitors who you are.</p>
+                    </div>
+                    <div class="about_paragraph_box" style="border: none;">
+                        <p>I'm a paragraph. Click here to add your own text and edit me. It’s easy. Just click “Edit
+                            Text” or double click me to add your own content and make changes to the font. Feel free to
+                            drag and drop me anywhere you like on your page. I’m a great place for you to tell a story
+                            and let your users know a little more about you.
+
+                            ​<br><br><br>
+
+                            This is a great space to write long text about your company and your services. You can use
+                            this space to go into a little more detail about your company. Talk about your team and what
+                            services you provide. Tell your visitors the story of how you came up with th e idea for
+                            your business and what makes you different from your competitors. Make your company stand
+                            out and show your visitors who you are. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- about_outer code end  -->
+
+
+
+        <!-- services_outer code start  -->
+
+
+        <div class="services_outer">
+            <div class="services_transparent_box">
+                <div class="sevices_box_outer">
+                    <div class="heading_box" style="color: white;">OUR SERVICES <br> .</div>
+                    <div class="services_box_buttom_outer">
+                        <div class="services_box_buttom">
+                            <div class="services_box_buttom_1">
+                                <a href="#" class="services_box_a">Routine Exams</a>
+                                <p style="padding-top:20px;">
+
+                                    I'm a paragraph. Click here to add your own text and edit me. It's easy.
+                                </p>
+                            </div>
+                            <div class="services_box_buttom_1">
+                                <a href="#" class="services_box_a">Dental Hygiene</a>
+                                <p style="padding-top:20px;">
+
+                                    I'm a paragraph. Click here to add your own text and edit me. It's easy.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="services_box_buttom">
+                            <div class="services_box_buttom_1">
+                                <a href="#" class="services_box_a">Dental Fillings</a>
+                                <p style="padding-top:20px;">
+
+                                    I'm a paragraph. Click here to add your own text and edit me. It's easy.
+                                </p>
+                            </div>
+                            <div class="services_box_buttom_1">
+                                <a href="#" class="services_box_a">Denturess & Veneers</a>
+                                <p style="padding-top:20px;">
+
+                                    I'm a paragraph. Click here to add your own text and edit me. It's easy.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="services_box_buttom" style="margin-bottom:25px ;">
+                            <div class="services_box_buttom_1">
+                                <a href="#" class="services_box_a">Emergency Dentistry</a>
+                                <p style="padding-top:20px;">
+
+                                    I'm a paragraph. Click here to add your own text and edit me. It's easy.
+                                </p>
+                            </div>
+                            <div class="services_box_buttom_1">
+                                <a href="#" class="services_box_a">Teeth Whitening</a>
+                                <p style="padding-top:20px;">
+
+                                    I'm a paragraph. Click here to add your own text and edit me. It's easy.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- services_outer code end  -->
+
+
+        <!-- dentists_outer code start  -->
+
+
+        <div class="dentists_outer">
+            <div class="dentists_box_outer">
+                <div class="heading_box">OUR DENTISTS <br> .</div>
+                <div class="dentists_box">
+                    <div class="dentists_photo_name_outer">
+                        <div class="dentists_photo_name_box_outer">
+                            <div class="dentists_photo_box">
+                                <img src="img/D2.jpg" height="100%" width="100%" alt="">
+                            </div>
+                            <div class="dentists_name_box">
+                                <h2>Dr. Janet Johnson</h2>
+                                <p style="color:#808080;">Tooth Sepcialist</p>
+                                <input type="submit" class="dentists_button" value="Book Now">
+                            </div>
+                        </div>
+                        <div class="dentists_photo_name_box_outer">
+                            <div class="dentists_photo_box">
+                                <img src="img/D3.jpg" height="100%" width="100%" alt="">
+                            </div>
+                            <div class="dentists_name_box">
+                                <h2>Dr. Charles Smith</h2>
+                                <p style="color:#808080;">Orthodontist</p>
+                                <input type="submit" class="dentists_button" value="Book Now">
+                            </div>
+                        </div>
+                        <div class="dentists_photo_name_box_outer">
+                            <div class="dentists_photo_box">
+                                <img src="img/D1.jpg" height="100%" width="100%" alt="">
+                            </div>
+                            <div class="dentists_name_box">
+                                <h2>Dr. Olivia Bayne</h2>
+                                <p style="color:#808080;">Hygienist</p>
+
+                                <input type="submit" class="dentists_button" value="Book Now">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- dentists_outer code end  -->
+
+
+
+        <!-- back_photo_outer code start  -->
+
+
+
+        <div class="back_photo_outer"></div>
+
+
+
+        <!-- back_photo_outer code end  -->
+
+
+        <!-- clients_outer code start  -->
+
+
+        <div class="clients_outer">
+            <div class="clients_box_outer">
+                <div class="heading_box" style="color: white;">HAPPY CILENTS <br> .</div>
+                <div class="clients_box_bottom_outer">
+                    <div class="clients_box_bottom_top">
+                        <div class="clients_icon_box">
+                            <p style="font-family: Perpetua Titling MT;font-size:100px;">"</p>
+                        </div>
+                        <div class="clients_text_box">
+                            <i>
+                                “I'm a testimonial. Click to edit me and add text that says something nice about you and your services.”
+                            </i>
+
+                            <h5 style="padding-top:30px ; box-sizing: border-box; ">Denielle Hudson</h5>
+                        </div>
+                    </div>
+
+                    <div class="clients_box_bottom_top">
+                        <div class="clients_icon_box">
+                            <p style="font-family: Perpetua Titling MT;font-size:100px;">"</p>
+                        </div>
+                        <div class="clients_text_box">
+                            <i>
+                                “I'm a testimonial. Click to edit me and add text that says something nice about you and your services.”
+                            </i>
+
+                            <h5 style="padding-top:30px ; box-sizing: border-box; ">Denielle Hudson</h5>
+                        </div>
+                    </div>
+
+                    <div class="clients_box_bottom_top">
+                        <div class="clients_icon_box">
+                            <p style="font-family: Perpetua Titling MT;font-size:100px;">"</p>
+                        </div>
+                        <div class="clients_text_box">
+                            <i>
+                                “I'm a testimonial. Click to edit me and add text that says something nice about you and your services.”
+                            </i>
+
+                            <h5 style="padding-top:30px ; box-sizing: border-box; ">Denielle Hudson</h5>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+
+        <!-- clients_outer code end  -->
+
+
+    </div>
+</body>
+
+</html>
