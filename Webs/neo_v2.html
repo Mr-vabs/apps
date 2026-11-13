@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>NEO v2 — Artificial Needs Experiment</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#09101e;color:#eaf0ff;font:15px system-ui,sans-serif;padding:16px;display:flex;justify-content:center}.wrap{width:min(980px,100%)}h1{font-size:25px;margin:0}.sub{color:#aab8d4;margin:5px 0 14px;line-height:1.45}.panel{background:#121d32;border:1px solid #2a3b5b;border-radius:14px;padding:12px;margin:10px 0}canvas{display:block;width:100%;height:auto;border-radius:10px;background:#070c16;border:1px solid #30415f}.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}button,select{background:#263a5e;color:#f4f7ff;border:1px solid #4a628c;border-radius:9px;padding:10px 12px;font-weight:650}button.primary{background:#24664e;border-color:#3a9b73}button:disabled{opacity:.45}label{display:flex;gap:7px;align-items:center}.stat{flex:1;min-width:110px}.stat small,.small{font-size:12px;color:#9aacca}.stat b{display:block;font-size:21px;margin-top:2px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.meter{height:9px;background:#25334c;border-radius:9px;overflow:hidden;margin-top:5px}.meter i{display:block;height:100%;width:50%;background:#5ac99c}.meter.stress i{background:#e5a15c}.meter.curiosity i{background:#83aaff}.meter.confidence i{background:#bd9bff}.meter.energy i{background:#5ac99c}.note{font-size:13px;line-height:1.5;color:#bdc9df}.badge{display:inline-block;padding:4px 8px;border-radius:20px;background:#233654;color:#c6dcff;font-size:12px}.status{color:#9db0d1;font-size:12px;margin-left:auto}.progress{height:8px;background:#26334b;border-radius:8px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:#5ac99c}.table{width:100%;border-collapse:collapse;font-size:13px}.table td,.table th{padding:7px;border-bottom:1px solid #293957;text-align:left}.table th{color:#9fb2d3}@media(max-width:620px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.status{width:100%;margin-left:0}}
+</style>
+</head>
+<body><main class="wrap">
+<h1>NEO <span class="badge">v2 · artificial needs experiment</span></h1>
+<p class="sub">A browser-based Pong agent with a measurable baseline and an experimental internal-state layer. Runs locally; no account, API key or internet required.</p>
+<div class="panel"><canvas id="arena" width="800" height="450" aria-label="NEO Pong training arena"></canvas></div>
+<div class="panel row">
+<label>Experiment <select id="mode"><option value="organism">NEO with artificial needs</option><option value="baseline">Baseline Q-learning</option></select></label>
+<button class="primary" id="train">Train 500 episodes</button><button id="watch">Watch / pause</button><button id="reset">Reset current agent</button><button id="export">Export experiment</button><label><input type="checkbox" id="fast" checked> Fast training</label>
+<div class="status" id="status">Ready</div>
+</div>
+<div class="panel grid">
+<div class="stat"><small>Episodes</small><b id="episodes">0</b></div><div class="stat"><small>Win rate · last 100</small><b id="winrate">—</b></div><div class="stat"><small>Q-table states</small><b id="states">0</b></div><div class="stat"><small>Exploration</small><b id="epsilon">100%</b></div>
+</div>
+<div class="panel"><b>NEO's internal state</b><p class="small">These are engineered variables, not evidence of felt emotions. In organism mode they directly affect exploration, action selection and movement.</p>
+<div class="grid">
+<div><small>Energy</small><div class="meter energy"><i id="energy"></i></div><b id="energyN">100</b></div>
+<div><small>Curiosity</small><div class="meter curiosity"><i id="curiosity"></i></div><b id="curiosityN">50</b></div>
+<div><small>Confidence</small><div class="meter confidence"><i id="confidence"></i></div><b id="confidenceN">50</b></div>
+<div><small>Stress</small><div class="meter stress"><i id="stress"></i></div><b id="stressN">0</b></div>
+</div></div>
+<div class="panel"><div class="row" style="justify-content:space-between"><b>Training progress</b><span class="small" id="progressText">No active training</span></div><div class="progress" style="margin-top:8px"><i id="progress"></i></div><p class="note" id="explain">Choose an experiment and train. The same Pong environment and opponent are used in both modes. NEO's internal variables are part of its observed state and its action policy.</p></div>
+<div class="panel"><b>Experiment log</b><table class="table"><thead><tr><th>Measure</th><th>Organism mode</th><th>Baseline mode</th></tr></thead><tbody id="compare"><tr><td>Episodes</td><td>0</td><td>0</td></tr><tr><td>Win rate · last 100</td><td>—</td><td>—</td></tr><tr><td>Learned states</td><td>0</td><td>0</td></tr></tbody></table></div>
+<div class="panel note"><b>What this experiment can tell us</b><br>It can test whether adding state variables and state-dependent behaviour changes learning outcomes in this particular game. It cannot establish consciousness, subjective feelings, independent desires or biological survival instincts. The baseline is a comparison condition, not a claim that ordinary reinforcement learning is emotionless in every possible sense.</div>
+</main>
+<script>
+(()=>{
+const $=id=>document.getElementById(id),c=$('arena'),ctx=c.getContext('2d'),W=c.width,H=c.height,PH=86,R=8;
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const makeAgent=()=>({Q:{},episodes:0,epsilon:1,results:[],needs:{energy:100,curiosity:50,confidence:50,stress:0},lastNovelty:0});
+let agents={organism:makeAgent(),baseline:makeAgent()},mode='organism',running=false,training=false,raf=0,trainGoal=0,trainDone=0,game;
+function fresh(){game={x:W/2,y:H/2,vx:4,vy:(Math.random()-.5)*3.6,neoY:H/2,oppY:H/2,neoScore:0,oppScore:0};}
+fresh();
+function agent(){return agents[mode]}
+function discretize(){const n=agent().needs;return [Math.min(7,Math.floor(game.x/W*8)),Math.min(8,Math.floor(game.y/H*9)),game.vx>0?1:0,game.vy>1?2:game.vy< -1?0:1,Math.min(5,Math.floor(game.neoY/H*6)),mode==='organism'?Math.floor(n.energy/25):0,mode==='organism'?Math.floor(n.curiosity/25):0,mode==='organism'?Math.floor(n.stress/25):0].join(':')}
+function qvals(s){const a=agent();return a.Q[s]||(a.Q[s]=[0,0,0])}
+function choose(s){const a=agent(),n=a.needs;let explore=a.epsilon;if(mode==='organism')explore=clamp(a.epsilon*(.65+n.curiosity/180+n.stress/260),.025,.98);if(Math.random()<explore)return Math.floor(Math.random()*3);let q=qvals(s).slice();if(mode==='organism'){
+ // Internal states alter preferences, rather than being decorative readouts.
+ const urgency=(100-n.energy)/100,stress=n.stress/100,confidence=n.confidence/100;
+ q[0]+=stress*.025-confidence*.008;q[2]-=stress*.025-confidence*.008;
+ if(urgency>.65)q[1]+=.018*urgency; // depleted agent favours fewer corrections
+ }
+ const m=Math.max(...q),ties=q.map((v,i)=>Math.abs(v-m)<1e-9?i:-1).filter(i=>i>=0);return ties[Math.floor(Math.random()*ties.length)];}
+function updateNeeds(reward,novelty){const n=agent().needs;if(mode!=='organism')return;
+ n.energy=clamp(n.energy-.055+(reward>0?.8:0),0,100);
+ n.curiosity=clamp(n.curiosity+(novelty?1.1:-.08)+(Math.random()-.5)*.12,0,100);
+ n.confidence=clamp(n.confidence+(reward>0?1.5:reward<0?-1.1:-.025),0,100);
+ n.stress=clamp(n.stress+(reward<0?2.2:reward>0?-.9:.025),0,100);
+ if(n.energy<22)n.stress=clamp(n.stress+.35,0,100);
+}
+function step(action){const a=agent(),old=discretize(),prevX=game.x,prevY=game.y;
+ let move=6;if(mode==='organism')move*=.72+.28*(a.needs.energy/100);
+ game.neoY=clamp(game.neoY+(action-1)*move,PH/2,H-PH/2);
+ const target=game.y+(Math.random()-.5)*48;game.oppY=clamp(game.oppY+clamp(target-game.oppY,-3.1,3.1),PH/2,H-PH/2);
+ game.x+=game.vx;game.y+=game.vy;if(game.y<R||game.y>H-R){game.vy*=-1;game.y=clamp(game.y,R,H-R)}
+ let reward=-.002,terminal=false,novelty=false;
+ if(game.vx<0&&game.x<R+14&&Math.abs(game.y-game.oppY)<PH/2+R){game.x=R+14;game.vx=Math.abs(game.vx);game.vy+=(game.y-game.oppY)*.045;}
+ if(game.vx>0&&game.x>W-R-14&&Math.abs(game.y-game.neoY)<PH/2+R){game.x=W-R-14;game.vx=-Math.abs(game.vx);game.vy+=(game.y-game.neoY)*.055;reward=.04;}
+ if(game.x<0){game.oppScore++;reward=-1;terminal=true}if(game.x>W){game.neoScore++;reward=1;terminal=true}
+ // Small novelty signal for visiting a new coarse location.
+ const cell=Math.floor(game.x/100)+','+Math.floor(game.y/75);if(mode==='organism'&&cell!==a.lastNovelty){novelty=true;a.lastNovelty=cell}
+ updateNeeds(reward,novelty);
+ const next=discretize(),q=qvals(old),future=terminal?0:Math.max(...qvals(next));q[action]+=.16*(reward+.92*future-q[action]);
+ if(terminal){a.episodes++;a.results.push(reward>0?1:0);if(a.results.length>100)a.results.shift();a.epsilon=Math.max(.04,a.epsilon*.997);if(mode==='organism'){a.needs.energy=clamp(a.needs.energy+17,0,100);a.needs.stress=clamp(a.needs.stress+(reward>0?-7:9),0,100);a.needs.curiosity=clamp(a.needs.curiosity+4,0,100)}fresh()}
+}
+function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle='#1a2942';for(let y=10;y<H;y+=25)ctx.fillRect(W/2-2,y,4,13);ctx.fillStyle='#e9efff';ctx.fillRect(18,game.oppY-PH/2,12,PH);ctx.fillStyle='#60d7a6';ctx.fillRect(W-30,game.neoY-PH/2,12,PH);ctx.beginPath();ctx.arc(game.x,game.y,R,0,Math.PI*2);ctx.fillStyle='#f2ce7b';ctx.fill();ctx.textAlign='center';ctx.font='bold 30px system-ui';ctx.fillStyle='#8195b9';ctx.fillText(game.oppScore,W*.25,43);ctx.fillText(game.neoScore,W*.75,43);ctx.font='13px system-ui';ctx.fillText('OPPONENT',75,H-17);ctx.fillStyle='#60d7a6';ctx.fillText('NEO · '+(mode==='organism'?'NEEDS ON':'BASELINE'),W-105,H-17)}
+function pct(a){return a.results.length?Math.round(a.results.reduce((x,y)=>x+y,0)/a.results.length*100)+'%':'—'}
+function ui(){const a=agent(),n=a.needs;$('episodes').textContent=a.episodes.toLocaleString();$('winrate').textContent=pct(a);$('states').textContent=Object.keys(a.Q).length.toLocaleString();$('epsilon').textContent=Math.round(a.epsilon*100)+'%';for(const k of ['energy','curiosity','confidence','stress']){$(k).style.width=n[k]+'%';$(k+'N').textContent=Math.round(n[k])} $('progress').style.width=(trainGoal?trainDone/trainGoal*100:0)+'%';$('progressText').textContent=training?trainDone.toLocaleString()+' / '+trainGoal.toLocaleString()+' episodes':'No active training';
+ const o=agents.organism,b=agents.baseline,rows=[['Episodes',o.episodes,b.episodes],['Win rate · last 100',pct(o),pct(b)],['Learned states',Object.keys(o.Q).length,Object.keys(b.Q).length]];$('compare').innerHTML=rows.map(r=>'<tr>'+r.map(v=>'<td>'+v+'</td>').join('')+'</tr>').join('');}
+function stop(){running=false;cancelAnimationFrame(raf)}function tick(){if(!running)return;step(choose(discretize()));draw();ui();raf=requestAnimationFrame(tick)}function watch(){if(running){stop();$('status').textContent='Paused'}else{running=true;$('status').textContent='Watching and learning';tick()}}
+function train(n){stop();training=true;trainGoal=n;trainDone=0;$('status').textContent='Training…';const chunk=()=>{if(!training)return;const batch=$('fast').checked?4000:350;for(let i=0;i<batch&&trainDone<n;i++){step(choose(discretize()));trainDone++}draw();ui();if(trainDone<n)setTimeout(chunk,0);else{training=false;$('status').textContent='Training complete';$('explain').textContent='Batch complete. Switch between organism and baseline modes to compare the two agents. Their Q-tables and episode histories are kept separately in this browser.';save();}};chunk()}
+function save(){try{localStorage.setItem('neo_v2_experiment',JSON.stringify(agents))}catch(e){$('status').textContent='Storage unavailable — export your experiment'}}
+function load(){try{const d=JSON.parse(localStorage.getItem('neo_v2_experiment'));if(d&&d.organism&&d.baseline)agents=d}catch(e){}}
+$('mode').onchange=e=>{stop();mode=e.target.value;fresh();ui();draw();$('status').textContent=mode==='organism'?'Organism mode selected':'Baseline mode selected'};
+$('train').onclick=()=>train(500);$('watch').onclick=watch;$('reset').onclick=()=>{stop();agents[mode]=makeAgent();fresh();save();ui();draw();$('status').textContent='Current agent reset'};
+$('export').onclick=()=>{save();const blob=new Blob([JSON.stringify({project:'NEO',version:2,exportedAt:new Date().toISOString(),agents},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='neo-v2-experiment.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+window.addEventListener('pagehide',save);load();ui();draw();
+})();
+</script></body></html>
