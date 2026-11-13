@@ -67,6 +67,7 @@ Go through listed links for deployment,
 - [Wonder - Shimla Trip Plan](https://mr-vabs.github.io/apps/Webs/wonder.html)
 - [Story on Real Incident](https://mr-vabs.github.io/apps/Webs/story.html)
 - [Neo v1](https://mr-vabs.github.io/apps/Webs/neo_v1.html)
+- [Neo v2](https://mr-vabs.github.io/apps/Webs/neo_v2.html)
 
 <hr>
 
