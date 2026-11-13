@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>NEO v1 — Learning Pong</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b1020;color:#e8eefc;font:15px system-ui,sans-serif;display:flex;justify-content:center;padding:18px}.wrap{width:min(960px,100%)}h1{margin:0;font-size:25px}p{color:#aab7d2;margin:6px 0 14px}.panel{background:#141d33;border:1px solid #2a3858;border-radius:14px;padding:12px;margin:10px 0}canvas{width:100%;height:auto;display:block;background:#070b14;border:1px solid #30405f;border-radius:10px;touch-action:manipulation}.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}button{background:#263a61;color:white;border:1px solid #49618d;border-radius:9px;padding:10px 13px;font-weight:600}button:active{transform:scale(.98)}button.primary{background:#28634d;border-color:#3d9a72}.stat{min-width:105px;flex:1}.stat b{display:block;font-size:20px}.muted{font-size:12px;color:#91a2c3}.bar{height:8px;background:#26324a;border-radius:8px;overflow:hidden}.bar>i{display:block;height:100%;width:0;background:#57c99b}.note{line-height:1.5;font-size:13px;color:#bdc9df}label{display:flex;align-items:center;gap:7px}.pill{padding:4px 8px;border-radius:20px;background:#233451;color:#b9d5ff;font-size:12px}
+</style></head>
+<body><main class="wrap">
+<h1>NEO <span class="pill">v1 · learning organism prototype</span></h1>
+<p>One small agent, one environment, one measurable learning loop. Runs locally in your browser; no account, API key or internet required.</p>
+<div class="panel"><canvas id="game" width="800" height="460" aria-label="Pong training arena"></canvas></div>
+<div class="panel row">
+<button class="primary" id="train">Train 500 episodes</button><button id="play">Watch / pause</button><button id="reset">Reset learning</button><button id="save">Export brain</button><label><input id="fast" type="checkbox" checked> Fast training</label>
+</div>
+<div class="panel row">
+<div class="stat"><span class="muted">Episodes</span><b id="episodes">0</b></div><div class="stat"><span class="muted">Win rate · last 100</span><b id="winrate">—</b></div><div class="stat"><span class="muted">Exploration</span><b id="epsilon">100%</b></div><div class="stat"><span class="muted">Q-table states</span><b id="states">0</b></div>
+</div>
+<div class="panel"><div class="row" style="justify-content:space-between"><b>Learning progress</b><span class="muted" id="status">Ready — start training</span></div><div class="bar" style="margin-top:9px"><i id="progress"></i></div><p class="note" id="message">NEO begins with no learned policy. It explores three actions (up, stay, down), receives a positive reward for scoring and a negative reward for missing, then updates its Q-values.</p></div>
+<div class="panel note"><b>What v1 is — and is not</b><br>v1 uses tabular Q-learning with a small state representation and persistent browser storage. It demonstrates adaptation through experience. It does <b>not</b> have feelings, consciousness, biological needs, or unrestricted self-modification. Those are separate research questions for later versions.</div>
+</main>
+<script>
+(()=>{
+const c=document.getElementById('game'),ctx=c.getContext('2d');
+const W=c.width,H=c.height,P=12,PH=88,B=9;
+const els={episodes:document.getElementById('episodes'),win:document.getElementById('winrate'),eps:document.getElementById('epsilon'),states:document.getElementById('states'),status:document.getElementById('status'),msg:document.getElementById('message'),progress:document.getElementById('progress')};
+let Q={},episodes=0,epsilon=1,alpha=.16,gamma=.92,results=[],running=false,training=false,raf=0,trainTarget=0,trainedNow=0;
+let game;
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+function fresh(){game={x:W/2,y:H/2,vx:4,vy:(Math.random()-.5)*4,aiY:H/2,oppY:H/2,scoreAI:0,scoreOpp:0,done:false};}
+fresh();
+function state(){let bx=Math.min(7,Math.floor(game.x/W*8)),by=Math.min(9,Math.floor(game.y/H*10));let vx=game.vx>0?1:0,vy=game.vy>1?2:game.vy< -1?0:1;let py=Math.min(5,Math.floor(game.aiY/H*6));return [bx,by,vx,vy,py].join(',');}
+function vals(s){if(!Q[s])Q[s]=[0,0,0];return Q[s]}
+function choose(s){if(Math.random()<epsilon)return Math.floor(Math.random()*3);let a=vals(s),m=Math.max(...a);let ties=a.map((v,i)=>v===m?i:-1).filter(i=>i>=0);return ties[Math.floor(Math.random()*ties.length)];}
+function step(action){
+ const old=state();game.aiY=clamp(game.aiY+(action-1)*6,PH/2,H-PH/2);
+ // Imperfect opponent: follows the ball with a speed cap and deliberate tracking error.
+ let target=game.y+(Math.random()-.5)*48;game.oppY+=clamp(target-game.oppY,-3.15,3.15);game.oppY=clamp(game.oppY,PH/2,H-PH/2);
+ game.x+=game.vx;game.y+=game.vy;
+ if(game.y<B||game.y>H-B){game.vy*=-1;game.y=clamp(game.y,B,H-B)}
+ let reward=-0.002,terminal=false;
+ if(game.vx<0&&game.x<B+P&&Math.abs(game.y-game.oppY)<PH/2+B){game.x=B+P;game.vx=Math.abs(game.vx);game.vy+=(game.y-game.oppY)*.045;}
+ if(game.vx>0&&game.x>W-B-P&&Math.abs(game.y-game.aiY)<PH/2+B){game.x=W-B-P;game.vx=-Math.abs(game.vx);game.vy+=(game.y-game.aiY)*.055;reward=.04;}
+ if(game.x<0){game.scoreAI++;reward=1;terminal=true}
+ if(game.x>W){game.scoreOpp++;reward=-1;terminal=true}
+ if(terminal){episodes++;results.push(reward>0?1:0);if(results.length>100)results.shift();epsilon=Math.max(.04,epsilon*.997);}
+ const next=state(),q=vals(old),maxNext=terminal?0:Math.max(...vals(next));q[action]+=alpha*(reward+gamma*maxNext-q[action]);
+ if(terminal)fresh();
+}
+function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle='#18243a';for(let y=10;y<H;y+=25)ctx.fillRect(W/2-2,y,4,13);
+ ctx.fillStyle='#e7efff';ctx.fillRect(18,game.oppY-PH/2,P,PH);ctx.fillStyle='#62d6a5';ctx.fillRect(W-18-P,game.aiY-PH/2,P,PH);ctx.beginPath();ctx.arc(game.x,game.y,B,0,Math.PI*2);ctx.fillStyle='#f3cf79';ctx.fill();
+ ctx.font='bold 30px system-ui';ctx.fillStyle='#8194b8';ctx.textAlign='center';ctx.fillText(game.scoreOpp,W*.25,45);ctx.fillText(game.scoreAI,W*.75,45);
+ ctx.font='13px system-ui';ctx.fillStyle='#90a4c8';ctx.fillText('OPPONENT',75,H-18);ctx.fillStyle='#62d6a5';ctx.fillText('NEO',W-75,H-18);
+}
+function updateUI(){els.episodes.textContent=episodes.toLocaleString();els.win.textContent=results.length?Math.round(results.reduce((a,b)=>a+b,0)/results.length*100)+'%':'—';els.eps.textContent=Math.round(epsilon*100)+'%';els.states.textContent=Object.keys(Q).length.toLocaleString();els.progress.style.width=(trainTarget?Math.min(100,trainedNow/trainTarget*100):0)+'%';}
+function tick(){if(!running)return;let s=state();step(choose(s));draw();updateUI();raf=requestAnimationFrame(tick)}
+function start(){if(running)return;running=true;els.status.textContent='Playing — learning from each rally';tick()}
+function stop(){running=false;cancelAnimationFrame(raf);}
+function trainBatch(n){stop();training=true;trainTarget=n;trainedNow=0;els.status.textContent='Training…';let chunk=()=>{let count=document.getElementById('fast').checked?5000:500;for(let i=0;i<count&&trainedNow<n;i++){step(choose(state()));trainedNow++;}draw();updateUI();if(trainedNow<n){setTimeout(chunk,0)}else{training=false;els.status.textContent='Training complete';els.msg.textContent='Training batch complete. Watch NEO play to see its current policy. Results are approximate and depend on the opponent and state discretisation.';saveLocal();}};chunk();}
+function saveLocal(){localStorage.setItem('neo_v1_brain',JSON.stringify({Q,episodes,epsilon,results}))}
+function loadLocal(){try{let d=JSON.parse(localStorage.getItem('neo_v1_brain'));if(d){Q=d.Q||{};episodes=d.episodes||0;epsilon=d.epsilon??1;results=d.results||[]}}catch(e){}}
+loadLocal();updateUI();draw();
+document.getElementById('train').onclick=()=>trainBatch(500);
+document.getElementById('play').onclick=()=>{if(running){stop();els.status.textContent='Paused'}else start()};
+document.getElementById('reset').onclick=()=>{stop();Q={};episodes=0;epsilon=1;results=[];fresh();saveLocal();updateUI();draw();els.status.textContent='Learning reset';els.msg.textContent='Fresh start. NEO has forgotten its previous Q-table.'};
+document.getElementById('save').onclick=()=>{let blob=new Blob([JSON.stringify({version:1,Q,episodes,epsilon,results},null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='neo-v1-brain.json';a.click();URL.revokeObjectURL(a.href)};
+window.addEventListener('pagehide',saveLocal);
+})();
+</script></body></html>
